@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pocket Search Findings</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11,11,11,0.10);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --good: #0ca30c;
+  --good-text: #006300;
+  --warn: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --tint: #eef4fc;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255,255,255,0.10);
+    --s1: #3987e5;
+    --s2: #d95926;
+    --good-text: #0ca30c;
+    --tint: #16243a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255,255,255,0.10);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --good-text: #0ca30c;
+  --tint: #16243a;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { padding: 40px 0 8px; }
+.eyebrow { padding-right: 90px; font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; }
+h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; }
+h2 { font-size: 22px; margin: 0 0 6px; }
+h3 { font-size: 17px; margin: 0 0 6px; }
+p { margin: 0 0 12px; }
+.lede { font-size: 18px; color: var(--ink-2); max-width: 760px; }
+.sub { color: var(--ink-2); max-width: 760px; }
+.small { font-size: 13px; color: var(--muted); }
+a { color: var(--s1); }
+nav.toc { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--grid);
+  display: flex; gap: 4px; overflow-x: auto; padding: 8px 0; margin-bottom: 8px; scrollbar-width: thin; }
+nav.toc a { white-space: nowrap; font-size: 14px; color: var(--ink-2); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+nav.toc a:hover { background: var(--surface); color: var(--ink); }
+section { padding: 36px 0 8px; scroll-margin-top: 48px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.grid { display: grid; gap: 12px; }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.stat .v { font-size: 32px; font-weight: 650; line-height: 1.1; }
+.stat .l { color: var(--ink-2); font-size: 14px; margin-top: 4px; }
+.stat .n { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.answer { border-left: 4px solid var(--s1); background: var(--tint); border-radius: 0 12px 12px 0; padding: 18px 20px; }
+.answer ol { margin: 0; padding-left: 20px; }
+.answer li { margin-bottom: 8px; }
+.answer li:last-child { margin-bottom: 0; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.tag i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; color: #fff; font-weight: 700; }
+.t-good i { background: var(--good); }
+.t-mixed i { background: var(--warn); color: #0b0b0b; }
+.t-weak i { background: var(--serious); color: #0b0b0b; }
+.t-error i { background: var(--critical); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; background: var(--surface); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+tr.dim td { color: var(--muted); }
+.pname { font-weight: 600; }
+#pocketTable td:nth-child(2) { min-width: 250px; }
+.pnote { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+.minibar { display: inline-block; height: 8px; background: var(--s1); border-radius: 0 4px 4px 0; vertical-align: middle; margin-right: 6px; }
+/* charts */
+.chart { width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--ink-2); font-size: 12px; font-family: inherit; }
+.chart .lab { fill: var(--ink); font-size: 12px; }
+.chart .lab, .chart .val { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.chart .axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .gridl { stroke: var(--grid); stroke-width: 1; }
+.chart .base { stroke: var(--axis); stroke-width: 1; }
+.chart .ref { stroke: var(--ink-2); stroke-width: 1; }
+.chart .hit { cursor: default; outline: none; }
+.chart .hit:hover .mk, .chart .hit:focus .mk { filter: brightness(1.15); }
+.chart .hit:focus-visible .mk { stroke: var(--ink); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-2); margin: 4px 0 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw.dot { border-radius: 50%; }
+.sw.hollow { border-radius: 50%; background: transparent !important; border: 2px solid var(--s1); }
+#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 13px; max-width: 280px; display: none; line-height: 1.4; }
+#tip b { display: block; margin-bottom: 2px; }
+details { margin-top: 10px; }
+summary { cursor: pointer; color: var(--ink-2); font-size: 14px; }
+.path h3 { display: flex; align-items: baseline; gap: 8px; }
+.path .k { font-size: 12px; font-weight: 700; color: var(--muted); }
+.path ul { margin: 8px 0 0; padding-left: 0; list-style: none; }
+.path li { margin-bottom: 6px; font-size: 15px; padding-left: 16px; text-indent: -16px; }
+.path li span { display: inline-block; width: 16px; text-indent: 0; }
+.plus { color: var(--good-text); font-weight: 600; }
+.minus { color: var(--critical); font-weight: 600; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--grid); }
+.steps li:last-child { border-bottom: 0; }
+.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--s1); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.steps .due { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.theme-btn { position: absolute; top: 16px; right: 16px; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+.hdr { position: relative; }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid); }
+@media (max-width: 560px) {
+  .steps li { grid-template-columns: 36px 1fr; }
+  .steps .due { grid-column: 2; }
+  .stat .v { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top hdr">
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
+  <p class="eyebrow">Career pocket search · data as of 25 Sep 2026 · provisional</p>
+  <h1>Where the remote job market is, and where you fit</h1>
+  <p class="lede">What 56,424 job ads and tenders say about the job you should aim for. The target is a well-paid remote job you can do from Ecuador now, and that can later take the family to Europe.</p>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#answer">Short answer</a>
+  <a href="#map">Market vs fit</a>
+  <a href="#pockets">Top 10 pockets</a>
+  <a href="#bet">AI + sustainability</a>
+  <a href="#pay">Pay &amp; visas</a>
+  <a href="#paths">Three paths</a>
+  <a href="#trust">How sure</a>
+  <a href="#next">What you decide</a>
+</nav>
+
+<!-- ============ SHORT ANSWER ============ -->
+<section id="answer">
+  <h2>The short answer</h2>
+  <p class="sub">Five things the data says, strongest first.</p>
+  <div class="answer">
+    <ol>
+      <li><b>Project management at software and AI companies is your best balance of market and fit.</b> You meet about 75-80% of the usual requirements. In software, 45% of these jobs are open to someone in Ecuador and 91% are worked in English or Spanish. The catch: the pocket is small, with 38 employers open to Ecuador across software and consulting.</li>
+      <li><b>Sales and business development for software is the biggest market, but you don't fit it yet.</b> It has 94 employers with a job open to Ecuador, far more than any other pocket. You meet only 44% of the real requirements; the ads ask for CRM tools, sales quotas and SaaS sales experience.</li>
+      <li><b>AI data work is the fastest way in, not a career.</b> Half of these jobs are open to Ecuador, but most are hourly freelance tasks (checking AI transcripts, training AI models). The pocket also rests on one job board.</li>
+      <li><b>"AI + sustainability" fails the test as a remote job from Ecuador.</b> Sustainability and ESG jobs are 10 of the 4,483 remote jobs open to you. Climate and carbon services: 0 of 45. You fit sustainability best (90%), but those jobs are on-site in Europe. That makes it a route for the move, not for income now.</li>
+      <li><b>Treat this ranking as provisional.</b> 72% of the remote jobs open to Ecuador come from one tech-heavy job board, and consulting contracts and tenders are not ranked yet. Both checks run before you pick on 30 Sep.</li>
+    </ol>
+  </div>
+
+  <div class="grid g4" style="margin-top:16px">
+    <div class="card stat"><div class="v">56,424</div><div class="l">job ads and tenders collected</div><div class="n">24 sources; 15,462 fresh job ads screened</div></div>
+    <div class="card stat"><div class="v">4,483</div><div class="l">remote jobs open to someone in Ecuador</div><div class="n">Target was 1,500. 2,492 of them come from a site whose ads can't be opened to check</div></div>
+    <div class="card stat"><div class="v">62</div><div class="l">pockets ranked</div><div class="n">pocket = one role type in one industry, with 8+ employers</div></div>
+    <div class="card stat"><div class="v">30 Sep</div><div class="l">you pick your pocket</div><div class="n">from the top 3, after the checks below</div></div>
+  </div>
+</section>
+
+<!-- ============ MARKET VS FIT ============ -->
+<section id="map">
+  <h2>Market size vs your fit, by type of role</h2>
+  <p class="sub">Each dot is a type of role. Further right means more remote jobs open to someone in Ecuador. Higher means you meet more of the requirements those ads list. The top right is where to look.</p>
+  <div class="card">
+    <div class="legend">
+      <span><i class="sw dot" style="background:var(--s1)"></i>Fit measured on jobs open to Ecuador</span>
+      <span><i class="sw hollow"></i>Fit measured on Europe jobs (too few open to Ecuador)</span>
+      <span><i class="sw" style="height:2px;width:16px;background:var(--ink-2);border-radius:0"></i>50% line: below it the role type was dropped</span>
+    </div>
+    <div class="chart" id="scatter" role="img" aria-label="Scatter chart of role types: remote jobs open to Ecuador against the share of requirements you meet. Full values are in the table below."></div>
+    <details>
+      <summary>Show as a table</summary>
+      <div class="table-wrap" style="margin-top:10px"><table id="scatterTable"><thead><tr><th>Role type</th><th class="num">Remote jobs open to Ecuador</th><th class="num">Your fit: Ecuador jobs</th><th class="num">Your fit: Europe jobs</th></tr></thead><tbody></tbody></table></div>
+    </details>
+    <p class="small" style="margin-top:12px">Job counts come from a quick title-only screen of all 4,483 remote jobs open to Ecuador, so they are rough. AI data work, for example, counts 53 here but about 190 after full labelling. Fit = share of the requirements common in each role type's ads that your real record meets, judged by an AI model on samples of up to 40 ads.</p>
+  </div>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="card"><h3>What the map shows</h3><p class="sub" style="margin:0">In the four biggest remote markets (sales, marketing, customer support, operations) you meet 55% or less of the requirements on jobs open to Ecuador. The role types you fit best are small. <b>Project management is the largest role type where you meet 75% or more.</b></p></div>
+    <div class="card"><h3>Dropped for fit</h3><p class="sub" style="margin:0">Marketing, customer success, product/UX, creative production, data analysis, HR and finance were removed: you meet under half of what their ads ask. Data analysis, one fallback you named, is one of them (25% fit).</p></div>
+    <div class="card"><h3>Worth a second look</h3><p class="sub" style="margin:0">Partnerships and fundraising (87 jobs, 67-80% fit) misses the top 10 because most of its ads don't say which industry they serve. Training and capacity building (77 jobs, 50-70% fit) is spread thin across industries; its best pocket ranks 15th.</p></div>
+  </div>
+</section>
+
+<!-- ============ TOP 10 ============ -->
+<section id="pockets">
+  <h2>The top 10 pockets, with a verdict on each</h2>
+  <p class="sub">Ranked on the market only: number of employers, pay, openness to Ecuador, working language and hiring from abroad. Then 10 ads from each pocket were read by hand to see if the pocket is real.</p>
+  <div class="legend">
+    <span class="tag t-good"><i>✓</i>Solid</span>
+    <span class="tag t-mixed"><i>!</i>Real market, weak fit or thin evidence</span>
+    <span class="tag t-weak"><i>–</i>Weak: most ads are something else</span>
+    <span class="tag t-error"><i>✕</i>Not real: a labelling error</span>
+  </div>
+  <div class="table-wrap">
+    <table id="pocketTable">
+      <thead><tr>
+        <th>#</th><th>Pocket (role × industry)</th><th>Verdict</th>
+        <th class="num">Employers open to Ecuador</th>
+        <th class="num">Ads open to Ecuador</th>
+        <th class="num">Pay: $2K+ / €4K+</th>
+        <th class="num">Your fit</th>
+        <th class="num">Hand check</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:8px">Employers open to Ecuador = distinct employers with at least one job someone living in Ecuador can take; the total in brackets includes Europe jobs (for the move). Pay = share of the ads that publish pay clearing USD 2,000/month and EUR 4,000/month; the number of ads with pay is in brackets. Your fit = on jobs open to Ecuador / on Europe jobs. Hand check = of 10 ads read, how many really are that role in that industry.</p>
+  <div class="card" style="margin-top:12px">
+    <h3>Reading the table</h3>
+    <p class="sub" style="margin:0">Four of the top 10 fall apart when the ads are read: research, sustainability, supply chain and operations in software are mostly other jobs that the AI mislabelled. That leaves three kinds of role standing: <b>project management</b> (#2 and #8), <b>sales</b> (#1 and #9) and <b>AI data work</b> (#3). The same three lead in all three ways of counting (all jobs, Ecuador-only, strict Europe).</p>
+  </div>
+</section>
+
+<!-- ============ THE BET ============ -->
+<section id="bet">
+  <h2>Testing your bet: AI + sustainability</h2>
+  <p class="sub">You asked for your own idea to be attacked with the data. This chart counts jobs open to someone in Ecuador by the industry the work serves, across the 62 ranked pockets.</p>
+  <div class="card">
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s2)"></i>Climate, nature and development industries</span>
+      <span><i class="sw" style="background:var(--s1)"></i>Other industries</span>
+    </div>
+    <div class="chart" id="sectors" role="img" aria-label="Bar chart of jobs open to Ecuador by industry. Software and AI 407, consulting 221; climate, nature and development industries 44 combined."></div>
+    <p class="small" style="margin-top:8px">Label = jobs open to Ecuador, of all jobs in that industry (the rest are on-site or limited to certain countries).</p>
+  </div>
+  <div class="grid g3" style="margin-top:12px">
+    <div class="card"><h3><span class="minus">Sustainability:</span> no</h3><p class="sub" style="margin:0">Climate, nature and development industries hold 1,803 jobs, and only 44 (2.4%) are open to Ecuador. Software and consulting: 628 of 2,158 (29%). The one "sustainability in software" pocket turned out to be compliance and trust & safety jobs (0 of 10 real).</p></div>
+    <div class="card"><h3><span class="plus">AI:</span> yes, but not as a topic</h3><p class="sub" style="margin:0">Software and AI companies are the biggest remote employer for you. They hire project managers, sellers and AI data workers. The work that sells is "deploying AI agents for enterprise customers", not "AI for good".</p></div>
+    <div class="card"><h3>Where sustainability does live</h3><p class="sub" style="margin:0">In Europe, on-site. Sustainability in energy has 49 employers, but only 3% of the jobs are open to Ecuador. You fit Europe sustainability jobs at 90%, your highest score anywhere. That is a case for the move track, not the income-now track.</p></div>
+  </div>
+</section>
+
+<!-- ============ PAY & VISAS ============ -->
+<section id="pay">
+  <h2>Pay and visas: the two bars</h2>
+  <p class="sub">Bar 1: USD 2,000/month keeps the family going. Bar 2: about EUR 4,000/month is what a digital-nomad visa for a family of three needs.</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3>What remote jobs hiring from Latin America pay</h3>
+      <p class="small">Median monthly pay by job area, from 211 remote ads on Get on Board (a Latin American job board that publishes pay), Oct 2025 to Sep 2026.</p>
+      <div class="chart" id="payChart" role="img" aria-label="Bar chart of median monthly pay: customer support 1,100; sales 1,500; design 1,700; digital marketing 2,200; operations 2,500; innovation and agile 3,250; data 3,750 US dollars."></div>
+    </div>
+    <div class="card">
+      <h3>What that means</h3>
+      <p class="sub">Only <b>4%</b> of the job ads publish pay (617 of 15,051). Most that do are US-based companies, so the high pay shares in the pocket table are optimistic.</p>
+      <p class="sub">Remote jobs hiring from Latin America pay less. For non-engineering ads the median starting pay is <b>USD 1,600/month</b>. 41% clear USD 2,000; <b>2 of 93</b> clear EUR 4,000.</p>
+      <p class="sub" style="margin:0">Seniority matters a lot: senior ads have a median of USD 3,500 (90% clear USD 2,000). So target senior titles, and employers that pay US or EU rates, not Latin American rates.</p>
+    </div>
+  </div>
+  <div class="table-wrap" style="margin-top:12px">
+    <table>
+      <thead><tr><th>Visa route (family of three)</th><th class="num">Income needed / month</th><th>Remote job from abroad OK?</th><th>Watch out</th></tr></thead>
+      <tbody>
+        <tr><td class="pname">Spain teleworker visa</td><td class="num">€3,663<br><span class="small">maybe €4,274</span></td><td>Yes; freelance too (max 20% Spanish clients)</td><td>Apply at the consulate in Quito. Ecuadorians can apply for Spanish citizenship after 2 years of legal residence (not yet confirmed that teleworker years count).</td></tr>
+        <tr><td class="pname">Portugal D8 visa</td><td class="num">€3,680-4,416</td><td>Yes; freelance too</td><td>Apply at the embassy in Bogotá. Permanent residence after 5 years plus basic Portuguese.</td></tr>
+        <tr><td class="pname">Malta nomad permit</td><td class="num">€3,500</td><td>Yes</td><td>Never leads to permanent residence (max 4 years). Your wife is likely ineligible because of the Venezuela exclusion.</td></tr>
+        <tr><td class="pname">Germany freelance permit</td><td class="num">no fixed figure</td><td>Self-employed only</td><td>The Blue Card (~€50,700/year) needs a German employer, and most German jobs need German.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:8px">From official government pages, accessed 25 Sep 2026. EUR 4,000 is the floor; about EUR 4,500 is the safe target. The ranking uses EUR 4,000.</p>
+</section>
+
+<!-- ============ PATHS ============ -->
+<section id="paths">
+  <h2>Three paths the data supports</h2>
+  <p class="sub">Market first, as you asked. Whether any of these fits your heart is your call; this shows the evidence and the gap for each.</p>
+  <div class="grid g3">
+    <div class="card path">
+      <h3><span class="k">A</span>Project manager for software and AI companies</h3>
+      <span class="tag t-good"><i>✓</i>Best balance</span>
+      <ul>
+        <li><span class="plus">+</span> Highest fit of the real pockets: 75-80%</li>
+        <li><span class="plus">+</span> 45% of the ads are open to Ecuador; 91% are worked in English or Spanish</li>
+        <li><span class="plus">+</span> Hand checks held: 7 of 10 real in software; 10 of 10 are project management in consulting</li>
+        <li><span class="plus">+</span> Project work starts and ends at a launch, which is how you like to work</li>
+        <li><span class="minus">−</span> Small: 38 employers open to Ecuador, across software and consulting</li>
+        <li><span class="minus">−</span> Pay is published on only 15 ads, so the pay picture is thin</li>
+      </ul>
+      <p class="small" style="margin-top:8px">Gap to check: which tools and certificates these ads ask for (not measured yet).</p>
+    </div>
+    <div class="card path">
+      <h3><span class="k">B</span>Sales and business development for software</h3>
+      <span class="tag t-mixed"><i>!</i>Biggest market, weak fit</span>
+      <ul>
+        <li><span class="plus">+</span> By far the most employers: 94 open to Ecuador, 231 including Europe</li>
+        <li><span class="plus">+</span> #1 in all three job counts (all, Ecuador-only, strict Europe); 8 of 10 ads checked are real</li>
+        <li><span class="plus">+</span> The most common problem named in the ads: deploying AI agents for enterprise customers</li>
+        <li><span class="minus">−</span> You meet 44% of the real requirements (CRM tools, sales quotas, SaaS sales)</li>
+        <li><span class="minus">−</span> Only 18% of the ads are open to Ecuador; drops out of the top 3 if market size counts less</li>
+      </ul>
+      <p class="small" style="margin-top:8px">Your bridge: founding Kitu and selling exports B2B. It is real selling, but not quota-carrying SaaS sales.</p>
+    </div>
+    <div class="card path">
+      <h3><span class="k">C</span>AI data work, as a cash bridge</h3>
+      <span class="tag t-mixed"><i>!</i>Fast, but thin</span>
+      <ul>
+        <li><span class="plus">+</span> About half the jobs are open to Ecuador; 9 of 10 ads checked are real</li>
+                <li><span class="minus">−</span> Mostly hourly gig work (transcript checks, AI trainer tasks), not a career path</li>
+        <li><span class="minus">−</span> Rests on one job board: falls from #3 to #20 without it</li>
+        <li><span class="minus">−</span> Pay is often per hour or per project, so monthly income is uneven</li>
+      </ul>
+      <p class="small" style="margin-top:8px">Could run next to A or B for income, like the network outreach.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <h3>And sustainability?</h3>
+    <p class="sub" style="margin:0">Keep it as the <b>Europe track</b>. It is your strongest fit (90% on Europe sustainability jobs) and matches the Blue Card route, but it needs a European employer, and German for most German jobs. Consulting contracts and tenders (World Bank, EU), where development and climate work is paid remotely, are not ranked yet. That check could change this picture.</p>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section id="trust">
+  <h2>How sure is this?</h2>
+  <p class="sub">Two outside AI reviewers (DeepSeek and GPT) checked the ranking. Both said "pass with fixes": fine for striking pockets, not yet for a final top 3.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Weak spot</th><th>What it could change</th><th>Fix, before 30 Sep</th></tr></thead>
+      <tbody>
+        <tr><td class="pname">72% of the jobs open to Ecuador come from one board (Himalayas, tech-heavy)</td><td>The software lead could be partly the board's mix. AI data work falls from #3 to #20 without it.</td><td>Check the leading pockets on a second job source.</td></tr>
+        <tr><td class="pname">Consulting contracts and tenders are not ranked</td><td>Development and climate work is often paid as contracts, not jobs, so this could lift those areas.</td><td>Rank contracts in their own list (needs your OK).</td></tr>
+        <tr><td class="pname">AI labels are about 85% right; industry only 68%</td><td>Only 45 of 100 ads checked in the top 10 had both role and industry right. Small pockets can be fake.</td><td>Hand-check the ads behind every finalist.</td></tr>
+        <tr><td class="pname">Pay is published on 4% of ads</td><td>The pay shares in the table are optimistic.</td><td>Your ~10 early applications will show real offers.</td></tr>
+        <tr><td class="pname">Ranking weights are a choice</td><td>The top 3 held in 9 of 11 weight tests. Sales drops out when market size counts less.</td><td>Pick finalists that stay near the top across all tests.</td></tr>
+        <tr><td class="pname">"Open to Ecuador" is sometimes wrong</td><td>Some "worldwide" ads say "based in Indonesia" or "EU time zone" in the small print.</td><td>Read each job's full text before applying.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ NEXT ============ -->
+<section id="next">
+  <h2>What you decide, and when</h2>
+  <p class="sub">All three happen in your tracker Sheet (the "Outreach &amp; Pockets" tab) or in chat with Claude.</p>
+  <div class="card">
+    <ol class="steps">
+      <li><div><b>Strike every pocket you would never do.</b><br><span class="sub">Put an X in the "Strike?" column of the Pockets table. About 15 minutes. It narrows the deep dive.</span></div><span class="due">by 26 Sep</span></li>
+      <li><div><b>Apply to about 10 real jobs from the top pockets.</b><br><span class="sub">Claude prepares the list and draft applications. Replies from real employers are the strongest test of this ranking, and they can bring income.</span></div><span class="due">by 29 Sep</span></li>
+      <li><div><b>Pick your pocket from the top 3.</b><br><span class="sub">After the second-source check and the contracts list are in. The dossier (50+ employers, top 7) follows by 2 Oct.</span></div><span class="due">30 Sep</span></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p class="small">How this was made: job ads from 24 sources (remote boards, EU and German job portals, company job pages, World Bank and EU tenders), labelled by AI and checked by hand samples. Ranking weights: market size 35%, pay 25%, open to Ecuador 20%, working language 10%, hiring from abroad 10%. Fit judged against your real record only. Snapshot of 25 Sep 2026; the live status is in your tracker Sheet.</p>
+</footer>
+
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+/* ---------- data (25 Sep 2026 snapshot) ---------- */
+const FAMILIES = [
+  // [name, remote jobs open to Ecuador (title screen), fit on Ecuador-open ads, fit on Europe ads, label?]
+  ["Sales & business development", 880, .55, .30, 1],
+  ["Marketing & communications", 756, .45, .10, 1],
+  ["Customer success & support", 409, .40, .45, 1],
+  ["Operations & admin", 360, .50, .75, 1],
+  ["Product, UX & business analysis", 350, .25, .40, 0],
+  ["Creative & media production", 283, .25, .20, 1],
+  ["HR & recruiting", 273, .20, .45, 0],
+  ["Project & programme management", 189, .75, .80, 1],
+  ["Finance & risk", 173, .35, .30, 0],
+  ["Data analysis & BI", 135, .25, .30, 1],
+  ["Research & analysis", 116, .80, .60, 1],
+  ["Partnerships & fundraising", 87, .67, .80, 1],
+  ["Training & capacity building", 77, .70, .50, 0],
+  ["Translation", 54, .30, .40, 0],
+  ["AI data work (non-engineering)", 53, .45, .70, 1],
+  ["Management consulting", 51, .70, .80, 0],
+  ["General management", 40, .80, .65, 0],
+  ["Supply chain & procurement", 25, .80, .85, 1],
+  ["Policy & governance", 13, null, .80, 0],
+  ["Sustainability & ESG", 10, .75, .90, 1],
+  ["Agriculture & forestry", 8, null, .56, 0],
+  ["Monitoring & evaluation", 6, null, .60, 0],
+  ["Environmental & social safeguards", 5, null, .35, 0],
+  ["Enterprise & market development", 3, null, .65, 0],
+  ["Social development & gender", 2, null, .33, 0],
+];
+
+const POCKETS = [
+  // rank, name, industry, verdict, emp_ec, emp_all, ads, ec_share, pay2, pay4, pay_n, fitEc, fitEu, hand, note
+  [1,"Sales & business development","Software, internet & AI","mixed",94,231,659,.18,.97,.92,125,.55,.30,"8/10","Biggest market. Fit borderline: 44% on real requirements."],
+  [2,"Project & programme management","Software, internet & AI","good",23,45,56,.45,1,.82,11,.75,.80,"7/10","Best balance of market and fit."],
+  [3,"AI data work (non-engineering)","Software, internet & AI","mixed",25,49,383,.49,.93,.76,113,.45,.70,"9/10","Mostly hourly gigs. Falls to #20 without one job board."],
+  [4,"Research & analysis","Software, internet & AI","weak",10,23,27,.39,1,1,10,.80,.60,"3/10","Most ads are engineering, testing or AI data work."],
+  [5,"Sustainability & ESG","Software, internet & AI","error",8,16,20,.35,1,.75,2,.75,.90,"0/10","Really compliance, ads policy and trust & safety jobs."],
+  [6,"Supply chain & procurement","Software, internet & AI","weak",8,17,25,.40,.75,.75,4,.80,.85,"2/10","Most ads are sales, AI data work, HR or fraud."],
+  [7,"Operations & admin","Software, internet & AI","error",18,38,82,.26,.93,.55,22,.50,.75,"0/10","Really HR, recruiting and software jobs."],
+  [8,"Project & programme management","Consulting & professional services","good",15,20,43,.34,1,.88,4,.75,.80,"10/10","All real project management; half at consultancies."],
+  [9,"Sales & business development","Consulting & professional services","mixed",56,88,279,.34,.57,.27,47,.55,.30,"10/10","Real sales, lower pay. Same fit gap as #1."],
+  [10,"Research & analysis","Consulting & professional services","mixed",9,23,58,.24,1,1,5,.80,.60,"5/10","Half real; small."],
+];
+
+const SECTORS = [
+  // name, open to Ecuador, total, climate/nature/development group?
+  ["Software, internet & AI",407,1350,0],
+  ["Consulting & professional services",221,808,0],
+  ["Consumer goods & retail",48,199,0],
+  ["Health & pharma",39,203,0],
+  ["Education",38,237,0],
+  ["Banking & finance",32,149,0],
+  ["Energy & renewables",16,528,1],
+  ["Agriculture & food",15,329,1],
+  ["Logistics & trade",14,80,0],
+  ["Media & creative industries",14,47,0],
+  ["Manufacturing",13,146,0],
+  ["Construction & infrastructure",11,146,0],
+  ["International development",10,723,1],
+  ["Tourism & events",5,77,0],
+  ["Forestry & conservation",3,110,1],
+  ["Public administration",1,440,0],
+  ["Water & waste",0,60,1],
+  ["Climate & carbon services",0,45,1],
+  ["Impact investing",0,8,1],
+];
+
+const PAY = [
+  ["Customer support",1100],["Sales",1500],["Design",1700],["Digital marketing",2200],
+  ["Operations",2500],["Innovation & agile",3250],["Data",3750],
+];
+
+/* ---------- helpers ---------- */
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const pct = v => v == null ? "–" : Math.round(v * 100) + "%";
+const fmt = n => n.toLocaleString("en-US");
+const tip = document.getElementById("tip");
+function bindTip(node, html) {
+  node.setAttribute("tabindex", "0");
+  node.classList.add("hit");
+  const show = (x, y) => { tip.innerHTML = html; tip.style.display = "block";
+    const r = tip.getBoundingClientRect(); let L = x + 14, T = y + 14;
+    if (L + r.width > innerWidth - 8) L = x - r.width - 14; if (T + r.height > innerHeight - 8) T = y - r.height - 14;
+    tip.style.left = Math.max(8, L) + "px"; tip.style.top = Math.max(8, T) + "px"; };
+  node.addEventListener("pointermove", e => show(e.clientX, e.clientY));
+  node.addEventListener("pointerleave", () => tip.style.display = "none");
+  node.addEventListener("focus", () => { const b = node.getBoundingClientRect(); show(b.right, b.top); });
+  node.addEventListener("blur", () => tip.style.display = "none");
+}
+// Path for a horizontal bar: square at baseline (left), 4px rounded at the data end (right).
+function hbar(x, y, w, h, r = 4) {
+  if (w <= 0) return "";
+  r = Math.min(r, w, h / 2);
+  return `M${x},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h - r}Q${x + w},${y + h} ${x + w - r},${y + h}H${x}Z`;
+}
+
+/* ---------- scatter: market vs fit ---------- */
+function drawScatter() {
+  const host = document.getElementById("scatter"); host.innerHTML = "";
+  const narrow = host.clientWidth < 600;
+  const W = narrow ? Math.max(host.clientWidth, 300) : 960, H = narrow ? 380 : 480, m = { l: 40, r: narrow ? 12 : 150, t: 16, b: 44 };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
+  const lx = v => Math.log10(v), x0 = lx(1.5), x1 = lx(1000);
+  const X = v => m.l + (lx(Math.max(v, 1.5)) - x0) / (x1 - x0) * (W - m.l - m.r);
+  const Y = v => m.t + (1 - v) * (H - m.t - m.b);
+  [0, .25, .5, .75, 1].forEach(v => { el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: "gridl" }, svg);
+    el("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", class: "axis-t" }, svg).textContent = Math.round(v * 100) + "%"; });
+  (narrow ? [3, 30, 300] : [3, 10, 30, 100, 300, 1000]).forEach(v => { el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, class: "gridl" }, svg);
+    el("text", { x: X(v), y: H - m.b + 16, "text-anchor": "middle", class: "axis-t" }, svg).textContent = fmt(v); });
+  el("line", { x1: m.l, x2: W - m.r, y1: Y(.5), y2: Y(.5), class: "ref" }, svg);
+  el("text", { x: m.l, y: H - 6, class: "axis-t" }, svg).textContent = narrow ? "Jobs open to Ecuador (log scale) →" : "Remote jobs open to someone in Ecuador (log scale) →";
+  el("text", { x: W - m.r, y: m.t + 12, "text-anchor": "end", class: "axis-t" }, svg).textContent = "big market + you fit";
+  const pts = FAMILIES.map(f => ({ name: f[0], n: f[1], y: f[2] ?? f[3], hollow: f[2] == null, ec: f[2], eu: f[3], lab: f[4] }));
+  pts.forEach(p => {
+    const g = el("g", {}, svg);
+    const cx = X(p.n), cy = Y(p.y);
+    el("circle", { cx, cy, r: 14, fill: "transparent" }, g);
+    el("circle", { cx, cy, r: 6, class: "mk", fill: p.hollow ? "var(--surface)" : "var(--s1)", stroke: p.hollow ? "var(--s1)" : "var(--surface)", "stroke-width": 2 }, g);
+    bindTip(g, `<b>${p.name}</b>${fmt(p.n)} remote jobs open to Ecuador<br>Your fit: ${pct(p.ec)} on Ecuador jobs, ${pct(p.eu)} on Europe jobs<br>${p.y >= .5 ? "Kept" : "Dropped (under 50%)"}`);
+  });
+  // selective direct labels, placed by hand to clear dots and the 50% line: [dx, dy, anchor]
+  const PLACE = {
+    "Sales & business development": [10, 4, "start"],
+    "Marketing & communications": [10, 4, "start"],
+    "Customer success & support": [10, 4, "start"],
+    "Operations & admin": [10, -8, "start"],
+    "Creative & media production": [0, -12, "middle"],
+    "Project & programme management": [10, 4, "start"],
+    "Data analysis & BI": [-10, 4, "end"],
+    "Research & analysis": [10, 4, "start"],
+    "Partnerships & fundraising": [10, 4, "start"],
+    "AI data work (non-engineering)": [10, 4, "start"],
+    "Supply chain & procurement": [0, -12, "middle"],
+    "Sustainability & ESG": [0, 20, "middle"],
+  };
+  const NARROW_SET = ["Sales & business development", "Project & programme management", "Sustainability & ESG", "Data analysis & BI"];
+  pts.filter(p => PLACE[p.name] && (!narrow || NARROW_SET.includes(p.name))).forEach(p => {
+    let [dx, dy, anchor] = PLACE[p.name];
+    const cx = X(p.n), cy = Y(p.y);
+    const est = p.name.length * 6.6;
+    if (anchor === "start" && cx + dx + est > W - 4) { dx = -10; anchor = "end"; }
+    if (anchor === "middle" && cx + est / 2 > W - 4) anchor = "end";
+    el("text", { x: cx + dx, y: cy + dy, "text-anchor": anchor, class: "lab" }, svg).textContent = p.name;
+  });
+  const tb = document.querySelector("#scatterTable tbody"); if (!tb.children.length)
+    tb.innerHTML = pts.map(p => `<tr><td>${p.name}</td><td class="num">${fmt(p.n)}</td><td class="num">${pct(p.ec)}</td><td class="num">${pct(p.eu)}</td></tr>`).join("");
+}
+
+/* ---------- horizontal bar chart ---------- */
+function drawHBars(hostId, rows, opt) {
+  const host = document.getElementById(hostId); host.innerHTML = "";
+  const narrow = host.clientWidth < 560;
+  // Phones: draw at real pixel width and put each label above its bar, so text stays 12px.
+  const W = narrow ? Math.max(host.clientWidth, 280) : (opt.width || 960);
+  const barH = 16, rowH = narrow ? 42 : 26, labH = narrow ? 16 : 0;
+  const labW = narrow ? 0 : (opt.labW || 240), valW = narrow ? (opt.valWn || 90) : (opt.valW || 110);
+  const m = { t: opt.refs ? 30 : 6, b: opt.axis ? 26 : 6 };
+  const H = m.t + rows.length * rowH + m.b;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
+  const x0 = narrow ? 1 : labW, x1 = W - valW, X = v => x0 + v / opt.max * (x1 - x0);
+  if (opt.axis) opt.axis.forEach(v => { if (narrow && v % 2000) return; el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, class: "gridl" }, svg);
+    el("text", { x: X(v), y: H - 8, "text-anchor": "middle", class: "axis-t" }, svg).textContent = opt.tick(v); });
+  (opt.refs || []).forEach(r => { el("line", { x1: X(r.v), x2: X(r.v), y1: m.t - 6, y2: H - m.b, class: "ref" }, svg);
+    el("text", { x: X(r.v), y: m.t - 12, "text-anchor": "middle", class: "lab" }, svg).textContent = r.label; });
+  el("line", { x1: x0, x2: x0, y1: m.t, y2: H - m.b, class: "base" }, svg);
+  rows.forEach((r, i) => {
+    const y = m.t + i * rowH + labH + (rowH - labH - barH) / 2;
+    const lab = narrow
+      ? el("text", { x: x0, y: y - 5, class: "lab" }, svg)
+      : el("text", { x: x0 - 8, y: y + barH / 2 + 4, "text-anchor": "end" }, svg);
+    lab.textContent = r.label;
+    const g = el("g", {}, svg);
+    el("rect", { x: 0, y: y - labH - 4, width: W, height: rowH, fill: "transparent" }, g);
+    const w = X(r.value) - x0;
+    if (w > 0) el("path", { d: hbar(x0, y, w, barH), fill: r.color, class: "mk" }, g);
+    else el("line", { x1: x0, x2: x0 + 2, y1: y + barH / 2, y2: y + barH / 2, stroke: r.color, "stroke-width": 2 }, g);
+    el("text", { x: x0 + Math.max(w, 0) + 6, y: y + barH / 2 + 4, class: "axis-t val" }, svg).textContent = r.valueLabel;
+    bindTip(g, r.tip);
+  });
+}
+
+function drawSectors() {
+  const rows = SECTORS.map(s => ({ label: s[0], value: s[1], color: s[3] ? "var(--s2)" : "var(--s1)",
+    valueLabel: `${fmt(s[1])} of ${fmt(s[2])}`,
+    tip: `<b>${s[0]}</b>${fmt(s[1])} of ${fmt(s[2])} jobs open to Ecuador (${Math.round(s[1] / s[2] * 100)}%)` }));
+  drawHBars("sectors", rows, { max: 420, labW: 250, valW: 110 });
+}
+function drawPay() {
+  const rows = PAY.map(p => ({ label: p[0], value: p[1], color: "var(--s1)", valueLabel: "$" + fmt(p[1]),
+    tip: `<b>${p[0]}</b>Median pay: USD ${fmt(p[1])}/month<br>${p[1] >= 2000 ? "Clears" : "Below"} the USD 2,000 bar` }));
+  drawHBars("payChart", rows, { width: 560, max: 5000, labW: 140, valW: 60, valWn: 50, axis: [0, 1000, 2000, 3000, 4000, 5000], tick: v => "$" + (v / 1000) + "K",
+    refs: [{ v: 2000, label: "$2K" }, { v: 4547, label: "€4K" }] });
+}
+
+/* ---------- pocket table ---------- */
+function fillPockets() {
+  const V = { good: ["t-good", "✓", "Solid"], mixed: ["t-mixed", "!", "Mixed"], weak: ["t-weak", "–", "Weak"], error: ["t-error", "✕", "Not real"] };
+  const maxE = 94;
+  document.querySelector("#pocketTable tbody").innerHTML = POCKETS.map(p => {
+    const v = V[p[3]], dim = p[3] === "error" || p[3] === "weak";
+    return `<tr class="${dim ? "dim" : ""}">
+      <td class="num">${p[0]}</td>
+      <td><div class="pname">${p[1]}</div><div class="pnote">in ${p[2]}. ${p[14]}</div></td>
+      <td><span class="tag ${v[0]}"><i>${v[1]}</i>${v[2]}</span></td>
+      <td class="num"><span class="minibar" style="width:${Math.round(p[4] / maxE * 60)}px"></span>${p[4]} <span class="small">(${p[5]})</span></td>
+      <td class="num">${pct(p[7])} <span class="small">of ${fmt(p[6])}</span></td>
+      <td class="num">${pct(p[8])} / ${pct(p[9])} <span class="small">(${p[10]})</span></td>
+      <td class="num">${pct(p[11])} / ${pct(p[12])}</td>
+      <td class="num">${p[13]}</td></tr>`;
+  }).join("");
+}
+
+/* ---------- theme toggle ---------- */
+(function () {
+  const btn = document.getElementById("themeBtn"), root = document.documentElement;
+  try { const t = localStorage.getItem("pocket-theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  btn.addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("pocket-theme", root.dataset.theme); } catch (e) {}
+  });
+})();
+
+function drawAll() { drawScatter(); drawSectors(); drawPay(); }
+fillPockets(); drawAll();
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawAll, 150); });
+</script>
+</body>
+</html>
