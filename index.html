@@ -145,6 +145,55 @@ summary { cursor: pointer; color: var(--ink-2); font-size: 14px; }
 .steps .due { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .theme-btn { position: absolute; top: 16px; right: 16px; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
 .hdr { position: relative; }
+/* pocket profiles */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 12px; }
+.tabs button { font: inherit; font-size: 15px; font-weight: 600; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.tabs button .k { font-size: 12px; font-weight: 700; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--s1); color: #fff; border-color: var(--s1); }
+.tabs button[aria-selected="true"] .k { color: #fff; }
+.tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.panel-head { margin-bottom: 12px; }
+.panel-head .lede { margin: 8px 0 0; }
+.stat .unit { font-size: 16px; font-weight: 500; }
+ul.week { list-style: none; margin: 8px 0 0; padding: 0; }
+ul.week li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--grid); font-size: 15px; }
+ul.week li:last-child { border-bottom: 0; }
+ul.week b { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); font-weight: 600; }
+ul.plain { margin: 6px 0 0; padding-left: 18px; }
+ul.plain li { margin-bottom: 6px; font-size: 15px; }
+blockquote { margin: 14px 0 0; padding: 10px 14px; border-left: 3px solid var(--axis); color: var(--ink-2); font-size: 14px; }
+blockquote cite { display: block; margin-top: 4px; font-style: normal; font-size: 12px; color: var(--muted); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) 90px 44px; gap: 10px; align-items: center; padding: 5px 4px; font-size: 14px; border-radius: 6px; }
+.row .bar { height: 10px; background: var(--grid); border-radius: 0 4px 4px 0; overflow: hidden; }
+.row .bar i { display: block; height: 100%; border-radius: 0 4px 4px 0; }
+.row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.row.hit:hover, .row.hit:focus { background: var(--tint); outline: none; }
+.reqs .row { grid-template-columns: 22px minmax(0, 1fr) 90px 44px; }
+.dist .row { grid-template-columns: minmax(0, 1fr) 64px 32px; }
+.g2w { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
+.st { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; }
+.st.met { background: var(--good); }
+.st.partly { background: var(--warn); color: #0b0b0b; }
+.st.not { background: var(--critical); }
+.gap { background: var(--tint); border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 15px; }
+.gap p { margin: 0 0 8px; }
+.card.against { border-left: 4px solid var(--critical); }
+.paygrid { gap: 16px; margin-top: 6px; }
+.pv { font-size: 26px; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.pv span { font-size: 14px; font-weight: 500; color: var(--ink-2); }
+.paygrid .small { margin: 6px 0 0; }
+.ex { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 8px; }
+.ex a.job { display: block; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.ex a.job:hover, .ex a.job:focus-visible { border-color: var(--s1); }
+.ex .jt { font-weight: 650; color: var(--s1); }
+.ex .jc { font-size: 14px; color: var(--ink-2); }
+.ex .jm { font-size: 13px; margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.ex .jn { font-size: 14px; margin-top: 6px; color: var(--ink-2); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: minmax(0, 1fr) 60px 36px; }
+  .reqs .row { grid-template-columns: 22px minmax(0, 1fr) 60px 36px; }
+  .pv { font-size: 22px; }
+}
 footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid); }
 @media (max-width: 560px) {
   .steps li { grid-template-columns: 36px 1fr; }
@@ -158,7 +207,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
 
 <header class="top hdr">
   <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
-  <p class="eyebrow">Career pocket search · data as of 25 Sep 2026 · provisional</p>
+  <p class="eyebrow">Career pocket search · data as of 25 Sep 2026 · pocket profiles added · provisional</p>
   <h1>Where the remote job market is, and where you fit</h1>
   <p class="lede">What 56,424 job ads and tenders say about the job you should aim for. The target is a well-paid remote job you can do from Ecuador now, and that can later take the family to Europe.</p>
 </header>
@@ -169,7 +218,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
   <a href="#pockets">Top 10 pockets</a>
   <a href="#bet">AI + sustainability</a>
   <a href="#pay">Pay &amp; visas</a>
-  <a href="#paths">Three paths</a>
+  <a href="#inside">Inside the 3 pockets</a>
   <a href="#trust">How sure</a>
   <a href="#next">What you decide</a>
 </nav>
@@ -180,9 +229,9 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
   <p class="sub">Five things the data says, strongest first.</p>
   <div class="answer">
     <ol>
-      <li><b>Project management at software and AI companies is your best balance of market and fit.</b> You meet about 75-80% of the usual requirements. In software, 45% of these jobs are open to someone in Ecuador and 91% are worked in English or Spanish. The catch: the pocket is small, with 38 employers open to Ecuador across software and consulting.</li>
-      <li><b>Sales and business development for software is the biggest market, but you don't fit it yet.</b> It has 94 employers with a job open to Ecuador, far more than any other pocket. You meet only 44% of the real requirements; the ads ask for CRM tools, sales quotas and SaaS sales experience.</li>
-      <li><b>AI data work is the fastest way in, not a career.</b> Half of these jobs are open to Ecuador, but most are hourly freelance tasks (checking AI transcripts, training AI models). The pocket also rests on one job board.</li>
+      <li><b>Project management at software and AI companies is your best balance of market and fit.</b> You meet about 75-80% of the usual requirements. In software, 45% of these jobs are open to someone in Ecuador and 91% are worked in English or Spanish. The catch: it is small (41 ads and 38 employers open to Ecuador in 60 days), and about a third of the ads want software-team methods and tools (Agile, Jira) you don't have on record yet.</li>
+      <li><b>Sales and business development for software is the biggest market, but you don't fit it yet.</b> It has 94 employers with a job open to Ecuador, far more than any other pocket. You meet only 44% of the real requirements; the ads ask for CRM tools, sales quotas and SaaS sales experience. Pay splits in two: software companies publish a median of $10,300 a month, agencies $1,450.</li>
+      <li><b>AI data work is the fastest way in, not a career.</b> Half of these jobs are open to Ecuador, but 160 of 191 are freelance gigs with no guaranteed hours, and two companies posted 79% of them. Listed rates run from $6 to $100 an hour, set partly by where you live.</li>
       <li><b>"AI + sustainability" fails the test as a remote job from Ecuador.</b> Sustainability and ESG jobs are 10 of the 4,483 remote jobs open to you. Climate and carbon services: 0 of 45. You fit sustainability best (90%), but those jobs are on-site in Europe. That makes it a route for the move, not for income now.</li>
       <li><b>Treat this ranking as provisional.</b> 72% of the remote jobs open to Ecuador come from one tech-heavy job board, and consulting contracts and tenders are not ranked yet. Both checks run before you pick on 30 Sep.</li>
     </ol>
@@ -300,53 +349,294 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
   <p class="small" style="margin-top:8px">From official government pages, accessed 25 Sep 2026. EUR 4,000 is the floor; about EUR 4,500 is the safe target. The ranking uses EUR 4,000.</p>
 </section>
 
-<!-- ============ PATHS ============ -->
-<section id="paths">
-  <h2>Three paths the data supports</h2>
-  <p class="sub">Market first, as you asked. Whether any of these fits your heart is your call; this shows the evidence and the gap for each.</p>
-  <div class="grid g3">
-    <div class="card path">
-      <h3><span class="k">A</span>Project manager for software and AI companies</h3>
-      <span class="tag t-good"><i>✓</i>Best balance</span>
-      <ul>
-        <li><span class="plus">+</span> Highest fit of the real pockets: 75-80%</li>
-        <li><span class="plus">+</span> 45% of the ads are open to Ecuador; 91% are worked in English or Spanish</li>
-        <li><span class="plus">+</span> Hand checks held: 7 of 10 real in software; 10 of 10 are project management in consulting</li>
-        <li><span class="plus">+</span> Project work starts and ends at a launch, which is how you like to work</li>
-        <li><span class="minus">−</span> Small: 38 employers open to Ecuador, across software and consulting</li>
-        <li><span class="minus">−</span> Pay is published on only 15 ads, so the pay picture is thin</li>
-      </ul>
-      <p class="small" style="margin-top:8px">Gap to check: which tools and certificates these ads ask for (not measured yet).</p>
-    </div>
-    <div class="card path">
-      <h3><span class="k">B</span>Sales and business development for software</h3>
-      <span class="tag t-mixed"><i>!</i>Biggest market, weak fit</span>
-      <ul>
-        <li><span class="plus">+</span> By far the most employers: 94 open to Ecuador, 231 including Europe</li>
-        <li><span class="plus">+</span> #1 in all three job counts (all, Ecuador-only, strict Europe); 8 of 10 ads checked are real</li>
-        <li><span class="plus">+</span> The most common problem named in the ads: deploying AI agents for enterprise customers</li>
-        <li><span class="minus">−</span> You meet 44% of the real requirements (CRM tools, sales quotas, SaaS sales)</li>
-        <li><span class="minus">−</span> Only 18% of the ads are open to Ecuador; drops out of the top 3 if market size counts less</li>
-      </ul>
-      <p class="small" style="margin-top:8px">Your bridge: founding Kitu and selling exports B2B. It is real selling, but not quota-carrying SaaS sales.</p>
-    </div>
-    <div class="card path">
-      <h3><span class="k">C</span>AI data work, as a cash bridge</h3>
-      <span class="tag t-mixed"><i>!</i>Fast, but thin</span>
-      <ul>
-        <li><span class="plus">+</span> About half the jobs are open to Ecuador; 9 of 10 ads checked are real</li>
-                <li><span class="minus">−</span> Mostly hourly gig work (transcript checks, AI trainer tasks), not a career path</li>
-        <li><span class="minus">−</span> Rests on one job board: falls from #3 to #20 without it</li>
-        <li><span class="minus">−</span> Pay is often per hour or per project, so monthly income is uneven</li>
-      </ul>
-      <p class="small" style="margin-top:8px">Could run next to A or B for income, like the network outreach.</p>
-    </div>
+<!-- ============ INSIDE THE THREE POCKETS ============ -->
+<section id="inside">
+  <h2>Inside the three pockets</h2>
+  <p class="sub">What each job is day to day, what it pays, what the ads ask for compared with your record, and live ads you can open. Market first, as you asked: whether any of these fits your heart is your call.</p>
+  <p class="small">Counts cover the remote ads open to someone living in Ecuador, 60 days to 25 Sep 2026. "A normal week" comes from reading 25 full ads per pocket by hand. Requirements come from the must-have lists the AI pulled out of every ad.</p>
+
+  <div class="tabs" role="tablist" aria-label="Pockets">
+    <button role="tab" id="tab-pm" aria-controls="panel-pm" aria-selected="true"><span class="k">A</span>Project manager</button>
+    <button role="tab" id="tab-sales" aria-controls="panel-sales" aria-selected="false"><span class="k">B</span>Sales</button>
+    <button role="tab" id="tab-ai" aria-controls="panel-ai" aria-selected="false"><span class="k">C</span>AI data work</button>
   </div>
-  <div class="card" style="margin-top:12px">
+
+  <!-- ===== A: PROJECT MANAGEMENT ===== -->
+  <div class="panel" id="panel-pm" role="tabpanel" aria-labelledby="tab-pm">
+    <div class="panel-head">
+      <span class="tag t-good"><i>✓</i>Best balance of market and fit</span>
+      <p class="lede">You keep a project on plan: timeline, risks, budget and the client, while engineers or designers do the building. At software companies you sit between the client and the tech team.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card stat"><div class="v">41</div><div class="l">ads open to Ecuador</div><div class="n">26 at software companies, 15 at consultancies and agencies</div></div>
+      <div class="card stat"><div class="v">38</div><div class="l">employers hiring</div><div class="n">Plus 34 ads in Europe, for the later move</div></div>
+      <div class="card stat"><div class="v">5 yrs</div><div class="l">median experience asked</div><div class="n">You have about 8. Most ads are senior or lead level</div></div>
+      <div class="card stat"><div class="v">9 of 41</div><div class="l">ads publish pay</div><div class="n">So the pay picture is thin. Details below</div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>A normal week</h3>
+        <p class="small">How many of the 25 software / 25 consulting ads read by hand mention each task.</p>
+        <ul class="week">
+          <li><span>Keep the plan, timeline and milestones up to date</span><b>19 / 23</b></li>
+          <li><span>Spot risks and blockers early and raise them</span><b>20 / 21</b></li>
+          <li><span>Report status to leadership or the client</span><b>15 / 18</b></li>
+          <li><span>Be the client's day-to-day contact</span><b>11 / 14</b></li>
+          <li><span>Run meetings: client check-ins, kick-offs; in software teams also short daily team meetings</span><b>10 / 10</b></li>
+          <li><span>Track the budget and hours spent</span><b>9 / 12</b></li>
+          <li><span>Say no to extra requests that weren't agreed</span><b>8 / 9</b></li>
+          <li><span>Turn what the client wants into tasks engineers can build</span><b>7 / 7</b></li>
+        </ul>
+        <blockquote>"Sit between the client and the engineering team. Translate business asks into technical scope and technical constraints back into plain language for the client." <cite>Bolder Apps, Technical Project Manager</cite></blockquote>
+      </div>
+      <div class="card">
+        <h3>What kind of projects</h3>
+        <ul class="plain">
+          <li><b>Setting up software for a customer until it goes live</b> (business software, CRM, HR systems)</li>
+          <li><b>Building apps or websites for clients</b> at a studio or agency</li>
+          <li><b>Data and AI programmes</b> for large companies</li>
+          <li><b>Keeping the company's own engineering team on track</b></li>
+          <li>Internal compliance or change programmes (rarer)</li>
+        </ul>
+        <h3 style="margin-top:14px">Who you work with</h3>
+        <p class="sub" style="margin:0">Engineers (27 of 50 ads), clients (25), senior executives (22), and sometimes sales, designers and suppliers.</p>
+        <h3 style="margin-top:14px">Methods and tools named</h3>
+        <p class="sub" style="margin:0">Agile (a way of delivering software in short cycles) in 20 of 50 ads, Jira (task-tracking software) in 13, Scrum in 8. The PMP certificate is named in 5 but required in only 2.</p>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card"><h3>Job titles</h3><div class="dist" data-pocket="R09xI13" data-field="titles"></div><p class="small">Software ads open to Ecuador (26).</p></div>
+      <div class="card"><h3>Level asked</h3><div class="dist" data-pocket="R09xI13" data-field="seniority"></div><p class="small">"Lead" = leads a team or asks for over 10 years.</p></div>
+      <div class="card"><h3>Job or contract</h3><div class="dist" data-pocket="R09xI13" data-field="engagement"></div><p class="small">Mostly regular jobs. 4 of 50 ads read were fixed-term contracts (6 months or to year end).</p></div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Pay</h3>
+      <div class="grid g3 paygrid">
+        <div><div class="pv">~$11K<span>/month</span></div><p class="small">Median for US-rate employers hiring across the Americas (8 ads publish yearly pay; all clear $2,000 and 7 clear €4,000). Example: UL Research Institutes, $108-149K a year.</p></div>
+        <div><div class="pv">$3.8-4.2K<span>/month</span></div><p class="small">A Latin American-rate employer: Launchpad Technologies on Get on Board, senior implementation project manager.</p></div>
+        <div><div class="pv">$3,250<span>/month</span></div><p class="small">Median for "innovation and agile" ads on Get on Board, the closest category to project management. Senior ads across Get on Board have a median of $3,500.</p></div>
+      </div>
+      <p class="sub" style="margin:8px 0 0">Some employers adjust pay to where you live: "$140,000 to $178,000 per year for US-based applicants. Adjusted contingent on location for applicants based in Canada, LATAM, and Europe." So aim for employers that publish US-rate ranges and list Ecuador.</p>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>What the ads ask for, compared with your record</h3>
+      <p class="small">Share of the 26 software ads open to Ecuador that list it as a must-have. Hover or tap a row to see why it is marked that way.</p>
+      <div class="reqs" data-pocket="R09xI13"></div>
+      <p class="small" style="margin-top:8px">Consulting and agency ads ask much the same, plus more certificates (PMP and similar in 5 of 15) and risk and budget tracking (7 and 4 of 15).</p>
+      <div class="gap">
+        <p><span class="plus">What you have:</span> 8 years running projects: a full grant cycle at Fundación IKIAM, setting up the cooperation office with a team of 4, platforms of 22-23 organisations with Conservation International, the Galapagos standards consultancy. The ads' most common asks (project experience, communication, working on your own) are met.</p>
+        <p style="margin:0"><span class="minus">What's missing:</span> a software project on your record, and the software team's methods and tools (Agile, Scrum, Jira), each asked in about a third of the ads. Your PMI "AI in Project Management" certificate is a short course, not a PMP. What it costs in time and money to close these gaps is not checked yet.</p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>Who hires (open to Ecuador)</h3>
+        <p class="sub" style="margin:0"><b>Software:</b> phData (data and AI consultancy), Launchpad Technologies, UL Research Institutes, Trafilea, Able, Miratech, Addepto, Mercuryo, pawaPay, Ravelin.<br><b>Consulting and agencies:</b> Power Digital, Fueled, Atmosera, Project Management Institute, Softengine, Hairball.IO, Productiv Team, UTTR.</p>
+      </div>
+      <div class="card against">
+        <h3>The case against</h3>
+        <ul class="plain">
+          <li><b>Small.</b> 41 ads open to Ecuador in 60 days, spread over 38 employers. You would apply to nearly every one.</li>
+          <li><b>They want software delivery.</b> About a third of the ads ask for software projects, Agile or Jira, and you have none on record.</li>
+          <li><b>Senior bar.</b> 18 of the 26 software ads are lead level; one Spanish-language ad asks for 7+ years plus a PMP or Scrum certificate.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
+    <div class="ex" data-set="pm"></div>
+  </div>
+
+  <!-- ===== B: SALES ===== -->
+  <div class="panel" id="panel-sales" role="tabpanel" aria-labelledby="tab-sales" hidden>
+    <div class="panel-head">
+      <span class="tag t-mixed"><i>!</i>Biggest market, weak fit</span>
+      <p class="lede">You find companies that might buy, talk to them, and close deals. At entry level you only book meetings for senior sellers. Sales at a software company and sales at an agency are two different jobs, so they are shown side by side.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card stat"><div class="v">222</div><div class="l">ads open to Ecuador</div><div class="n">125 at software companies, 97 at agencies and outsourcing firms</div></div>
+      <div class="card stat"><div class="v">150</div><div class="l">employers hiring</div><div class="n">94 software, 56 agencies. Far more than any other pocket</div></div>
+      <div class="card stat"><div class="v">3 / 2 yrs</div><div class="l">median experience asked</div><div class="n">Software / agencies. Lower bar than project management</div></div>
+      <div class="card stat"><div class="v">$10.3K vs $1.45K</div><div class="l">median published pay a month</div><div class="n">Software (20 ads) vs agencies (18 ads)</div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>A normal week</h3>
+        <p class="small">How many of the 25 software / 25 agency ads read by hand mention each task.</p>
+        <ul class="week">
+          <li><span>Research possible buyers and build lists</span><b>8 / 13</b></li>
+          <li><span>Contact strangers by phone, email or LinkedIn ("cold outreach")</span><b>5 / 11</b></li>
+          <li><span>Ask questions to check need, budget, who decides and timing</span><b>7 / 15</b></li>
+          <li><span>Book meetings for a senior seller</span><b>2 / 10</b></li>
+          <li><span>Run the whole deal: demo, proposal, negotiation, close</span><b>7 / 7</b></li>
+          <li><span>Log every call in the CRM (the customer database) and forecast</span><b>6 / 14</b></li>
+          <li><span>Manage partner companies and sell together with them</span><b>8 / 0</b></li>
+          <li><span>Sell more to existing customers</span><b>5 / 4</b></li>
+        </ul>
+        <p class="sub" style="margin:10px 0 0">In short: agency sales is mostly phone prospecting and booking meetings, often for a US client. Software sales is closing deals and working with partners.</p>
+      </div>
+      <div class="card">
+        <h3>The ladder</h3>
+        <ul class="plain">
+          <li><b>SDR / BDR</b>: finds and qualifies leads, books meetings. The usual entry door.</li>
+          <li><b>Account executive</b>: runs deals to the close and carries a sales target.</li>
+          <li><b>Account manager</b>: grows existing customers.</li>
+          <li><b>Partnerships / business development manager</b>: deals with other companies that resell or integrate.</li>
+          <li><b>Head of sales</b>: leads the team.</li>
+        </ul>
+        <h3 style="margin-top:14px">How you're measured</h3>
+        <ul class="plain">
+          <li>Meetings booked: "Set 20 appointments per week" (NightOwl Consulting)</li>
+          <li>Activity: "80–150+ activities/day via cold calls, cold email, LinkedIn, and SMS" (Bluelight Consulting)</li>
+          <li>Deals closed: "Close a minimum of 3 API deals per month" (doola); "sales quotas of $1-2M+ per year" in an enterprise ad</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g2w" style="margin-top:12px">
+      <div class="card"><h3>Job titles: software</h3><div class="dist" data-pocket="R13xI13" data-field="titles"></div></div>
+      <div class="card"><h3>Job titles: agencies</h3><div class="dist" data-pocket="R13xI14" data-field="titles"></div></div>
+      <div class="card"><h3>Level asked: software</h3><div class="dist" data-pocket="R13xI13" data-field="seniority"></div></div>
+      <div class="card"><h3>Level asked: agencies</h3><div class="dist" data-pocket="R13xI14" data-field="seniority"></div></div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Pay: two different worlds</h3>
+      <div class="grid g3 paygrid">
+        <div><div class="pv">$10.3K<span>/month</span></div><p class="small">Median for software companies that publish yearly pay (20 ads; middle half $5.6-15.8K). Pressable pays an account executive $90-125K a year; entry roles such as Aleph's lead qualifier (answers new enquiries and passes them to sellers) pay $60-71K.</p></div>
+        <div><div class="pv">$1,450<span>/month</span></div><p class="small">Median for agencies and outsourcing firms that publish monthly pay (18 ads; middle half $1,000-3,000). Only 2 of the 18 clear $2,000.</p></div>
+        <div><div class="pv">$1,500<span>/month</span></div><p class="small">Median for sales ads on Get on Board, the Latin American board. The agency figures match it.</p></div>
+      </div>
+      <p class="sub" style="margin:8px 0 0">Commission-only pay shows up in 4 of the 50 ads read, one with "no base salary". Six of the 25 agency ads ask for US hours, and one asks you to supply your own computer, headset and backup internet.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>Must-haves vs your record: software</h3>
+        <p class="small">Share of the 110 software ads with a must-have list.</p>
+        <div class="reqs" data-pocket="R13xI13"></div>
+      </div>
+      <div class="card">
+        <h3>Must-haves vs your record: agencies</h3>
+        <p class="small">Share of the 76 agency ads with a must-have list.</p>
+        <div class="reqs" data-pocket="R13xI14"></div>
+      </div>
+    </div>
+    <div class="card gap" style="margin-top:12px">
+      <p><span class="plus">What you have:</span> you founded Kitu, raised money from partners, and sold export containers B2B to an importer in Spain. That is real selling, and it covers communication, working on your own and start-up pace.</p>
+      <p style="margin:0"><span class="minus">What's missing:</span> the three things sales ads check first: a CRM, a record of prospecting strangers, and a sales target you hit. Each is a must-have in a fifth to a quarter of the software ads, and the readers found a CRM named in 20 of 25 agency ads. Software sales experience is asked in a third.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>Who hires (open to Ecuador)</h3>
+        <p class="sub" style="margin:0"><b>Software:</b> Canonical (Ubuntu), Pressable / Automattic, Customer.io, RevenueCat, Supabase, Miro, doola, Aleph, Bybit, SingularitySales.<br><b>Agencies and outsourcing:</b> Pavago, Magic, Bluelight Consulting, Ignitvio, Valatam, GoFasti, Penji, TechBiz Global. Many place you with a US client.</p>
+      </div>
+      <div class="card against">
+        <h3>The case against</h3>
+        <ul class="plain">
+          <li><b>The good pay needs a sales record.</b> US-rate software employers want a quota history, a CRM and software sales. You have none of the three.</li>
+          <li><b>The open door pays little.</b> Without that record, the realistic entry is meeting-booking at agencies: $700-2,500 a month.</li>
+          <li><b>Some of the count is noise.</b> 12 of the 50 ads read were really other jobs (recruiting, customer success, technical presales), 4 of them one company's template ad with no sales tasks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
+    <div class="ex" data-set="sales"></div>
+  </div>
+
+  <!-- ===== C: AI DATA WORK ===== -->
+  <div class="panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden>
+    <div class="panel-head">
+      <span class="tag t-mixed"><i>!</i>Fast, but thin</span>
+      <p class="lede">You help train AI models: write and grade expert answers, check what an AI produced, label video or audio, or record yourself doing tasks. Almost all of it is freelance gig work paid by the hour or by the task.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card stat"><div class="v">191</div><div class="l">ads open to Ecuador</div><div class="n">Plus 50 in Europe</div></div>
+      <div class="card stat"><div class="v">79%</div><div class="l">from two companies</div><div class="n">micro1 posted 123 of the 191, Invisible Technologies 28</div></div>
+      <div class="card stat"><div class="v">160 of 191</div><div class="l">are freelance</div><div class="n">No ad read promises steady hours</div></div>
+      <div class="card stat"><div class="v">$65<span class="unit">/hour</span></div><div class="l">median listed rate</div><div class="n">38 ads. The low end is $6 an hour</div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>A normal week</h3>
+        <p class="small">How many of the 25 ads read by hand mention each task.</p>
+        <ul class="week">
+          <li><span>Review and score answers an AI wrote (text, code, designs)</span><b>8</b></li>
+          <li><span>Write down why you judged each item as you did</span><b>8</b></li>
+          <li><span>Write test tasks, prompts and grading rules for the AI</span><b>6</b></li>
+          <li><span>Solve hard expert problems (physics, finance, clinical cases)</span><b>6</b></li>
+          <li><span>Tag and time-stamp video or audio</span><b>4</b></li>
+          <li><span>Check existing labels for errors and flag unclear cases</span><b>4</b></li>
+          <li><span>Do tasks in a software product while recording your screen</span><b>2</b></li>
+        </ul>
+        <blockquote>"On a typical day, you will analyze AI-generated graphics, evaluate composition and visual reasoning, annotate design errors, assess typography and color usage." <cite>Invisible Technologies</cite></blockquote>
+      </div>
+      <div class="card">
+        <h3>The kinds of gig</h3>
+        <div class="dist" data-pocket="R19xI13" data-field="titles"></div>
+        <p class="small">"Other professions" are mostly micro1 gigs for video editors, voice actors, accountants, teachers and gamers. "X Specialist" gigs document how you use one software product (HubSpot, GitHub, Google Classroom).</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Pay and hours</h3>
+      <div class="grid g3 paygrid">
+        <div><div class="pv">$50-85<span>/hour</span></div><p class="small">Middle half of the 38 listed hourly rates, mostly from the job board's pay field. 20 of the 25 ads read state no rate in the text.</p></div>
+        <div><div class="pv">$6<span>/hour</span></div><p class="small">The low end: a Spanish-language gig recording your daily chores (Mindrift), "USD $6 por hora de contenido aprobado". A floor-plan labelling project pays $0.33-0.49 per plan at 1-1.5 hours each.</p></div>
+        <div><div class="pv">5-20<span> hrs/week</span></div><p class="small">The hours the ads mention, often as a minimum. Some pay per approved task instead of per hour.</p></div>
+      </div>
+      <p class="sub" style="margin:8px 0 0">Rates depend on where you live: Invisible says "$20 to $100 per hour, with the exact rate determined after evaluating your experience, expertise, and geographic location". Rough sum: 15 hours a week at $50 an hour is about $3,250 a month, but only if the work keeps coming.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>Must-haves vs your record</h3>
+        <p class="small">Share of the 143 ads with a must-have list.</p>
+        <div class="reqs" data-pocket="R19xI13"></div>
+      </div>
+      <div class="card">
+        <h3>Who can do it</h3>
+        <ul class="plain">
+          <li><b>No special degree:</b> 8 of the 25 ads read (labelling, data collection, data checks).</li>
+          <li><b>Years in a profession:</b> about 10 (clinician, analyst, engineer, published writer).</li>
+          <li><b>PhD preferred:</b> 3.</li>
+          <li><b>Hiring:</b> an online test or take-home task in some ads; some fill roles "within 48 hours".</li>
+        </ul>
+        <div class="gap" style="margin-top:12px">
+          <p><span class="plus">Where you fit:</span> Invisible's "Small Business Ownership" AI-trainer gig wants current owners or managers, which you are as Kitu's founder. Spanish-language gigs (Welo Data's Spanish pool, Mercor's voice work) are open to Ecuador.</p>
+          <p style="margin:0"><span class="minus">Where you don't:</span> the best-paid expert gigs want a PhD, a clinical licence or years as a professional coder.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card against" style="margin-top:12px">
+      <h3>The case against</h3>
+      <ul class="plain">
+        <li><b>Two companies are the market.</b> If micro1 or Invisible stops hiring, 79% of the ads disappear. Without the Himalayas board it falls from #3 to #20.</li>
+        <li><b>No floor.</b> Freelance, no guaranteed hours, pay set by your location, and per-task pay in some gigs.</li>
+        <li><b>No ladder.</b> The work doesn't build toward a senior job or a European employer. It fits best as extra income beside A or B.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
+    <div class="ex" data-set="ai"></div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
     <h3>And sustainability?</h3>
     <p class="sub" style="margin:0">Keep it as the <b>Europe track</b>. It is your strongest fit (90% on Europe sustainability jobs) and matches the Blue Card route, but it needs a European employer, and German for most German jobs. Consulting contracts and tenders (World Bank, EU), where development and climate work is paid remotely, are not ranked yet. That check could change this picture.</p>
   </div>
 </section>
+
 
 <!-- ============ TRUST ============ -->
 <section id="trust">
@@ -374,7 +664,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
   <div class="card">
     <ol class="steps">
       <li><div><b>Strike every pocket you would never do.</b><br><span class="sub">Put an X in the "Strike?" column of the Pockets table. About 15 minutes. It narrows the deep dive.</span></div><span class="due">by 26 Sep</span></li>
-      <li><div><b>Apply to about 10 real jobs from the top pockets.</b><br><span class="sub">Claude prepares the list and draft applications. Replies from real employers are the strongest test of this ranking, and they can bring income.</span></div><span class="due">by 29 Sep</span></li>
+      <li><div><b>Apply to about 10 real jobs from the top pockets.</b><br><span class="sub">The live ads under "Inside the 3 pockets" are a starting list. Claude prepares the final list and draft applications. Replies from real employers are the strongest test of this ranking, and they can bring income.</span></div><span class="due">by 29 Sep</span></li>
       <li><div><b>Pick your pocket from the top 3.</b><br><span class="sub">After the second-source check and the contracts list are in. The dossier (50+ employers, top 7) follows by 2 Oct.</span></div><span class="due">30 Sep</span></li>
     </ol>
   </div>
@@ -601,6 +891,83 @@ function fillPockets() {
   }).join("");
 }
 
+const PROFILE_DATA = {"R13xI13": {"ads": 125, "employers": 94, "eu_ads": 235, "eu_employers": 143, "withReqs": 110, "medYears": 3, "yearsN": 60, "reqs": [["Communication and stakeholder skills", 59, "met", "multi-stakeholder platforms, donors, workshops"], ["B2B / SaaS / software sales", 40, "partly", "B2B food export as founder; no software sales"], ["Start-up / fast-paced / self-starter", 36, "met", "founded and ran a start-up for 7 years"], ["Data / analytics / Excel / SQL", 33, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["CRM tool (Salesforce, HubSpot...)", 29, "not", "no CRM on record"], ["Prospecting / cold outreach / lead generation", 28, "not", "one buyer found as founder; no outbound record"], ["Sales quota / revenue targets / closing", 21, "not", "no quota-carrying sales job"], ["Fluent English", 21, "met", "C1-C2, studied and worked in English"], ["Consulting / professional services background", 20, "met", "ITC, IMPAQTO, CEELA consultancies"], ["AI tools / prompting / LLM know-how", 17, "partly", "daily AI user; AI training for producers (ITC)"]], "titles": [["Sales manager / head of sales", 31], ["Account executive", 23], ["Business development manager", 23], ["SDR / BDR (lead generation)", 16], ["Partnerships / channel", 13], ["Sales representative / closer", 9], ["Account manager", 5], ["Other", 5]], "seniority": [["Intern", 1], ["Junior (0-2 yrs)", 25], ["Mid (3-5 yrs)", 37], ["Senior (6-10 yrs)", 25], ["Lead or 10+ yrs", 24], ["Not stated", 13]], "engagement": [["Not stated", 88], ["Employee", 29], ["Contractor / freelance", 7], ["Fixed-term employee", 1]], "sources": {"himalayas": 69, "jobgether": 10, "rwfa": 9, "workable_board": 8, "weworkremotely": 7, "workingnomads": 7, "fourdayweek": 6, "getonboard": 5, "jobicy": 4}, "payN": 23, "pay": {"annual": {"n": 20, "usd_month_median": 10312, "p25": 5625, "p75": 15833, "clears_2k": 20, "clears_4k_eur": 17, "sources": {"himalayas": 9, "fourdayweek": 6, "workingnomads": 3, "jobicy": 1, "weworkremotely": 1}}, "monthly": {"n": 3, "usd_month_median": 4500, "p25": 400, "p75": 9094, "clears_2k": 2, "clears_4k_eur": 1, "sources": {"getonboard": 2, "himalayas": 1}}}}, "R19xI13": {"ads": 191, "employers": 25, "eu_ads": 50, "eu_employers": 29, "withReqs": 143, "medYears": 3, "yearsN": 38, "reqs": [["Communication and stakeholder skills", 74, "met", "multi-stakeholder platforms, donors, workshops"], ["Attention to detail / quality", 54, "met", "certifications (HACCP, BRCGS), 122 reports processed"], ["Fluent English", 40, "met", "C1-C2, studied and worked in English"], ["Start-up / fast-paced / self-starter", 34, "met", "founded and ran a start-up for 7 years"], ["Degree (bachelor / master)", 25, "met", "BSc Civil Engineering, MSc TU Delft"], ["Coding (Python etc.)", 23, "partly", "a personal Python pipeline; not a software engineer"], ["Medical / legal / finance / science expert", 23, "not", "degrees in civil engineering and sustainable energy only"], ["Data / analytics / Excel / SQL", 20, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["AI tools / prompting / LLM know-how", 19, "partly", "daily AI user; AI training for producers (ITC)"], ["Writing / editing / grammar", 18, "met", "4 papers in English, reports"]], "titles": [["Subject-expert AI trainer", 67], ["Other", 41], ["Software-workflow specialist ('X Specialist')", 36], ["Annotator / data collection / transcriber", 22], ["AI enablement / in-house job", 13], ["Rater / evaluator / reviewer", 12]], "seniority": [["Junior (0-2 yrs)", 9], ["Mid (3-5 yrs)", 88], ["Senior (6-10 yrs)", 34], ["Lead or 10+ yrs", 6], ["Not stated", 54]], "engagement": [["Contractor / freelance", 160], ["Not stated", 24], ["Employee", 6], ["Fixed-term employee", 1]], "sources": {"himalayas": 173, "workable_board": 7, "weworkremotely": 4, "remoteok": 3, "jobgether": 1, "jobicy": 1, "jobtech": 1, "workingnomads": 1}, "payN": 45, "pay": {"hourly": {"n": 38, "usd_per_hour_median": 65, "p25": 50.0, "p75": 85.0, "sources": {"himalayas": 32, "workable_board": 4, "remoteok": 1, "weworkremotely": 1}}, "annual": {"n": 7, "usd_month_median": 15416, "p25": 6134, "p75": 50000, "clears_2k": 6, "clears_4k_eur": 5, "sources": {"himalayas": 4, "remoteok": 2, "workingnomads": 1}}}}, "R13xI14": {"ads": 97, "employers": 56, "eu_ads": 41, "eu_employers": 32, "withReqs": 76, "medYears": 2, "yearsN": 42, "reqs": [["Communication and stakeholder skills", 44, "met", "multi-stakeholder platforms, donors, workshops"], ["Fluent English", 38, "met", "C1-C2, studied and worked in English"], ["Data / analytics / Excel / SQL", 30, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["CRM tool (Salesforce, HubSpot...)", 25, "not", "no CRM on record"], ["Prospecting / cold outreach / lead generation", 23, "not", "one buyer found as founder; no outbound record"], ["Start-up / fast-paced / self-starter", 21, "met", "founded and ran a start-up for 7 years"], ["B2B / SaaS / software sales", 21, "partly", "B2B food export as founder; no software sales"], ["Consulting / professional services background", 19, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Sales quota / revenue targets / closing", 12, "not", "no quota-carrying sales job"], ["Attention to detail / quality", 12, "met", "certifications (HACCP, BRCGS), 122 reports processed"], ["Account management / client relationships", 10, "partly", "donor, buyer and partner relations; not an account book"]], "titles": [["SDR / BDR (lead generation)", 28], ["Business development manager", 19], ["Sales representative / closer", 18], ["Other", 8], ["Sales manager / head of sales", 8], ["Partnerships / channel", 7], ["Account executive", 6], ["Account manager", 3]], "seniority": [["Intern", 2], ["Junior (0-2 yrs)", 35], ["Mid (3-5 yrs)", 24], ["Senior (6-10 yrs)", 11], ["Lead or 10+ yrs", 8], ["Not stated", 17]], "engagement": [["Not stated", 72], ["Contractor / freelance", 17], ["Employee", 5], ["Fixed-term employee", 3]], "sources": {"himalayas": 46, "jobgether": 23, "workable_board": 20, "getonboard": 5, "weworkremotely": 2, "jobicy": 1}, "payN": 24, "pay": {"monthly": {"n": 18, "usd_month_median": 1450, "p25": 1000, "p75": 3000, "clears_2k": 2, "clears_4k_eur": 0, "sources": {"himalayas": 10, "getonboard": 5, "workable_board": 2, "jobicy": 1}}, "annual": {"n": 4, "usd_month_median": 3417, "p25": 500, "p75": 13125, "clears_2k": 2, "clears_4k_eur": 2, "sources": {"himalayas": 4}}, "hourly": {"n": 2, "usd_per_hour_median": 58, "p25": 50.0, "p75": 65.0, "sources": {"himalayas": 1, "weworkremotely": 1}}}}, "R09xI13": {"ads": 26, "employers": 23, "eu_ads": 22, "eu_employers": 22, "withReqs": 26, "medYears": 5, "yearsN": 18, "reqs": [["Project / programme management experience", 20, "met", "8 years running projects, a grant cycle, an office and a consultancy"], ["Communication and stakeholder skills", 17, "met", "multi-stakeholder platforms, donors, workshops"], ["Start-up / fast-paced / self-starter", 12, "met", "founded and ran a start-up for 7 years"], ["AI tools / prompting / LLM know-how", 9, "partly", "daily AI user; AI training for producers (ITC)"], ["PM tools (Jira, Asana, MS Project...)", 9, "not", "only MS Office / Google Workspace"], ["Consulting / professional services background", 9, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Agile / Scrum / Kanban", 8, "not", "not on record"], ["Technical / IT / software project experience", 8, "not", "no IT or software project on record"], ["Data / analytics / Excel / SQL", 8, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["Degree (bachelor / master)", 7, "met", "BSc Civil Engineering, MSc TU Delft"], ["Leadership / managing a team", 7, "met", "led a team of 4; founder and executive director"], ["Customer onboarding / implementation", 5, "not", "no customer implementation role"], ["PM certificate (PMP, PRINCE2, CSM...)", 5, "partly", "PMI 'AI in Project Management' course certificate; no PMP"]], "titles": [["Project manager", 12], ["Technical programme / project manager", 4], ["Programme manager", 4], ["Other", 2], ["PMO / portfolio", 2], ["Implementation / onboarding manager", 1], ["Project coordinator / assistant", 1]], "seniority": [["Mid (3-5 yrs)", 7], ["Senior (6-10 yrs)", 1], ["Lead or 10+ yrs", 18]], "engagement": [["Not stated", 17], ["Employee", 9]], "sources": {"himalayas": 18, "workingnomads": 3, "workable_board": 2, "getonboard": 1, "jobicy": 1, "weworkremotely": 1}, "payN": 6, "pay": {"monthly": {"n": 1, "usd_month_median": 4000, "p25": 4000, "p75": 4000, "clears_2k": 1, "clears_4k_eur": 0, "sources": {"getonboard": 1}}, "annual": {"n": 5, "usd_month_median": 10834, "p25": 10729, "p75": 13250, "clears_2k": 5, "clears_4k_eur": 4, "sources": {"himalayas": 4, "jobicy": 1}}}}, "R09xI14": {"ads": 15, "employers": 15, "eu_ads": 12, "eu_employers": 5, "withReqs": 15, "medYears": 5, "yearsN": 12, "reqs": [["Communication and stakeholder skills", 11, "met", "multi-stakeholder platforms, donors, workshops"], ["Project / programme management experience", 9, "met", "8 years running projects, a grant cycle, an office and a consultancy"], ["Consulting / professional services background", 7, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Risk / issue management", 7, "partly", "regulatory risk at Kitu; no formal project risk logs"], ["Data / analytics / Excel / SQL", 6, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["Degree (bachelor / master)", 5, "met", "BSc Civil Engineering, MSc TU Delft"], ["PM certificate (PMP, PRINCE2, CSM...)", 5, "partly", "PMI 'AI in Project Management' course certificate; no PMP"], ["Agile / Scrum / Kanban", 5, "not", "not on record"], ["Budget / financial management", 4, "partly", "grant budgets and a start-up; no corporate P&L"], ["Leadership / managing a team", 4, "met", "led a team of 4; founder and executive director"], ["Fluent English", 3, "met", "C1-C2, studied and worked in English"], ["PM tools (Jira, Asana, MS Project...)", 3, "not", "only MS Office / Google Workspace"], ["Attention to detail / quality", 3, "met", "certifications (HACCP, BRCGS), 122 reports processed"]], "titles": [["Project manager", 12], ["Scrum master / agile coach / delivery", 3]], "seniority": [["Mid (3-5 yrs)", 1], ["Senior (6-10 yrs)", 2], ["Lead or 10+ yrs", 12]], "engagement": [["Not stated", 12], ["Employee", 2], ["Contractor / freelance", 1]], "sources": {"himalayas": 11, "fourdayweek": 1, "jobgether": 1, "weworkremotely": 1, "workingnomads": 1}, "payN": 3, "pay": {"annual": {"n": 3, "usd_month_median": 10958, "p25": 10834, "p75": 13048, "clears_2k": 3, "clears_4k_eur": 3, "sources": {"himalayas": 3}}}}};
+
+
+// Live ads, checked 25 Sep 2026 (tools/pocket_profile.py --links, then picked by hand):
+// [title, employer, url, pay, where, what it is]
+const EXAMPLES = {
+  pm: [
+    ["Senior Implementation Project Manager", "Launchpad Technologies", "https://www.getonbrd.com/jobs/senior-implementation-project-manager-launchpad-technologies-remote", "$3,800-4,200/month", "Remote, anywhere", "Software rollouts for international customers, from kick-off to go-live."],
+    ["Program Manager, AI & Data", "phData", "https://himalayas.app/companies/phdata/jobs/program-manager-ai-data-9314839447", "Pay not published", "Latin America, incl. Ecuador", "Client-facing data and AI programmes; you are the client's \"one hand to shake\"."],
+    ["Technical Program Manager", "UL Research Institutes", "https://himalayas.app/companies/underwriters-laboratories-inc/jobs/technical-program-manager", "$108-149K/year", "Worldwide", "Projects at a digital-safety research institute."],
+    ["Thought Leadership Portfolio Delivery Lead", "Project Management Institute", "https://himalayas.app/companies/project-management-institute-inc/jobs/thought-leadership-portfolio-delivery-lead", "$120-143K/year", "No country limit stated", "Gets PMI's thought-leadership reports delivered on time and to standard."],
+    ["Project Manager - LATAM", "Rekluti (XKTalent)", "https://himalayas.app/companies/rekluti/jobs/project-manager-latam", "Pay not published", "Latin America, incl. Ecuador", "Spanish-language ad. Asks for 7+ years and a PMP or Scrum certificate."],
+    ["Senior Digital Project Manager - LATAM", "Fueled (digital agency)", "https://himalayas.app/companies/fueled/jobs/senior-digital-project-manager-latam", "Pay set by location", "Latin America, incl. Ecuador", "Portfolios of client projects for large brands."],
+    ["Project Manager, Web Development", "Power Digital", "https://himalayas.app/companies/power-digital-marketing/jobs/project-manager-web-development-7627804073", "Pay not published", "Argentina, Ecuador, Nicaragua", "Website projects for 10-25 clients per team at a growth-marketing firm."],
+    ["Project Manager (Remote - LATAM)", "Atmosera", "https://himalayas.app/companies/atmosera/jobs/project-manager-remote-latam", "Pay not published", "Latin America, incl. Ecuador", "Microsoft cloud projects. English and Spanish both required."],
+  ],
+  sales: [
+    ["Sales Account Executive", "Pressable (Automattic)", "https://himalayas.app/companies/pressable/jobs/sales-account-executive", "$90-125K/year", "The Americas, incl. Ecuador", "Software: runs WordPress-hosting deals from first call to close."],
+    ["Business Development Representative", "Automattic (Pressable)", "https://job-boards.greenhouse.io/automatticcareers/jobs/6356799", "$50-65K/year", "Latin America and other regions", "Software, entry level: answers new leads and books meetings for senior sellers."],
+    ["Sales Development Representative", "Aleph", "https://jobs.ashbyhq.com/aleph/46ba1ce4-a694-4cf1-88dd-5898cd8bccf4", "$60-71K/year", "USA, Canada, Latin America", "Software, entry level: new enquiries only, no cold prospecting. Finance-planning software."],
+    ["Partner Manager, AI Native Ecosystems", "Customer.io", "https://4dayweek.io/job/partner-manager-ai-native-ecosystems-americas-at-customer-io-ddcb8603", "$133-160K/year", "North and South America", "Software: partnership deals with AI app builders; half business, half technical."],
+    ["Sales Development Representative", "Ignitvio (agency)", "https://himalayas.app/companies/ignitvio/jobs/sales-development-representative", "$1,500-2,500/month", "Latin America", "Agency: cold calls for a US client in US hours; paid training month at $2,000."],
+    ["Business Development Manager", "Magic (outsourcing)", "https://himalayas.app/companies/getmagic/jobs/business-development-manager-global-remote-uncapped-commissions-6213803912", "$2,000-4,500/month", "Lists Ecuador", "Agency: 50+ warm leads a month, a monthly quota, US Eastern hours."],
+    ["Junior Sales Development Representative - LATAM", "Valatam", "https://himalayas.app/companies/valatam/jobs/junior-sales-development-representative-latam", "$696-1,044/month", "Lists Ecuador", "Agency: cold calls, email and LinkedIn, plus sales admin."],
+  ],
+  ai: [
+    ["Small Business Ownership - Freelance AI Trainer", "Invisible Technologies", "https://himalayas.app/companies/inv/jobs/small-business-ownership-freelance-ai-trainer-project-58348805", "$20-100/hour, set by location", "Anywhere", "For current business owners and managers: judge AI advice on pricing, budgets, hiring and suppliers."],
+    ["Spanish Voice Actor - TTS Expert", "Mercor", "https://himalayas.app/companies/mercor/jobs/spanish-voice-actor-tts-expert-3941186092", "$50-100/hour, 5-10 hrs/week", "Lists Ecuador", "Record voice samples in neutral Latin American Spanish. Needs a near-professional recording setup."],
+    ["Shape the Future of AI - Spanish Talent Hub", "Welo Data", "https://himalayas.app/companies/welo-global/jobs/shape-the-future-of-ai-spanish-talent-hub", "Pay set per project", "Lists Ecuador", "A talent pool, not an open job: they contact you when a Spanish project fits."],
+    ["Video Data Annotator", "iMerit", "https://remoteOK.com/remote-jobs/remote-video-data-annotator-imerit-technology-1137428", "Rate not in the ad text", "Remote", "Label actions and objects in video. No AI experience needed; work depends on \"available assignments\"."],
+    ["Creador(a) de Contenido POV para IA", "Mindrift", "https://jobs.workable.com/view/dxk38z3YUbKr8fshrKvyTJ/remote-creador(a)-de-contenido-pov-para-ia---remoto-in-guayaquil-at-mindrift---data-annotation", "$6 per approved hour", "Ecuador", "Record your daily chores on your phone. Shown as the low end of the market."],
+  ],
+};
+
+/* ---------- pocket profiles ---------- */
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function fillProfiles() {
+  const STATUS = { met: ["✓", "You have it"], partly: ["~", "Partly"], not: ["✕", "Missing"] };
+  const COL = { met: "var(--good)", partly: "var(--warn)", not: "var(--critical)" };
+  document.querySelectorAll(".reqs").forEach(host => {
+    const d = PROFILE_DATA[host.dataset.pocket];
+    host.innerHTML = d.reqs.map(([g, n, st, why]) => {
+      const pc = Math.round(n / d.withReqs * 100), S = STATUS[st];
+      return `<div class="row" data-tip="<b>${esc(g)}</b>${n} of ${d.withReqs} ads list it as a must-have<br>${S[1]}: ${esc(why)}">`
+        + `<span class="st ${st}" role="img" aria-label="${S[1]}">${S[0]}</span><span>${esc(g)}</span>`
+        + `<span class="bar"><i style="width:${pc}%;background:${COL[st]}"></i></span><span class="n">${pc}%</span></div>`;
+    }).join("") + `<div class="legend" style="margin-top:8px"><span><span class="st met">✓</span>You have it</span><span><span class="st partly">~</span>Partly</span><span><span class="st not">✕</span>Missing</span></div>`;
+  });
+  document.querySelectorAll(".dist").forEach(host => {
+    const d = PROFILE_DATA[host.dataset.pocket], rows = d[host.dataset.field];
+    const total = rows.reduce((a, r) => a + r[1], 0);
+    const nice = l => (host.dataset.pocket === "R19xI13" && l === "Other") ? "Other professions" : l;
+    host.innerHTML = rows.map(([l, n]) => `<div class="row" data-tip="<b>${esc(nice(l))}</b>${n} of ${total} ads (${Math.round(n / total * 100)}%)">`
+      + `<span>${esc(nice(l))}</span><span class="bar"><i style="width:${Math.round(n / total * 100)}%;background:var(--s1)"></i></span><span class="n">${n}</span></div>`).join("");
+  });
+  document.querySelectorAll(".row[data-tip]").forEach(n => bindTip(n, n.dataset.tip));
+  document.querySelectorAll(".ex").forEach(host => {
+    host.innerHTML = EXAMPLES[host.dataset.set].map(([t, c, u, pay, where, note]) =>
+      `<a class="job" href="${esc(u)}" target="_blank" rel="noopener"><div class="jt">${esc(t)}</div><div class="jc">${esc(c)}</div>`
+      + `<div class="jm"><span>${esc(pay)}</span><span>${esc(where)}</span></div><div class="jn">${esc(note)}</div></a>`).join("");
+  });
+  const tabs = [...document.querySelectorAll('.tabs [role="tab"]')];
+  const pick = t => tabs.forEach(b => {
+    const on = b === t;
+    b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
+    document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
+  });
+  tabs.forEach((b, i) => {
+    b.addEventListener("click", () => pick(b));
+    b.addEventListener("keydown", e => {
+      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (k) { const n = tabs[(i + k + tabs.length) % tabs.length]; pick(n); n.focus(); }
+    });
+  });
+  pick(tabs[0]);
+}
+
 /* ---------- theme toggle ---------- */
 (function () {
   const btn = document.getElementById("themeBtn"), root = document.documentElement;
@@ -613,7 +980,7 @@ function fillPockets() {
 })();
 
 function drawAll() { drawScatter(); drawSectors(); drawPay(); }
-fillPockets(); drawAll();
+fillPockets(); fillProfiles(); drawAll();
 let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawAll, 150); });
 </script>
 </body>
