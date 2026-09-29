@@ -4,92 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Pocket Search Findings</title>
+<title>Pocket Decision</title>
 <style>
 :root {
   color-scheme: light;
-  --page: #f9f9f7;
-  --surface: #fcfcfb;
-  --ink: #0b0b0b;
-  --ink-2: #52514e;
-  --muted: #898781;
-  --grid: #e1e0d9;
-  --axis: #c3c2b7;
-  --border: rgba(11,11,11,0.10);
-  --s1: #2a78d6;
-  --s2: #eb6834;
-  --good: #0ca30c;
-  --good-text: #006300;
-  --warn: #fab219;
-  --serious: #ec835a;
-  --critical: #d03b3b;
-  --tint: #eef4fc;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --s1: #2a78d6; --s2: #eb6834;
+  --good: #0ca30c; --good-text: #006300; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  --tint: #eef4fc; --best: #e6f4e6;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --page: #0d0d0d;
-    --surface: #1a1a19;
-    --ink: #ffffff;
-    --ink-2: #c3c2b7;
-    --muted: #898781;
-    --grid: #2c2c2a;
-    --axis: #383835;
-    --border: rgba(255,255,255,0.10);
-    --s1: #3987e5;
-    --s2: #d95926;
-    --good-text: #0ca30c;
-    --tint: #16243a;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s2: #d95926; --good-text: #0ca30c; --tint: #16243a; --best: #14281a;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #0d0d0d;
-  --surface: #1a1a19;
-  --ink: #ffffff;
-  --ink-2: #c3c2b7;
-  --muted: #898781;
-  --grid: #2c2c2a;
-  --axis: #383835;
-  --border: rgba(255,255,255,0.10);
-  --s1: #3987e5;
-  --s2: #d95926;
-  --good-text: #0ca30c;
-  --tint: #16243a;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --s1: #3987e5; --s2: #d95926; --good-text: #0ca30c; --tint: #16243a; --best: #14281a;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-  margin: 0; background: var(--page); color: var(--ink);
-  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px 64px; }
-header.top { padding: 40px 0 8px; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px 64px; }
+header.top { padding: 40px 0 8px; position: relative; }
 .eyebrow { padding-right: 90px; font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; }
 h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; }
 h2 { font-size: 22px; margin: 0 0 6px; }
 h3 { font-size: 17px; margin: 0 0 6px; }
 p { margin: 0 0 12px; }
-.lede { font-size: 18px; color: var(--ink-2); max-width: 760px; }
-.sub { color: var(--ink-2); max-width: 760px; }
+.lede { font-size: 18px; color: var(--ink-2); max-width: 780px; }
+.sub { color: var(--ink-2); max-width: 780px; }
 .small { font-size: 13px; color: var(--muted); }
 a { color: var(--s1); }
-nav.toc { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--grid);
-  display: flex; gap: 4px; overflow-x: auto; padding: 8px 0; margin-bottom: 8px; scrollbar-width: thin; }
+nav.toc { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--grid); display: flex; gap: 4px; overflow-x: auto; padding: 8px 0; margin-bottom: 8px; scrollbar-width: thin; }
 nav.toc a { white-space: nowrap; font-size: 14px; color: var(--ink-2); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
 nav.toc a:hover { background: var(--surface); color: var(--ink); }
 section { padding: 36px 0 8px; scroll-margin-top: 48px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
 .grid { display: grid; gap: 12px; }
 .g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.g3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.stat .v { font-size: 32px; font-weight: 650; line-height: 1.1; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
+.stat .v { font-size: 32px; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat .l { color: var(--ink-2); font-size: 14px; margin-top: 4px; }
 .stat .n { color: var(--muted); font-size: 12px; margin-top: 6px; }
 .answer { border-left: 4px solid var(--s1); background: var(--tint); border-radius: 0 12px 12px 0; padding: 18px 20px; }
 .answer ol { margin: 0; padding-left: 20px; }
-.answer li { margin-bottom: 8px; }
+.answer li { margin-bottom: 10px; }
 .answer li:last-child { margin-bottom: 0; }
 .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
 .tag i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; color: #fff; font-weight: 700; }
@@ -97,891 +63,360 @@ section { padding: 36px 0 8px; scroll-margin-top: 48px; }
 .t-mixed i { background: var(--warn); color: #0b0b0b; }
 .t-weak i { background: var(--serious); color: #0b0b0b; }
 .t-error i { background: var(--critical); }
+.t-unk i { background: var(--muted); }
 .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; }
 th { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; background: var(--surface); }
-td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 tr:last-child td { border-bottom: 0; }
-tr.dim td { color: var(--muted); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .pname { font-weight: 600; }
-#pocketTable td:nth-child(2) { min-width: 250px; }
-.pnote { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
-.minibar { display: inline-block; height: 8px; background: var(--s1); border-radius: 0 4px 4px 0; vertical-align: middle; margin-right: 6px; }
-/* charts */
+#compare table { min-width: 860px; }
+#compare td:first-child { width: 190px; font-weight: 600; color: var(--ink-2); }
+#compare th.opt { font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--ink); }
+#compare th.opt .k { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+#compare td.best { background: var(--best); }
+#compare td b.big { font-size: 20px; font-variant-numeric: tabular-nums; }
+.dim { color: var(--muted); }
 .chart { width: 100%; }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chart text { fill: var(--ink-2); font-size: 12px; font-family: inherit; }
-.chart .lab { fill: var(--ink); font-size: 12px; }
-.chart .lab, .chart .val { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.chart .lab { fill: var(--ink); font-size: 12px; font-weight: 600; }
 .chart .axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 .chart .gridl { stroke: var(--grid); stroke-width: 1; }
-.chart .base { stroke: var(--axis); stroke-width: 1; }
-.chart .ref { stroke: var(--ink-2); stroke-width: 1; }
-.chart .hit { cursor: default; outline: none; }
-.chart .hit:hover .mk, .chart .hit:focus .mk { filter: brightness(1.15); }
-.chart .hit:focus-visible .mk { stroke: var(--ink); stroke-width: 2; }
+.chart .ref { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .val { fill: var(--ink-2); font-size: 11px; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; font-variant-numeric: tabular-nums; }
 .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-2); margin: 4px 0 10px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-.sw.dot { border-radius: 50%; }
-.sw.hollow { border-radius: 50%; background: transparent !important; border: 2px solid var(--s1); }
-#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--surface); color: var(--ink); border: 1px solid var(--border);
-  box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 13px; max-width: 280px; display: none; line-height: 1.4; }
+.sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--surface); color: var(--ink); border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 13px; max-width: 300px; display: none; line-height: 1.4; }
 #tip b { display: block; margin-bottom: 2px; }
 details { margin-top: 10px; }
 summary { cursor: pointer; color: var(--ink-2); font-size: 14px; }
-.path h3 { display: flex; align-items: baseline; gap: 8px; }
-.path .k { font-size: 12px; font-weight: 700; color: var(--muted); }
-.path ul { margin: 8px 0 0; padding-left: 0; list-style: none; }
-.path li { margin-bottom: 6px; font-size: 15px; padding-left: 16px; text-indent: -16px; }
-.path li span { display: inline-block; width: 16px; text-indent: 0; }
-.plus { color: var(--good-text); font-weight: 600; }
-.minus { color: var(--critical); font-weight: 600; }
-.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--grid); }
-.steps li:last-child { border-bottom: 0; }
-.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--s1); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
-.steps .due { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.theme-btn { position: absolute; top: 16px; right: 16px; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
-.hdr { position: relative; }
-/* pocket profiles */
+.theme-btn { position: absolute; top: 16px; right: 0; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 12px; }
-.tabs button { font: inherit; font-size: 15px; font-weight: 600; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-.tabs button .k { font-size: 12px; font-weight: 700; color: var(--muted); }
+.tabs button { font: inherit; font-size: 15px; font-weight: 600; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
 .tabs button[aria-selected="true"] { background: var(--s1); color: #fff; border-color: var(--s1); }
-.tabs button[aria-selected="true"] .k { color: #fff; }
 .tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.panel-head { margin-bottom: 12px; }
-.panel-head .lede { margin: 8px 0 0; }
-.stat .unit { font-size: 16px; font-weight: 500; }
-ul.week { list-style: none; margin: 8px 0 0; padding: 0; }
-ul.week li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--grid); font-size: 15px; }
-ul.week li:last-child { border-bottom: 0; }
-ul.week b { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); font-weight: 600; }
-ul.plain { margin: 6px 0 0; padding-left: 18px; }
-ul.plain li { margin-bottom: 6px; font-size: 15px; }
-blockquote { margin: 14px 0 0; padding: 10px 14px; border-left: 3px solid var(--axis); color: var(--ink-2); font-size: 14px; }
-blockquote cite { display: block; margin-top: 4px; font-style: normal; font-size: 12px; color: var(--muted); }
-.row { display: grid; grid-template-columns: minmax(0, 1fr) 90px 44px; gap: 10px; align-items: center; padding: 5px 4px; font-size: 14px; border-radius: 6px; }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) 110px 44px; gap: 10px; align-items: center; padding: 5px 4px; font-size: 14px; border-radius: 6px; }
 .row .bar { height: 10px; background: var(--grid); border-radius: 0 4px 4px 0; overflow: hidden; }
 .row .bar i { display: block; height: 100%; border-radius: 0 4px 4px 0; }
 .row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
-.row.hit:hover, .row.hit:focus { background: var(--tint); outline: none; }
-.reqs .row { grid-template-columns: 22px minmax(0, 1fr) 90px 44px; }
-.dist .row { grid-template-columns: minmax(0, 1fr) 64px 32px; }
-.g2w { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
+.row:hover, .row:focus { background: var(--tint); outline: none; }
 .st { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; }
 .st.met { background: var(--good); }
 .st.partly { background: var(--warn); color: #0b0b0b; }
 .st.not { background: var(--critical); }
-.gap { background: var(--tint); border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 15px; }
-.gap p { margin: 0 0 8px; }
-.card.against { border-left: 4px solid var(--critical); }
-.paygrid { gap: 16px; margin-top: 6px; }
-.pv { font-size: 26px; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.pv span { font-size: 14px; font-weight: 500; color: var(--ink-2); }
-.paygrid .small { margin: 6px 0 0; }
+ul.plain { margin: 6px 0 0; padding-left: 18px; }
+ul.plain li { margin-bottom: 6px; font-size: 15px; }
 .ex { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 8px; }
 .ex a.job { display: block; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
 .ex a.job:hover, .ex a.job:focus-visible { border-color: var(--s1); }
 .ex .jt { font-weight: 650; color: var(--s1); }
 .ex .jc { font-size: 14px; color: var(--ink-2); }
-.ex .jm { font-size: 13px; margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.ex .jn { font-size: 14px; margin-top: 6px; color: var(--ink-2); }
-@media (max-width: 560px) {
-  .row { grid-template-columns: minmax(0, 1fr) 60px 36px; }
-  .reqs .row { grid-template-columns: 22px minmax(0, 1fr) 60px 36px; }
-  .pv { font-size: 22px; }
-}
+.ex .jq { font-size: 13px; margin-top: 6px; color: var(--ink-2); font-style: italic; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--grid); }
+.steps li:last-child { border-bottom: 0; }
+.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--s1); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.steps .due { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.card.against { border-left: 4px solid var(--critical); }
+.card.for { border-left: 4px solid var(--good); }
 footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid); }
 @media (max-width: 560px) {
+  .row { grid-template-columns: 22px minmax(0, 1fr) 60px 36px; }
+  .stat .v { font-size: 28px; }
   .steps li { grid-template-columns: 36px 1fr; }
   .steps .due { grid-column: 2; }
-  .stat .v { font-size: 28px; }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<header class="top hdr">
+<header class="top">
   <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
-  <p class="eyebrow">Career pocket search · data as of 25 Sep 2026 · pocket profiles added · provisional</p>
-  <h1>Where the remote job market is, and where you fit</h1>
-  <p class="lede">What 56,424 job ads and tenders say about the job you should aim for. The target is a well-paid remote job you can do from Ecuador now, and that can later take the family to Europe.</p>
+  <p class="eyebrow">Career pocket search · data as of 28 Sep 2026 · for your pick</p>
+  <h1>Which job to aim for: the evidence for your pick</h1>
+  <p class="lede">Four types of job lead the remote job market open to someone living in Ecuador. This page puts them side by side, shows how sure each number is, and what each choice would ask of you.</p>
 </header>
 
 <nav class="toc" aria-label="Sections">
-  <a href="#answer">Short answer</a>
-  <a href="#map">Market vs fit</a>
-  <a href="#pockets">Top 10 pockets</a>
-  <a href="#bet">AI + sustainability</a>
-  <a href="#pay">Pay &amp; visas</a>
-  <a href="#inside">Inside the 3 pockets</a>
-  <a href="#trust">How sure</a>
-  <a href="#next">What you decide</a>
+  <a href="#answer">The answer</a>
+  <a href="#compare">Side by side</a>
+  <a href="#sure">How sure</a>
+  <a href="#entails">What each choice means</a>
+  <a href="#pay">Pay</a>
+  <a href="#unknown">What data can't tell you</a>
+  <a href="#narrow">Narrowing later</a>
+  <a href="#record">Your record</a>
 </nav>
 
-<!-- ============ SHORT ANSWER ============ -->
 <section id="answer">
-  <h2>The short answer</h2>
-  <p class="sub">Five things the data says, strongest first.</p>
-  <div class="answer">
-    <ol>
-      <li><b>Project management at software and AI companies is your best balance of market and fit.</b> You meet about 75-80% of the usual requirements. In software, 45% of these jobs are open to someone in Ecuador and 91% are worked in English or Spanish. The catch: it is small (41 ads and 38 employers open to Ecuador in 60 days), and about a third of the ads want software-team methods and tools (Agile, Jira) you don't have on record yet.</li>
-      <li><b>Sales and business development for software is the biggest market, but you don't fit it yet.</b> It has 94 employers with a job open to Ecuador, far more than any other pocket. You meet only 44% of the real requirements; the ads ask for CRM tools, sales quotas and SaaS sales experience. Pay splits in two: software companies publish a median of $10,300 a month, agencies $1,450.</li>
-      <li><b>AI data work is the fastest way in, not a career.</b> Half of these jobs are open to Ecuador, but 160 of 191 are freelance gigs with no guaranteed hours, and two companies posted 79% of them. Listed rates run from $6 to $100 an hour, set partly by where you live.</li>
-      <li><b>"AI + sustainability" fails the test as a remote job from Ecuador.</b> Sustainability and ESG jobs are 10 of the 4,483 remote jobs open to you. Climate and carbon services: 0 of 45. You fit sustainability best (90%), but those jobs are on-site in Europe. That makes it a route for the move, not for income now.</li>
-      <li><b>Treat this ranking as provisional.</b> 72% of the remote jobs open to Ecuador come from one tech-heavy job board, and consulting contracts and tenders are not ranked yet. Both checks run before you pick on 30 Sep.</li>
-    </ol>
-  </div>
-
-  <div class="grid g4" style="margin-top:16px">
-    <div class="card stat"><div class="v">56,424</div><div class="l">job ads and tenders collected</div><div class="n">24 sources; 15,462 fresh job ads screened</div></div>
-    <div class="card stat"><div class="v">4,483</div><div class="l">remote jobs open to someone in Ecuador</div><div class="n">Target was 1,500. 2,492 of them come from a site whose ads can't be opened to check</div></div>
-    <div class="card stat"><div class="v">62</div><div class="l">pockets ranked</div><div class="n">pocket = one role type in one industry, with 8+ employers</div></div>
-    <div class="card stat"><div class="v">30 Sep</div><div class="l">you pick your pocket</div><div class="n">from the top 3, after the checks below</div></div>
-  </div>
+  <h2>The answer</h2>
+  <div class="answer" id="answerBox"></div>
+  <div class="grid g4" style="margin-top:16px" id="tiles"></div>
 </section>
 
-<!-- ============ MARKET VS FIT ============ -->
-<section id="map">
-  <h2>Market size vs your fit, by type of role</h2>
-  <p class="sub">Each dot is a type of role. Further right means more remote jobs open to someone in Ecuador. Higher means you meet more of the requirements those ads list. The top right is where to look.</p>
-  <div class="card">
-    <div class="legend">
-      <span><i class="sw dot" style="background:var(--s1)"></i>Fit measured on jobs open to Ecuador</span>
-      <span><i class="sw hollow"></i>Fit measured on Europe jobs (too few open to Ecuador)</span>
-      <span><i class="sw" style="height:2px;width:16px;background:var(--ink-2);border-radius:0"></i>50% line: below it the role type was dropped</span>
-    </div>
-    <div class="chart" id="scatter" role="img" aria-label="Scatter chart of role types: remote jobs open to Ecuador against the share of requirements you meet. Full values are in the table below."></div>
-    <details>
-      <summary>Show as a table</summary>
-      <div class="table-wrap" style="margin-top:10px"><table id="scatterTable"><thead><tr><th>Role type</th><th class="num">Remote jobs open to Ecuador</th><th class="num">Your fit: Ecuador jobs</th><th class="num">Your fit: Europe jobs</th></tr></thead><tbody></tbody></table></div>
-    </details>
-    <p class="small" style="margin-top:12px">Job counts come from a quick title-only screen of all 4,483 remote jobs open to Ecuador, so they are rough. AI data work, for example, counts 53 here but about 190 after full labelling. Fit = share of the requirements common in each role type's ads that your real record meets, judged by an AI model on samples of up to 40 ads.</p>
-  </div>
-  <div class="grid g3" style="margin-top:12px">
-    <div class="card"><h3>What the map shows</h3><p class="sub" style="margin:0">In the four biggest remote markets (sales, marketing, customer support, operations) you meet 55% or less of the requirements on jobs open to Ecuador. The role types you fit best are small. <b>Project management is the largest role type where you meet 75% or more.</b></p></div>
-    <div class="card"><h3>Dropped for fit</h3><p class="sub" style="margin:0">Marketing, customer success, product/UX, creative production, data analysis, HR and finance were removed: you meet under half of what their ads ask. Data analysis, one fallback you named, is one of them (25% fit).</p></div>
-    <div class="card"><h3>Worth a second look</h3><p class="sub" style="margin:0">Partnerships and fundraising (87 jobs, 67-80% fit) misses the top 10 because most of its ads don't say which industry they serve. Training and capacity building (77 jobs, 50-70% fit) is spread thin across industries; its best pocket ranks 15th.</p></div>
-  </div>
+<section id="compare">
+  <h2>The four options side by side</h2>
+  <p class="sub">Every count below uses the same ads (published in the 60 days before 25 Sep 2026). Green marks the best of the four on that line.</p>
+  <div class="table-wrap"><table id="compareTable"></table></div>
+  <p class="small" style="margin-top:8px">"Open to you" means the ad, read in full on 28 Sep, allows someone living in Ecuador (worldwide, Latin America, or a list that includes Ecuador). Ads whose text is silent but whose job board lists Ecuador or Latin America are counted and marked as board-only.</p>
 </section>
 
-<!-- ============ TOP 10 ============ -->
-<section id="pockets">
-  <h2>The top 10 pockets, with a verdict on each</h2>
-  <p class="sub">Ranked on the market only: number of employers, pay, openness to Ecuador, working language and hiring from abroad. Then 10 ads from each pocket were read by hand to see if the pocket is real.</p>
-  <div class="legend">
-    <span class="tag t-good"><i>✓</i>Solid</span>
-    <span class="tag t-mixed"><i>!</i>Real market, weak fit or thin evidence</span>
-    <span class="tag t-weak"><i>–</i>Weak: most ads are something else</span>
-    <span class="tag t-error"><i>✕</i>Not real: a labelling error</span>
-  </div>
-  <div class="table-wrap">
-    <table id="pocketTable">
-      <thead><tr>
-        <th>#</th><th>Pocket (role × industry)</th><th>Verdict</th>
-        <th class="num">Employers open to Ecuador</th>
-        <th class="num">Ads open to Ecuador</th>
-        <th class="num">Pay: $2K+ / €4K+</th>
-        <th class="num">Your fit</th>
-        <th class="num">Hand check</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <p class="small" style="margin-top:8px">Employers open to Ecuador = distinct employers with at least one job someone living in Ecuador can take; the total in brackets includes Europe jobs (for the move). Pay = share of the ads that publish pay clearing USD 2,000/month and EUR 4,000/month; the number of ads with pay is in brackets. Your fit = on jobs open to Ecuador / on Europe jobs. Hand check = of 10 ads read, how many really are that role in that industry.</p>
-  <div class="card" style="margin-top:12px">
-    <h3>Reading the table</h3>
-    <p class="sub" style="margin:0">Four of the top 10 fall apart when the ads are read: research, sustainability, supply chain and operations in software are mostly other jobs that the AI mislabelled. That leaves three kinds of role standing: <b>project management</b> (#2 and #8), <b>sales</b> (#1 and #9) and <b>AI data work</b> (#3). The same three lead in all three ways of counting (all jobs, Ecuador-only, strict Europe).</p>
-  </div>
+<section id="sure">
+  <h2>How sure each number is</h2>
+  <p class="sub">Each row is a way the numbers could be wrong, what was done to test it, and what the test found.</p>
+  <div class="table-wrap"><table id="sureTable"></table></div>
 </section>
 
-<!-- ============ THE BET ============ -->
-<section id="bet">
-  <h2>Testing your bet: AI + sustainability</h2>
-  <p class="sub">You asked for your own idea to be attacked with the data. This chart counts jobs open to someone in Ecuador by the industry the work serves, across the 62 ranked pockets.</p>
-  <div class="card">
-    <div class="legend">
-      <span><i class="sw" style="background:var(--s2)"></i>Climate, nature and development industries</span>
-      <span><i class="sw" style="background:var(--s1)"></i>Other industries</span>
-    </div>
-    <div class="chart" id="sectors" role="img" aria-label="Bar chart of jobs open to Ecuador by industry. Software and AI 407, consulting 221; climate, nature and development industries 44 combined."></div>
-    <p class="small" style="margin-top:8px">Label = jobs open to Ecuador, of all jobs in that industry (the rest are on-site or limited to certain countries).</p>
-  </div>
-  <div class="grid g3" style="margin-top:12px">
-    <div class="card"><h3><span class="minus">Sustainability:</span> no</h3><p class="sub" style="margin:0">Climate, nature and development industries hold 1,803 jobs, and only 44 (2.4%) are open to Ecuador. Software and consulting: 628 of 2,158 (29%). The one "sustainability in software" pocket turned out to be compliance and trust & safety jobs (0 of 10 real).</p></div>
-    <div class="card"><h3><span class="plus">AI:</span> yes, but not as a topic</h3><p class="sub" style="margin:0">Software and AI companies are the biggest remote employer for you. They hire project managers, sellers and AI data workers. The work that sells is "deploying AI agents for enterprise customers", not "AI for good".</p></div>
-    <div class="card"><h3>Where sustainability does live</h3><p class="sub" style="margin:0">In Europe, on-site. Sustainability in energy has 49 employers, but only 3% of the jobs are open to Ecuador. You fit Europe sustainability jobs at 90%, your highest score anywhere. That is a case for the move track, not the income-now track.</p></div>
-  </div>
+<section id="entails">
+  <h2>What each choice would ask of you</h2>
+  <p class="sub">What the ads ask for, measured against your written record, and what it would take to close the gaps.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="panel"></div>
 </section>
 
-<!-- ============ PAY & VISAS ============ -->
 <section id="pay">
-  <h2>Pay and visas: the two bars</h2>
-  <p class="sub">Bar 1: USD 2,000/month keeps the family going. Bar 2: about EUR 4,000/month is what a digital-nomad visa for a family of three needs.</p>
+  <h2>Pay: who pays what</h2>
+  <p class="sub" id="payLede"></p>
+  <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Project manager</span><span><i class="sw" style="background:var(--s2)"></i>Sales</span><span>Dashed lines: USD 2,000 a month (your floor) and EUR 4,000 (about USD 4,547, the income bar for a family digital-nomad visa)</span></div>
+  <div class="card"><div class="chart" id="payChart"></div></div>
+  <p class="small" style="margin-top:8px">Each dot is one ad that states pay, placed at the lowest monthly figure it gives. Ads above USD 12,000 sit at the right edge. "Latin-American board" = Get on Board (getonbrd.com), where employers mostly pay Latin-American rates. "All boards" = every ad in the study open to someone in Ecuador, any industry, which is mostly US-rate employers.</p>
+</section>
+
+<section id="unknown">
+  <h2>What no data can tell you, and how to find out fast</h2>
   <div class="grid g2">
-    <div class="card">
-      <h3>What remote jobs hiring from Latin America pay</h3>
-      <p class="small">Median monthly pay by job area, from 211 remote ads on Get on Board (a Latin American job board that publishes pay), Oct 2025 to Sep 2026.</p>
-      <div class="chart" id="payChart" role="img" aria-label="Bar chart of median monthly pay: customer support 1,100; sales 1,500; design 1,700; digital marketing 2,200; operations 2,500; innovation and agile 3,250; data 3,750 US dollars."></div>
+    <div class="card against">
+      <h3>Not measurable from job ads</h3>
+      <ul class="plain" id="unknownList"></ul>
     </div>
-    <div class="card">
-      <h3>What that means</h3>
-      <p class="sub">Only <b>4%</b> of the job ads publish pay (617 of 15,051). Most that do are US-based companies, so the high pay shares in the pocket table are optimistic.</p>
-      <p class="sub">Remote jobs hiring from Latin America pay less. For non-engineering ads the median starting pay is <b>USD 1,600/month</b>. 41% clear USD 2,000; <b>2 of 93</b> clear EUR 4,000.</p>
-      <p class="sub" style="margin:0">Seniority matters a lot: senior ads have a median of USD 3,500 (90% clear USD 2,000). So target senior titles, and employers that pay US or EU rates, not Latin American rates.</p>
+    <div class="card for">
+      <h3>How to find out within two weeks</h3>
+      <ul class="plain" id="findOutList"></ul>
     </div>
-  </div>
-  <div class="table-wrap" style="margin-top:12px">
-    <table>
-      <thead><tr><th>Visa route (family of three)</th><th class="num">Income needed / month</th><th>Remote job from abroad OK?</th><th>Watch out</th></tr></thead>
-      <tbody>
-        <tr><td class="pname">Spain teleworker visa</td><td class="num">€3,663<br><span class="small">maybe €4,274</span></td><td>Yes; freelance too (max 20% Spanish clients)</td><td>Apply at the consulate in Quito. Ecuadorians can apply for Spanish citizenship after 2 years of legal residence (not yet confirmed that teleworker years count).</td></tr>
-        <tr><td class="pname">Portugal D8 visa</td><td class="num">€3,680-4,416</td><td>Yes; freelance too</td><td>Apply at the embassy in Bogotá. Permanent residence after 5 years plus basic Portuguese.</td></tr>
-        <tr><td class="pname">Malta nomad permit</td><td class="num">€3,500</td><td>Yes</td><td>Never leads to permanent residence (max 4 years). Your wife is likely ineligible because of the Venezuela exclusion.</td></tr>
-        <tr><td class="pname">Germany freelance permit</td><td class="num">no fixed figure</td><td>Self-employed only</td><td>The Blue Card (~€50,700/year) needs a German employer, and most German jobs need German.</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="small" style="margin-top:8px">From official government pages, accessed 25 Sep 2026. EUR 4,000 is the floor; about EUR 4,500 is the safe target. The ranking uses EUR 4,000.</p>
-</section>
-
-<!-- ============ INSIDE THE THREE POCKETS ============ -->
-<section id="inside">
-  <h2>Inside the three pockets</h2>
-  <p class="sub">What each job is day to day, what it pays, what the ads ask for compared with your record, and live ads you can open. Market first, as you asked: whether any of these fits your heart is your call.</p>
-  <p class="small">Counts cover the remote ads open to someone living in Ecuador, 60 days to 25 Sep 2026. "A normal week" comes from reading 25 full ads per pocket by hand. Requirements come from the must-have lists the AI pulled out of every ad.</p>
-
-  <div class="tabs" role="tablist" aria-label="Pockets">
-    <button role="tab" id="tab-pm" aria-controls="panel-pm" aria-selected="true"><span class="k">A</span>Project manager</button>
-    <button role="tab" id="tab-sales" aria-controls="panel-sales" aria-selected="false"><span class="k">B</span>Sales</button>
-    <button role="tab" id="tab-ai" aria-controls="panel-ai" aria-selected="false"><span class="k">C</span>AI data work</button>
-  </div>
-
-  <!-- ===== A: PROJECT MANAGEMENT ===== -->
-  <div class="panel" id="panel-pm" role="tabpanel" aria-labelledby="tab-pm">
-    <div class="panel-head">
-      <span class="tag t-good"><i>✓</i>Best balance of market and fit</span>
-      <p class="lede">You keep a project on plan: timeline, risks, budget and the client, while engineers or designers do the building. At software companies you sit between the client and the tech team.</p>
-    </div>
-    <div class="grid g4">
-      <div class="card stat"><div class="v">41</div><div class="l">ads open to Ecuador</div><div class="n">26 at software companies, 15 at consultancies and agencies</div></div>
-      <div class="card stat"><div class="v">38</div><div class="l">employers hiring</div><div class="n">Plus 34 ads in Europe, for the later move</div></div>
-      <div class="card stat"><div class="v">5 yrs</div><div class="l">median experience asked</div><div class="n">You have about 8. Most ads are senior or lead level</div></div>
-      <div class="card stat"><div class="v">9 of 41</div><div class="l">ads publish pay</div><div class="n">So the pay picture is thin. Details below</div></div>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>A normal week</h3>
-        <p class="small">How many of the 25 software / 25 consulting ads read by hand mention each task.</p>
-        <ul class="week">
-          <li><span>Keep the plan, timeline and milestones up to date</span><b>19 / 23</b></li>
-          <li><span>Spot risks and blockers early and raise them</span><b>20 / 21</b></li>
-          <li><span>Report status to leadership or the client</span><b>15 / 18</b></li>
-          <li><span>Be the client's day-to-day contact</span><b>11 / 14</b></li>
-          <li><span>Run meetings: client check-ins, kick-offs; in software teams also short daily team meetings</span><b>10 / 10</b></li>
-          <li><span>Track the budget and hours spent</span><b>9 / 12</b></li>
-          <li><span>Say no to extra requests that weren't agreed</span><b>8 / 9</b></li>
-          <li><span>Turn what the client wants into tasks engineers can build</span><b>7 / 7</b></li>
-        </ul>
-        <blockquote>"Sit between the client and the engineering team. Translate business asks into technical scope and technical constraints back into plain language for the client." <cite>Bolder Apps, Technical Project Manager</cite></blockquote>
-      </div>
-      <div class="card">
-        <h3>What kind of projects</h3>
-        <ul class="plain">
-          <li><b>Setting up software for a customer until it goes live</b> (business software, CRM, HR systems)</li>
-          <li><b>Building apps or websites for clients</b> at a studio or agency</li>
-          <li><b>Data and AI programmes</b> for large companies</li>
-          <li><b>Keeping the company's own engineering team on track</b></li>
-          <li>Internal compliance or change programmes (rarer)</li>
-        </ul>
-        <h3 style="margin-top:14px">Who you work with</h3>
-        <p class="sub" style="margin:0">Engineers (27 of 50 ads), clients (25), senior executives (22), and sometimes sales, designers and suppliers.</p>
-        <h3 style="margin-top:14px">Methods and tools named</h3>
-        <p class="sub" style="margin:0">Agile (a way of delivering software in short cycles) in 20 of 50 ads, Jira (task-tracking software) in 13, Scrum in 8. The PMP certificate is named in 5 but required in only 2.</p>
-      </div>
-    </div>
-
-    <div class="grid g3" style="margin-top:12px">
-      <div class="card"><h3>Job titles</h3><div class="dist" data-pocket="R09xI13" data-field="titles"></div><p class="small">Software ads open to Ecuador (26).</p></div>
-      <div class="card"><h3>Level asked</h3><div class="dist" data-pocket="R09xI13" data-field="seniority"></div><p class="small">"Lead" = leads a team or asks for over 10 years.</p></div>
-      <div class="card"><h3>Job or contract</h3><div class="dist" data-pocket="R09xI13" data-field="engagement"></div><p class="small">Mostly regular jobs. 4 of 50 ads read were fixed-term contracts (6 months or to year end).</p></div>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <h3>Pay</h3>
-      <div class="grid g3 paygrid">
-        <div><div class="pv">~$11K<span>/month</span></div><p class="small">Median for US-rate employers hiring across the Americas (8 ads publish yearly pay; all clear $2,000 and 7 clear €4,000). Example: UL Research Institutes, $108-149K a year.</p></div>
-        <div><div class="pv">$3.8-4.2K<span>/month</span></div><p class="small">A Latin American-rate employer: Launchpad Technologies on Get on Board, senior implementation project manager.</p></div>
-        <div><div class="pv">$3,250<span>/month</span></div><p class="small">Median for "innovation and agile" ads on Get on Board, the closest category to project management. Senior ads across Get on Board have a median of $3,500.</p></div>
-      </div>
-      <p class="sub" style="margin:8px 0 0">Some employers adjust pay to where you live: "$140,000 to $178,000 per year for US-based applicants. Adjusted contingent on location for applicants based in Canada, LATAM, and Europe." So aim for employers that publish US-rate ranges and list Ecuador.</p>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <h3>What the ads ask for, compared with your record</h3>
-      <p class="small">Share of the 26 software ads open to Ecuador that list it as a must-have. Hover or tap a row to see why it is marked that way.</p>
-      <div class="reqs" data-pocket="R09xI13"></div>
-      <p class="small" style="margin-top:8px">Consulting and agency ads ask much the same, plus more certificates (PMP and similar in 5 of 15) and risk and budget tracking (7 and 4 of 15).</p>
-      <div class="gap">
-        <p><span class="plus">What you have:</span> 8 years running projects: a full grant cycle at Fundación IKIAM, setting up the cooperation office with a team of 4, platforms of 22-23 organisations with Conservation International, the Galapagos standards consultancy. The ads' most common asks (project experience, communication, working on your own) are met.</p>
-        <p style="margin:0"><span class="minus">What's missing:</span> a software project on your record, and the software team's methods and tools (Agile, Scrum, Jira), each asked in about a third of the ads. Your PMI "AI in Project Management" certificate is a short course, not a PMP. What it costs in time and money to close these gaps is not checked yet.</p>
-      </div>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>Who hires (open to Ecuador)</h3>
-        <p class="sub" style="margin:0"><b>Software:</b> phData (data and AI consultancy), Launchpad Technologies, UL Research Institutes, Trafilea, Able, Miratech, Addepto, Mercuryo, pawaPay, Ravelin.<br><b>Consulting and agencies:</b> Power Digital, Fueled, Atmosera, Project Management Institute, Softengine, Hairball.IO, Productiv Team, UTTR.</p>
-      </div>
-      <div class="card against">
-        <h3>The case against</h3>
-        <ul class="plain">
-          <li><b>Small.</b> 41 ads open to Ecuador in 60 days, spread over 38 employers. You would apply to nearly every one.</li>
-          <li><b>They want software delivery.</b> About a third of the ads ask for software projects, Agile or Jira, and you have none on record.</li>
-          <li><b>Senior bar.</b> 18 of the 26 software ads are lead level; one Spanish-language ad asks for 7+ years plus a PMP or Scrum certificate.</li>
-        </ul>
-      </div>
-    </div>
-
-    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
-    <div class="ex" data-set="pm"></div>
-  </div>
-
-  <!-- ===== B: SALES ===== -->
-  <div class="panel" id="panel-sales" role="tabpanel" aria-labelledby="tab-sales" hidden>
-    <div class="panel-head">
-      <span class="tag t-mixed"><i>!</i>Biggest market, weak fit</span>
-      <p class="lede">You find companies that might buy, talk to them, and close deals. At entry level you only book meetings for senior sellers. Sales at a software company and sales at an agency are two different jobs, so they are shown side by side.</p>
-    </div>
-    <div class="grid g4">
-      <div class="card stat"><div class="v">222</div><div class="l">ads open to Ecuador</div><div class="n">125 at software companies, 97 at agencies and outsourcing firms</div></div>
-      <div class="card stat"><div class="v">150</div><div class="l">employers hiring</div><div class="n">94 software, 56 agencies. Far more than any other pocket</div></div>
-      <div class="card stat"><div class="v">3 / 2 yrs</div><div class="l">median experience asked</div><div class="n">Software / agencies. Lower bar than project management</div></div>
-      <div class="card stat"><div class="v">$10.3K vs $1.45K</div><div class="l">median published pay a month</div><div class="n">Software (20 ads) vs agencies (18 ads)</div></div>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>A normal week</h3>
-        <p class="small">How many of the 25 software / 25 agency ads read by hand mention each task.</p>
-        <ul class="week">
-          <li><span>Research possible buyers and build lists</span><b>8 / 13</b></li>
-          <li><span>Contact strangers by phone, email or LinkedIn ("cold outreach")</span><b>5 / 11</b></li>
-          <li><span>Ask questions to check need, budget, who decides and timing</span><b>7 / 15</b></li>
-          <li><span>Book meetings for a senior seller</span><b>2 / 10</b></li>
-          <li><span>Run the whole deal: demo, proposal, negotiation, close</span><b>7 / 7</b></li>
-          <li><span>Log every call in the CRM (the customer database) and forecast</span><b>6 / 14</b></li>
-          <li><span>Manage partner companies and sell together with them</span><b>8 / 0</b></li>
-          <li><span>Sell more to existing customers</span><b>5 / 4</b></li>
-        </ul>
-        <p class="sub" style="margin:10px 0 0">In short: agency sales is mostly phone prospecting and booking meetings, often for a US client. Software sales is closing deals and working with partners.</p>
-      </div>
-      <div class="card">
-        <h3>The ladder</h3>
-        <ul class="plain">
-          <li><b>SDR / BDR</b>: finds and qualifies leads, books meetings. The usual entry door.</li>
-          <li><b>Account executive</b>: runs deals to the close and carries a sales target.</li>
-          <li><b>Account manager</b>: grows existing customers.</li>
-          <li><b>Partnerships / business development manager</b>: deals with other companies that resell or integrate.</li>
-          <li><b>Head of sales</b>: leads the team.</li>
-        </ul>
-        <h3 style="margin-top:14px">How you're measured</h3>
-        <ul class="plain">
-          <li>Meetings booked: "Set 20 appointments per week" (NightOwl Consulting)</li>
-          <li>Activity: "80–150+ activities/day via cold calls, cold email, LinkedIn, and SMS" (Bluelight Consulting)</li>
-          <li>Deals closed: "Close a minimum of 3 API deals per month" (doola); "sales quotas of $1-2M+ per year" in an enterprise ad</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="grid g2w" style="margin-top:12px">
-      <div class="card"><h3>Job titles: software</h3><div class="dist" data-pocket="R13xI13" data-field="titles"></div></div>
-      <div class="card"><h3>Job titles: agencies</h3><div class="dist" data-pocket="R13xI14" data-field="titles"></div></div>
-      <div class="card"><h3>Level asked: software</h3><div class="dist" data-pocket="R13xI13" data-field="seniority"></div></div>
-      <div class="card"><h3>Level asked: agencies</h3><div class="dist" data-pocket="R13xI14" data-field="seniority"></div></div>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <h3>Pay: two different worlds</h3>
-      <div class="grid g3 paygrid">
-        <div><div class="pv">$10.3K<span>/month</span></div><p class="small">Median for software companies that publish yearly pay (20 ads; middle half $5.6-15.8K). Pressable pays an account executive $90-125K a year; entry roles such as Aleph's lead qualifier (answers new enquiries and passes them to sellers) pay $60-71K.</p></div>
-        <div><div class="pv">$1,450<span>/month</span></div><p class="small">Median for agencies and outsourcing firms that publish monthly pay (18 ads; middle half $1,000-3,000). Only 2 of the 18 clear $2,000.</p></div>
-        <div><div class="pv">$1,500<span>/month</span></div><p class="small">Median for sales ads on Get on Board, the Latin American board. The agency figures match it.</p></div>
-      </div>
-      <p class="sub" style="margin:8px 0 0">Commission-only pay shows up in 4 of the 50 ads read, one with "no base salary". Six of the 25 agency ads ask for US hours, and one asks you to supply your own computer, headset and backup internet.</p>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>Must-haves vs your record: software</h3>
-        <p class="small">Share of the 110 software ads with a must-have list.</p>
-        <div class="reqs" data-pocket="R13xI13"></div>
-      </div>
-      <div class="card">
-        <h3>Must-haves vs your record: agencies</h3>
-        <p class="small">Share of the 76 agency ads with a must-have list.</p>
-        <div class="reqs" data-pocket="R13xI14"></div>
-      </div>
-    </div>
-    <div class="card gap" style="margin-top:12px">
-      <p><span class="plus">What you have:</span> you founded Kitu, raised money from partners, and sold export containers B2B to an importer in Spain. That is real selling, and it covers communication, working on your own and start-up pace.</p>
-      <p style="margin:0"><span class="minus">What's missing:</span> the three things sales ads check first: a CRM, a record of prospecting strangers, and a sales target you hit. Each is a must-have in a fifth to a quarter of the software ads, and the readers found a CRM named in 20 of 25 agency ads. Software sales experience is asked in a third.</p>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>Who hires (open to Ecuador)</h3>
-        <p class="sub" style="margin:0"><b>Software:</b> Canonical (Ubuntu), Pressable / Automattic, Customer.io, RevenueCat, Supabase, Miro, doola, Aleph, Bybit, SingularitySales.<br><b>Agencies and outsourcing:</b> Pavago, Magic, Bluelight Consulting, Ignitvio, Valatam, GoFasti, Penji, TechBiz Global. Many place you with a US client.</p>
-      </div>
-      <div class="card against">
-        <h3>The case against</h3>
-        <ul class="plain">
-          <li><b>The good pay needs a sales record.</b> US-rate software employers want a quota history, a CRM and software sales. You have none of the three.</li>
-          <li><b>The open door pays little.</b> Without that record, the realistic entry is meeting-booking at agencies: $700-2,500 a month.</li>
-          <li><b>Some of the count is noise.</b> 12 of the 50 ads read were really other jobs (recruiting, customer success, technical presales), 4 of them one company's template ad with no sales tasks.</li>
-        </ul>
-      </div>
-    </div>
-
-    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
-    <div class="ex" data-set="sales"></div>
-  </div>
-
-  <!-- ===== C: AI DATA WORK ===== -->
-  <div class="panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden>
-    <div class="panel-head">
-      <span class="tag t-mixed"><i>!</i>Fast, but thin</span>
-      <p class="lede">You help train AI models: write and grade expert answers, check what an AI produced, label video or audio, or record yourself doing tasks. Almost all of it is freelance gig work paid by the hour or by the task.</p>
-    </div>
-    <div class="grid g4">
-      <div class="card stat"><div class="v">191</div><div class="l">ads open to Ecuador</div><div class="n">Plus 50 in Europe</div></div>
-      <div class="card stat"><div class="v">79%</div><div class="l">from two companies</div><div class="n">micro1 posted 123 of the 191, Invisible Technologies 28</div></div>
-      <div class="card stat"><div class="v">160 of 191</div><div class="l">are freelance</div><div class="n">No ad read promises steady hours</div></div>
-      <div class="card stat"><div class="v">$65<span class="unit">/hour</span></div><div class="l">median listed rate</div><div class="n">38 ads. The low end is $6 an hour</div></div>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>A normal week</h3>
-        <p class="small">How many of the 25 ads read by hand mention each task.</p>
-        <ul class="week">
-          <li><span>Review and score answers an AI wrote (text, code, designs)</span><b>8</b></li>
-          <li><span>Write down why you judged each item as you did</span><b>8</b></li>
-          <li><span>Write test tasks, prompts and grading rules for the AI</span><b>6</b></li>
-          <li><span>Solve hard expert problems (physics, finance, clinical cases)</span><b>6</b></li>
-          <li><span>Tag and time-stamp video or audio</span><b>4</b></li>
-          <li><span>Check existing labels for errors and flag unclear cases</span><b>4</b></li>
-          <li><span>Do tasks in a software product while recording your screen</span><b>2</b></li>
-        </ul>
-        <blockquote>"On a typical day, you will analyze AI-generated graphics, evaluate composition and visual reasoning, annotate design errors, assess typography and color usage." <cite>Invisible Technologies</cite></blockquote>
-      </div>
-      <div class="card">
-        <h3>The kinds of gig</h3>
-        <div class="dist" data-pocket="R19xI13" data-field="titles"></div>
-        <p class="small">"Other professions" are mostly micro1 gigs for video editors, voice actors, accountants, teachers and gamers. "X Specialist" gigs document how you use one software product (HubSpot, GitHub, Google Classroom).</p>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:12px">
-      <h3>Pay and hours</h3>
-      <div class="grid g3 paygrid">
-        <div><div class="pv">$50-85<span>/hour</span></div><p class="small">Middle half of the 38 listed hourly rates, mostly from the job board's pay field. 20 of the 25 ads read state no rate in the text.</p></div>
-        <div><div class="pv">$6<span>/hour</span></div><p class="small">The low end: a Spanish-language gig recording your daily chores (Mindrift), "USD $6 por hora de contenido aprobado". A floor-plan labelling project pays $0.33-0.49 per plan at 1-1.5 hours each.</p></div>
-        <div><div class="pv">5-20<span> hrs/week</span></div><p class="small">The hours the ads mention, often as a minimum. Some pay per approved task instead of per hour.</p></div>
-      </div>
-      <p class="sub" style="margin:8px 0 0">Rates depend on where you live: Invisible says "$20 to $100 per hour, with the exact rate determined after evaluating your experience, expertise, and geographic location". Rough sum: 15 hours a week at $50 an hour is about $3,250 a month, but only if the work keeps coming.</p>
-    </div>
-
-    <div class="grid g2" style="margin-top:12px">
-      <div class="card">
-        <h3>Must-haves vs your record</h3>
-        <p class="small">Share of the 143 ads with a must-have list.</p>
-        <div class="reqs" data-pocket="R19xI13"></div>
-      </div>
-      <div class="card">
-        <h3>Who can do it</h3>
-        <ul class="plain">
-          <li><b>No special degree:</b> 8 of the 25 ads read (labelling, data collection, data checks).</li>
-          <li><b>Years in a profession:</b> about 10 (clinician, analyst, engineer, published writer).</li>
-          <li><b>PhD preferred:</b> 3.</li>
-          <li><b>Hiring:</b> an online test or take-home task in some ads; some fill roles "within 48 hours".</li>
-        </ul>
-        <div class="gap" style="margin-top:12px">
-          <p><span class="plus">Where you fit:</span> Invisible's "Small Business Ownership" AI-trainer gig wants current owners or managers, which you are as Kitu's founder. Spanish-language gigs (Welo Data's Spanish pool, Mercor's voice work) are open to Ecuador.</p>
-          <p style="margin:0"><span class="minus">Where you don't:</span> the best-paid expert gigs want a PhD, a clinical licence or years as a professional coder.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card against" style="margin-top:12px">
-      <h3>The case against</h3>
-      <ul class="plain">
-        <li><b>Two companies are the market.</b> If micro1 or Invisible stops hiring, 79% of the ads disappear. Without the Himalayas board it falls from #3 to #20.</li>
-        <li><b>No floor.</b> Freelance, no guaranteed hours, pay set by your location, and per-task pay in some gigs.</li>
-        <li><b>No ladder.</b> The work doesn't build toward a senior job or a European employer. It fits best as extra income beside A or B.</li>
-      </ul>
-    </div>
-
-    <h3 style="margin-top:20px">Live ads to open (checked 25 Sep 2026)</h3>
-    <div class="ex" data-set="ai"></div>
-  </div>
-
-  <div class="card" style="margin-top:20px">
-    <h3>And sustainability?</h3>
-    <p class="sub" style="margin:0">Keep it as the <b>Europe track</b>. It is your strongest fit (90% on Europe sustainability jobs) and matches the Blue Card route, but it needs a European employer, and German for most German jobs. Consulting contracts and tenders (World Bank, EU), where development and climate work is paid remotely, are not ranked yet. That check could change this picture.</p>
   </div>
 </section>
 
-
-<!-- ============ TRUST ============ -->
-<section id="trust">
-  <h2>How sure is this?</h2>
-  <p class="sub">Two outside AI reviewers (DeepSeek and GPT) checked the ranking. Both said "pass with fixes": fine for striking pockets, not yet for a final top 3.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Weak spot</th><th>What it could change</th><th>Fix, before 30 Sep</th></tr></thead>
-      <tbody>
-        <tr><td class="pname">72% of the jobs open to Ecuador come from one board (Himalayas, tech-heavy)</td><td>The software lead could be partly the board's mix. AI data work falls from #3 to #20 without it.</td><td>Check the leading pockets on a second job source.</td></tr>
-        <tr><td class="pname">Consulting contracts and tenders are not ranked</td><td>Development and climate work is often paid as contracts, not jobs, so this could lift those areas.</td><td>Rank contracts in their own list (needs your OK).</td></tr>
-        <tr><td class="pname">AI labels are about 85% right; industry only 68%</td><td>Only 45 of 100 ads checked in the top 10 had both role and industry right. Small pockets can be fake.</td><td>Hand-check the ads behind every finalist.</td></tr>
-        <tr><td class="pname">Pay is published on 4% of ads</td><td>The pay shares in the table are optimistic.</td><td>Your ~10 early applications will show real offers.</td></tr>
-        <tr><td class="pname">Ranking weights are a choice</td><td>The top 3 held in 9 of 11 weight tests. Sales drops out when market size counts less.</td><td>Pick finalists that stay near the top across all tests.</td></tr>
-        <tr><td class="pname">"Open to Ecuador" is sometimes wrong</td><td>Some "worldwide" ads say "based in Indonesia" or "EU time zone" in the small print.</td><td>Read each job's full text before applying.</td></tr>
-      </tbody>
-    </table>
-  </div>
+<section id="narrow">
+  <h2>Narrowing later: is there data for a niche inside the job?</h2>
+  <p class="sub">How often themes you might specialise in appear in project-management and sales ads you could reach. "Open to you" counts only employers with an ad open to someone in Ecuador.</p>
+  <div class="table-wrap"><table id="themeTable"></table></div>
+  <p class="sub" style="margin-top:12px" id="narrowNote"></p>
 </section>
 
-<!-- ============ NEXT ============ -->
-<section id="next">
-  <h2>What you decide, and when</h2>
-  <p class="sub">All three happen in your tracker Sheet (the "Outreach &amp; Pockets" tab) or in chat with Claude.</p>
-  <div class="card">
-    <ol class="steps">
-      <li><div><b>Strike every pocket you would never do.</b><br><span class="sub">Put an X in the "Strike?" column of the Pockets table. About 15 minutes. It narrows the deep dive.</span></div><span class="due">by 26 Sep</span></li>
-      <li><div><b>Apply to about 10 real jobs from the top pockets.</b><br><span class="sub">The live ads under "Inside the 3 pockets" are a starting list. Claude prepares the final list and draft applications. Replies from real employers are the strongest test of this ranking, and they can bring income.</span></div><span class="due">by 29 Sep</span></li>
-      <li><div><b>Pick your pocket from the top 3.</b><br><span class="sub">After the second-source check and the contracts list are in. The dossier (50+ employers, top 7) follows by 2 Oct.</span></div><span class="due">30 Sep</span></li>
-    </ol>
-  </div>
+<section id="record">
+  <h2>Your record: correct anything that is wrong</h2>
+  <p class="sub">Your fit was judged against a written record of your work. These items are recorded as missing. If you do have any of them, say so: the fit numbers above will rise for the jobs that ask for it.</p>
+  <div class="card"><ul class="plain" id="recordList"></ul></div>
 </section>
 
 <footer>
-  <p class="small">How this was made: job ads from 24 sources (remote boards, EU and German job portals, company job pages, World Bank and EU tenders), labelled by AI and checked by hand samples. Ranking weights: market size 35%, pay 25%, open to Ecuador 20%, working language 10%, hiring from abroad 10%. Fit judged against your real record only. Snapshot of 25 Sep 2026; the live status is in your tracker Sheet.</p>
+  <p class="small" id="footerNote"></p>
 </footer>
 
 </div>
 <div id="tip" role="tooltip"></div>
-
+<script src="data.js"></script>
+<script src="notes.js"></script>
 <script>
-/* ---------- data (25 Sep 2026 snapshot) ---------- */
-const FAMILIES = [
-  // [name, remote jobs open to Ecuador (title screen), fit on Ecuador-open ads, fit on Europe ads, label?]
-  ["Sales & business development", 880, .55, .30, 1],
-  ["Marketing & communications", 756, .45, .10, 1],
-  ["Customer success & support", 409, .40, .45, 1],
-  ["Operations & admin", 360, .50, .75, 1],
-  ["Product, UX & business analysis", 350, .25, .40, 0],
-  ["Creative & media production", 283, .25, .20, 1],
-  ["HR & recruiting", 273, .20, .45, 0],
-  ["Project & programme management", 189, .75, .80, 1],
-  ["Finance & risk", 173, .35, .30, 0],
-  ["Data analysis & BI", 135, .25, .30, 1],
-  ["Research & analysis", 116, .80, .60, 1],
-  ["Partnerships & fundraising", 87, .67, .80, 1],
-  ["Training & capacity building", 77, .70, .50, 0],
-  ["Translation", 54, .30, .40, 0],
-  ["AI data work (non-engineering)", 53, .45, .70, 1],
-  ["Management consulting", 51, .70, .80, 0],
-  ["General management", 40, .80, .65, 0],
-  ["Supply chain & procurement", 25, .80, .85, 1],
-  ["Policy & governance", 13, null, .80, 0],
-  ["Sustainability & ESG", 10, .75, .90, 1],
-  ["Agriculture & forestry", 8, null, .56, 0],
-  ["Monitoring & evaluation", 6, null, .60, 0],
-  ["Environmental & social safeguards", 5, null, .35, 0],
-  ["Enterprise & market development", 3, null, .65, 0],
-  ["Social development & gender", 2, null, .33, 0],
-];
+const D = DATA, N = NOTES;
+const KEYS = ["R09xI14", "R13xI13", "R13xI11", "R19xI13"];
+const pct = (a, b) => b ? Math.round(100 * a / b) + "%" : "–";
+const fmt = n => n == null ? "–" : Math.round(n).toLocaleString("en-US");
+const usd = n => n == null ? "–" : "$" + fmt(n);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const topOf = k => D.top10.find(p => p.key === k) || {};
+const V = k => D.verify[k] || { counts: {}, checked: 0, labelled_open: 0 };
+const F = k => D.fit[k] || { screen: {}, ads: 0 };
 
-const POCKETS = [
-  // rank, name, industry, verdict, emp_ec, emp_all, ads, ec_share, pay2, pay4, pay_n, fitEc, fitEu, hand, note
-  [1,"Sales & business development","Software, internet & AI","mixed",94,231,659,.18,.97,.92,125,.55,.30,"8/10","Biggest market. Fit borderline: 44% on real requirements."],
-  [2,"Project & programme management","Software, internet & AI","good",23,45,56,.45,1,.82,11,.75,.80,"7/10","Best balance of market and fit."],
-  [3,"AI data work (non-engineering)","Software, internet & AI","mixed",25,49,383,.49,.93,.76,113,.45,.70,"9/10","Mostly hourly gigs. Falls to #20 without one job board."],
-  [4,"Research & analysis","Software, internet & AI","weak",10,23,27,.39,1,1,10,.80,.60,"3/10","Most ads are engineering, testing or AI data work."],
-  [5,"Sustainability & ESG","Software, internet & AI","error",8,16,20,.35,1,.75,2,.75,.90,"0/10","Really compliance, ads policy and trust & safety jobs."],
-  [6,"Supply chain & procurement","Software, internet & AI","weak",8,17,25,.40,.75,.75,4,.80,.85,"2/10","Most ads are sales, AI data work, HR or fraud."],
-  [7,"Operations & admin","Software, internet & AI","error",18,38,82,.26,.93,.55,22,.50,.75,"0/10","Really HR, recruiting and software jobs."],
-  [8,"Project & programme management","Consulting & professional services","good",15,20,43,.34,1,.88,4,.75,.80,"10/10","All real project management; half at consultancies."],
-  [9,"Sales & business development","Consulting & professional services","mixed",56,88,279,.34,.57,.27,47,.55,.30,"10/10","Real sales, lower pay. Same fit gap as #1."],
-  [10,"Research & analysis","Consulting & professional services","mixed",9,23,58,.24,1,1,5,.80,.60,"5/10","Half real; small."],
-];
-
-const SECTORS = [
-  // name, open to Ecuador, total, climate/nature/development group?
-  ["Software, internet & AI",407,1350,0],
-  ["Consulting & professional services",221,808,0],
-  ["Consumer goods & retail",48,199,0],
-  ["Health & pharma",39,203,0],
-  ["Education",38,237,0],
-  ["Banking & finance",32,149,0],
-  ["Energy & renewables",16,528,1],
-  ["Agriculture & food",15,329,1],
-  ["Logistics & trade",14,80,0],
-  ["Media & creative industries",14,47,0],
-  ["Manufacturing",13,146,0],
-  ["Construction & infrastructure",11,146,0],
-  ["International development",10,723,1],
-  ["Tourism & events",5,77,0],
-  ["Forestry & conservation",3,110,1],
-  ["Public administration",1,440,0],
-  ["Water & waste",0,60,1],
-  ["Climate & carbon services",0,45,1],
-  ["Impact investing",0,8,1],
-];
-
-const PAY = [
-  ["Customer support",1100],["Sales",1500],["Design",1700],["Digital marketing",2200],
-  ["Operations",2500],["Innovation & agile",3250],["Data",3750],
-];
-
-/* ---------- helpers ---------- */
-const NS = "http://www.w3.org/2000/svg";
-const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
-const pct = v => v == null ? "–" : Math.round(v * 100) + "%";
-const fmt = n => n.toLocaleString("en-US");
+/* ---------- tooltip ---------- */
 const tip = document.getElementById("tip");
 function bindTip(node, html) {
-  node.setAttribute("tabindex", "0");
-  node.classList.add("hit");
-  const show = (x, y) => { tip.innerHTML = html; tip.style.display = "block";
-    const r = tip.getBoundingClientRect(); let L = x + 14, T = y + 14;
-    if (L + r.width > innerWidth - 8) L = x - r.width - 14; if (T + r.height > innerHeight - 8) T = y - r.height - 14;
-    tip.style.left = Math.max(8, L) + "px"; tip.style.top = Math.max(8, T) + "px"; };
-  node.addEventListener("pointermove", e => show(e.clientX, e.clientY));
-  node.addEventListener("pointerleave", () => tip.style.display = "none");
-  node.addEventListener("focus", () => { const b = node.getBoundingClientRect(); show(b.right, b.top); });
-  node.addEventListener("blur", () => tip.style.display = "none");
-}
-// Path for a horizontal bar: square at baseline (left), 4px rounded at the data end (right).
-function hbar(x, y, w, h, r = 4) {
-  if (w <= 0) return "";
-  r = Math.min(r, w, h / 2);
-  return `M${x},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h - r}Q${x + w},${y + h} ${x + w - r},${y + h}H${x}Z`;
-}
-
-/* ---------- scatter: market vs fit ---------- */
-function drawScatter() {
-  const host = document.getElementById("scatter"); host.innerHTML = "";
-  const narrow = host.clientWidth < 600;
-  const W = narrow ? Math.max(host.clientWidth, 300) : 960, H = narrow ? 380 : 480, m = { l: 40, r: narrow ? 12 : 150, t: 16, b: 44 };
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
-  const lx = v => Math.log10(v), x0 = lx(1.5), x1 = lx(1000);
-  const X = v => m.l + (lx(Math.max(v, 1.5)) - x0) / (x1 - x0) * (W - m.l - m.r);
-  const Y = v => m.t + (1 - v) * (H - m.t - m.b);
-  [0, .25, .5, .75, 1].forEach(v => { el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: "gridl" }, svg);
-    el("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", class: "axis-t" }, svg).textContent = Math.round(v * 100) + "%"; });
-  (narrow ? [3, 30, 300] : [3, 10, 30, 100, 300, 1000]).forEach(v => { el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, class: "gridl" }, svg);
-    el("text", { x: X(v), y: H - m.b + 16, "text-anchor": "middle", class: "axis-t" }, svg).textContent = fmt(v); });
-  el("line", { x1: m.l, x2: W - m.r, y1: Y(.5), y2: Y(.5), class: "ref" }, svg);
-  el("text", { x: m.l, y: H - 6, class: "axis-t" }, svg).textContent = narrow ? "Jobs open to Ecuador (log scale) →" : "Remote jobs open to someone in Ecuador (log scale) →";
-  el("text", { x: W - m.r, y: m.t + 12, "text-anchor": "end", class: "axis-t" }, svg).textContent = "big market + you fit";
-  const pts = FAMILIES.map(f => ({ name: f[0], n: f[1], y: f[2] ?? f[3], hollow: f[2] == null, ec: f[2], eu: f[3], lab: f[4] }));
-  pts.forEach(p => {
-    const g = el("g", {}, svg);
-    const cx = X(p.n), cy = Y(p.y);
-    el("circle", { cx, cy, r: 14, fill: "transparent" }, g);
-    el("circle", { cx, cy, r: 6, class: "mk", fill: p.hollow ? "var(--surface)" : "var(--s1)", stroke: p.hollow ? "var(--s1)" : "var(--surface)", "stroke-width": 2 }, g);
-    bindTip(g, `<b>${p.name}</b>${fmt(p.n)} remote jobs open to Ecuador<br>Your fit: ${pct(p.ec)} on Ecuador jobs, ${pct(p.eu)} on Europe jobs<br>${p.y >= .5 ? "Kept" : "Dropped (under 50%)"}`);
-  });
-  // selective direct labels, placed by hand to clear dots and the 50% line: [dx, dy, anchor]
-  const PLACE = {
-    "Sales & business development": [10, 4, "start"],
-    "Marketing & communications": [10, 4, "start"],
-    "Customer success & support": [10, 4, "start"],
-    "Operations & admin": [10, -8, "start"],
-    "Creative & media production": [0, -12, "middle"],
-    "Project & programme management": [10, 4, "start"],
-    "Data analysis & BI": [-10, 4, "end"],
-    "Research & analysis": [10, 4, "start"],
-    "Partnerships & fundraising": [10, 4, "start"],
-    "AI data work (non-engineering)": [10, 4, "start"],
-    "Supply chain & procurement": [0, -12, "middle"],
-    "Sustainability & ESG": [0, 20, "middle"],
+  const show = e => { tip.innerHTML = html; tip.style.display = "block"; move(e); };
+  const move = e => {
+    const r = node.getBoundingClientRect ? node.getBoundingClientRect() : null;
+    const x = e && e.clientX != null ? e.clientX : (r ? r.left + r.width / 2 : 0);
+    const y = e && e.clientY != null ? e.clientY : (r ? r.top : 0);
+    tip.style.left = Math.min(x + 14, innerWidth - 310) + "px"; tip.style.top = (y + 14) + "px";
   };
-  const NARROW_SET = ["Sales & business development", "Project & programme management", "Sustainability & ESG", "Data analysis & BI"];
-  pts.filter(p => PLACE[p.name] && (!narrow || NARROW_SET.includes(p.name))).forEach(p => {
-    let [dx, dy, anchor] = PLACE[p.name];
-    const cx = X(p.n), cy = Y(p.y);
-    const est = p.name.length * 6.6;
-    if (anchor === "start" && cx + dx + est > W - 4) { dx = -10; anchor = "end"; }
-    if (anchor === "middle" && cx + est / 2 > W - 4) anchor = "end";
-    el("text", { x: cx + dx, y: cy + dy, "text-anchor": anchor, class: "lab" }, svg).textContent = p.name;
-  });
-  const tb = document.querySelector("#scatterTable tbody"); if (!tb.children.length)
-    tb.innerHTML = pts.map(p => `<tr><td>${p.name}</td><td class="num">${fmt(p.n)}</td><td class="num">${pct(p.ec)}</td><td class="num">${pct(p.eu)}</td></tr>`).join("");
+  node.addEventListener("mouseenter", show); node.addEventListener("mousemove", move);
+  node.addEventListener("mouseleave", () => tip.style.display = "none");
+  node.addEventListener("focus", show); node.addEventListener("blur", () => tip.style.display = "none");
 }
 
-/* ---------- horizontal bar chart ---------- */
-function drawHBars(hostId, rows, opt) {
-  const host = document.getElementById(hostId); host.innerHTML = "";
-  const narrow = host.clientWidth < 560;
-  // Phones: draw at real pixel width and put each label above its bar, so text stays 12px.
-  const W = narrow ? Math.max(host.clientWidth, 280) : (opt.width || 960);
-  const barH = 16, rowH = narrow ? 42 : 26, labH = narrow ? 16 : 0;
-  const labW = narrow ? 0 : (opt.labW || 240), valW = narrow ? (opt.valWn || 90) : (opt.valW || 110);
-  const m = { t: opt.refs ? 30 : 6, b: opt.axis ? 26 : 6 };
-  const H = m.t + rows.length * rowH + m.b;
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` }, host);
-  const x0 = narrow ? 1 : labW, x1 = W - valW, X = v => x0 + v / opt.max * (x1 - x0);
-  if (opt.axis) opt.axis.forEach(v => { if (narrow && v % 2000) return; el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, class: "gridl" }, svg);
-    el("text", { x: X(v), y: H - 8, "text-anchor": "middle", class: "axis-t" }, svg).textContent = opt.tick(v); });
-  (opt.refs || []).forEach(r => { el("line", { x1: X(r.v), x2: X(r.v), y1: m.t - 6, y2: H - m.b, class: "ref" }, svg);
-    el("text", { x: X(r.v), y: m.t - 12, "text-anchor": "middle", class: "lab" }, svg).textContent = r.label; });
-  el("line", { x1: x0, x2: x0, y1: m.t, y2: H - m.b, class: "base" }, svg);
-  rows.forEach((r, i) => {
-    const y = m.t + i * rowH + labH + (rowH - labH - barH) / 2;
-    const lab = narrow
-      ? el("text", { x: x0, y: y - 5, class: "lab" }, svg)
-      : el("text", { x: x0 - 8, y: y + barH / 2 + 4, "text-anchor": "end" }, svg);
-    lab.textContent = r.label;
-    const g = el("g", {}, svg);
-    el("rect", { x: 0, y: y - labH - 4, width: W, height: rowH, fill: "transparent" }, g);
-    const w = X(r.value) - x0;
-    if (w > 0) el("path", { d: hbar(x0, y, w, barH), fill: r.color, class: "mk" }, g);
-    else el("line", { x1: x0, x2: x0 + 2, y1: y + barH / 2, y2: y + barH / 2, stroke: r.color, "stroke-width": 2 }, g);
-    el("text", { x: x0 + Math.max(w, 0) + 6, y: y + barH / 2 + 4, class: "axis-t val" }, svg).textContent = r.valueLabel;
-    bindTip(g, r.tip);
-  });
+/* ---------- the answer ---------- */
+document.getElementById("answerBox").innerHTML = N.answer;
+const tiles = N.tiles.map(t => `<div class="card stat"><div class="v">${t[0]}</div><div class="l">${t[1]}</div><div class="n">${t[2]}</div></div>`);
+document.getElementById("tiles").innerHTML = tiles.join("");
+
+/* ---------- side by side ---------- */
+function verifiedCell(k) {
+  const v = V(k), c = v.counts;
+  if (!v.checked) return { html: "not checked yet", val: null };
+  if (k === "R19xI13") {
+    const ok = (c.yes || 0) + (c.board || 0);
+    return { html: `<b class="big">${pct(ok, v.checked)}</b><br><span class="dim">of a sample of ${v.checked} ads really open to you</span>`, val: null };
+  }
+  const ok = (c.yes || 0) + (c.board || 0);
+  return { html: `<b class="big">${v.employers_open}</b> employers<br><span class="dim">${ok} of ${v.labelled_open} ads checked are open to you (${c.board || 0} only by the job board's list); ${c.no || 0} are not; ${c.unclear || 0} unclear</span>`, val: v.employers_open };
 }
-
-function drawSectors() {
-  const rows = SECTORS.map(s => ({ label: s[0], value: s[1], color: s[3] ? "var(--s2)" : "var(--s1)",
-    valueLabel: `${fmt(s[1])} of ${fmt(s[2])}`,
-    tip: `<b>${s[0]}</b>${fmt(s[1])} of ${fmt(s[2])} jobs open to Ecuador (${Math.round(s[1] / s[2] * 100)}%)` }));
-  drawHBars("sectors", rows, { max: 420, labW: 250, valW: 110 });
+function screenCell(k) {
+  const f = F(k), s = f.screen;
+  if (!f.ads) return { html: "not measured", val: null };
+  return { html: `<b class="big">${pct(s.yes, f.ads)}</b> pass outright<br><span class="dim">${pct(s.stretch, f.ads)} are one requirement short; ${f.ads} ads judged</span>`, val: s.yes / f.ads };
 }
-function drawPay() {
-  const rows = PAY.map(p => ({ label: p[0], value: p[1], color: "var(--s1)", valueLabel: "$" + fmt(p[1]),
-    tip: `<b>${p[0]}</b>Median pay: USD ${fmt(p[1])}/month<br>${p[1] >= 2000 ? "Clears" : "Below"} the USD 2,000 bar` }));
-  drawHBars("payChart", rows, { width: 560, max: 5000, labW: 140, valW: 60, valWn: 50, axis: [0, 1000, 2000, 3000, 4000, 5000], tick: v => "$" + (v / 1000) + "K",
-    refs: [{ v: 2000, label: "$2K" }, { v: 4547, label: "€4K" }] });
-}
-
-/* ---------- pocket table ---------- */
-function fillPockets() {
-  const V = { good: ["t-good", "✓", "Solid"], mixed: ["t-mixed", "!", "Mixed"], weak: ["t-weak", "–", "Weak"], error: ["t-error", "✕", "Not real"] };
-  const maxE = 94;
-  document.querySelector("#pocketTable tbody").innerHTML = POCKETS.map(p => {
-    const v = V[p[3]], dim = p[3] === "error" || p[3] === "weak";
-    return `<tr class="${dim ? "dim" : ""}">
-      <td class="num">${p[0]}</td>
-      <td><div class="pname">${p[1]}</div><div class="pnote">in ${p[2]}. ${p[14]}</div></td>
-      <td><span class="tag ${v[0]}"><i>${v[1]}</i>${v[2]}</span></td>
-      <td class="num"><span class="minibar" style="width:${Math.round(p[4] / maxE * 60)}px"></span>${p[4]} <span class="small">(${p[5]})</span></td>
-      <td class="num">${pct(p[7])} <span class="small">of ${fmt(p[6])}</span></td>
-      <td class="num">${pct(p[8])} / ${pct(p[9])} <span class="small">(${p[10]})</span></td>
-      <td class="num">${pct(p[11])} / ${pct(p[12])}</td>
-      <td class="num">${p[13]}</td></tr>`;
-  }).join("");
-}
-
-const PROFILE_DATA = {"R13xI13": {"ads": 125, "employers": 94, "eu_ads": 235, "eu_employers": 143, "withReqs": 110, "medYears": 3, "yearsN": 60, "reqs": [["Communication and stakeholder skills", 59, "met", "multi-stakeholder platforms, donors, workshops"], ["B2B / SaaS / software sales", 40, "partly", "B2B food export as founder; no software sales"], ["Start-up / fast-paced / self-starter", 36, "met", "founded and ran a start-up for 7 years"], ["Data / analytics / Excel / SQL", 33, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["CRM tool (Salesforce, HubSpot...)", 29, "not", "no CRM on record"], ["Prospecting / cold outreach / lead generation", 28, "not", "one buyer found as founder; no outbound record"], ["Sales quota / revenue targets / closing", 21, "not", "no quota-carrying sales job"], ["Fluent English", 21, "met", "C1-C2, studied and worked in English"], ["Consulting / professional services background", 20, "met", "ITC, IMPAQTO, CEELA consultancies"], ["AI tools / prompting / LLM know-how", 17, "partly", "daily AI user; AI training for producers (ITC)"]], "titles": [["Sales manager / head of sales", 31], ["Account executive", 23], ["Business development manager", 23], ["SDR / BDR (lead generation)", 16], ["Partnerships / channel", 13], ["Sales representative / closer", 9], ["Account manager", 5], ["Other", 5]], "seniority": [["Intern", 1], ["Junior (0-2 yrs)", 25], ["Mid (3-5 yrs)", 37], ["Senior (6-10 yrs)", 25], ["Lead or 10+ yrs", 24], ["Not stated", 13]], "engagement": [["Not stated", 88], ["Employee", 29], ["Contractor / freelance", 7], ["Fixed-term employee", 1]], "sources": {"himalayas": 69, "jobgether": 10, "rwfa": 9, "workable_board": 8, "weworkremotely": 7, "workingnomads": 7, "fourdayweek": 6, "getonboard": 5, "jobicy": 4}, "payN": 23, "pay": {"annual": {"n": 20, "usd_month_median": 10312, "p25": 5625, "p75": 15833, "clears_2k": 20, "clears_4k_eur": 17, "sources": {"himalayas": 9, "fourdayweek": 6, "workingnomads": 3, "jobicy": 1, "weworkremotely": 1}}, "monthly": {"n": 3, "usd_month_median": 4500, "p25": 400, "p75": 9094, "clears_2k": 2, "clears_4k_eur": 1, "sources": {"getonboard": 2, "himalayas": 1}}}}, "R19xI13": {"ads": 191, "employers": 25, "eu_ads": 50, "eu_employers": 29, "withReqs": 143, "medYears": 3, "yearsN": 38, "reqs": [["Communication and stakeholder skills", 74, "met", "multi-stakeholder platforms, donors, workshops"], ["Attention to detail / quality", 54, "met", "certifications (HACCP, BRCGS), 122 reports processed"], ["Fluent English", 40, "met", "C1-C2, studied and worked in English"], ["Start-up / fast-paced / self-starter", 34, "met", "founded and ran a start-up for 7 years"], ["Degree (bachelor / master)", 25, "met", "BSc Civil Engineering, MSc TU Delft"], ["Coding (Python etc.)", 23, "partly", "a personal Python pipeline; not a software engineer"], ["Medical / legal / finance / science expert", 23, "not", "degrees in civil engineering and sustainable energy only"], ["Data / analytics / Excel / SQL", 20, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["AI tools / prompting / LLM know-how", 19, "partly", "daily AI user; AI training for producers (ITC)"], ["Writing / editing / grammar", 18, "met", "4 papers in English, reports"]], "titles": [["Subject-expert AI trainer", 67], ["Other", 41], ["Software-workflow specialist ('X Specialist')", 36], ["Annotator / data collection / transcriber", 22], ["AI enablement / in-house job", 13], ["Rater / evaluator / reviewer", 12]], "seniority": [["Junior (0-2 yrs)", 9], ["Mid (3-5 yrs)", 88], ["Senior (6-10 yrs)", 34], ["Lead or 10+ yrs", 6], ["Not stated", 54]], "engagement": [["Contractor / freelance", 160], ["Not stated", 24], ["Employee", 6], ["Fixed-term employee", 1]], "sources": {"himalayas": 173, "workable_board": 7, "weworkremotely": 4, "remoteok": 3, "jobgether": 1, "jobicy": 1, "jobtech": 1, "workingnomads": 1}, "payN": 45, "pay": {"hourly": {"n": 38, "usd_per_hour_median": 65, "p25": 50.0, "p75": 85.0, "sources": {"himalayas": 32, "workable_board": 4, "remoteok": 1, "weworkremotely": 1}}, "annual": {"n": 7, "usd_month_median": 15416, "p25": 6134, "p75": 50000, "clears_2k": 6, "clears_4k_eur": 5, "sources": {"himalayas": 4, "remoteok": 2, "workingnomads": 1}}}}, "R13xI14": {"ads": 97, "employers": 56, "eu_ads": 41, "eu_employers": 32, "withReqs": 76, "medYears": 2, "yearsN": 42, "reqs": [["Communication and stakeholder skills", 44, "met", "multi-stakeholder platforms, donors, workshops"], ["Fluent English", 38, "met", "C1-C2, studied and worked in English"], ["Data / analytics / Excel / SQL", 30, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["CRM tool (Salesforce, HubSpot...)", 25, "not", "no CRM on record"], ["Prospecting / cold outreach / lead generation", 23, "not", "one buyer found as founder; no outbound record"], ["Start-up / fast-paced / self-starter", 21, "met", "founded and ran a start-up for 7 years"], ["B2B / SaaS / software sales", 21, "partly", "B2B food export as founder; no software sales"], ["Consulting / professional services background", 19, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Sales quota / revenue targets / closing", 12, "not", "no quota-carrying sales job"], ["Attention to detail / quality", 12, "met", "certifications (HACCP, BRCGS), 122 reports processed"], ["Account management / client relationships", 10, "partly", "donor, buyer and partner relations; not an account book"]], "titles": [["SDR / BDR (lead generation)", 28], ["Business development manager", 19], ["Sales representative / closer", 18], ["Other", 8], ["Sales manager / head of sales", 8], ["Partnerships / channel", 7], ["Account executive", 6], ["Account manager", 3]], "seniority": [["Intern", 2], ["Junior (0-2 yrs)", 35], ["Mid (3-5 yrs)", 24], ["Senior (6-10 yrs)", 11], ["Lead or 10+ yrs", 8], ["Not stated", 17]], "engagement": [["Not stated", 72], ["Contractor / freelance", 17], ["Employee", 5], ["Fixed-term employee", 3]], "sources": {"himalayas": 46, "jobgether": 23, "workable_board": 20, "getonboard": 5, "weworkremotely": 2, "jobicy": 1}, "payN": 24, "pay": {"monthly": {"n": 18, "usd_month_median": 1450, "p25": 1000, "p75": 3000, "clears_2k": 2, "clears_4k_eur": 0, "sources": {"himalayas": 10, "getonboard": 5, "workable_board": 2, "jobicy": 1}}, "annual": {"n": 4, "usd_month_median": 3417, "p25": 500, "p75": 13125, "clears_2k": 2, "clears_4k_eur": 2, "sources": {"himalayas": 4}}, "hourly": {"n": 2, "usd_per_hour_median": 58, "p25": 50.0, "p75": 65.0, "sources": {"himalayas": 1, "weworkremotely": 1}}}}, "R09xI13": {"ads": 26, "employers": 23, "eu_ads": 22, "eu_employers": 22, "withReqs": 26, "medYears": 5, "yearsN": 18, "reqs": [["Project / programme management experience", 20, "met", "8 years running projects, a grant cycle, an office and a consultancy"], ["Communication and stakeholder skills", 17, "met", "multi-stakeholder platforms, donors, workshops"], ["Start-up / fast-paced / self-starter", 12, "met", "founded and ran a start-up for 7 years"], ["AI tools / prompting / LLM know-how", 9, "partly", "daily AI user; AI training for producers (ITC)"], ["PM tools (Jira, Asana, MS Project...)", 9, "not", "only MS Office / Google Workspace"], ["Consulting / professional services background", 9, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Agile / Scrum / Kanban", 8, "not", "not on record"], ["Technical / IT / software project experience", 8, "not", "no IT or software project on record"], ["Data / analytics / Excel / SQL", 8, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["Degree (bachelor / master)", 7, "met", "BSc Civil Engineering, MSc TU Delft"], ["Leadership / managing a team", 7, "met", "led a team of 4; founder and executive director"], ["Customer onboarding / implementation", 5, "not", "no customer implementation role"], ["PM certificate (PMP, PRINCE2, CSM...)", 5, "partly", "PMI 'AI in Project Management' course certificate; no PMP"]], "titles": [["Project manager", 12], ["Technical programme / project manager", 4], ["Programme manager", 4], ["Other", 2], ["PMO / portfolio", 2], ["Implementation / onboarding manager", 1], ["Project coordinator / assistant", 1]], "seniority": [["Mid (3-5 yrs)", 7], ["Senior (6-10 yrs)", 1], ["Lead or 10+ yrs", 18]], "engagement": [["Not stated", 17], ["Employee", 9]], "sources": {"himalayas": 18, "workingnomads": 3, "workable_board": 2, "getonboard": 1, "jobicy": 1, "weworkremotely": 1}, "payN": 6, "pay": {"monthly": {"n": 1, "usd_month_median": 4000, "p25": 4000, "p75": 4000, "clears_2k": 1, "clears_4k_eur": 0, "sources": {"getonboard": 1}}, "annual": {"n": 5, "usd_month_median": 10834, "p25": 10729, "p75": 13250, "clears_2k": 5, "clears_4k_eur": 4, "sources": {"himalayas": 4, "jobicy": 1}}}}, "R09xI14": {"ads": 15, "employers": 15, "eu_ads": 12, "eu_employers": 5, "withReqs": 15, "medYears": 5, "yearsN": 12, "reqs": [["Communication and stakeholder skills", 11, "met", "multi-stakeholder platforms, donors, workshops"], ["Project / programme management experience", 9, "met", "8 years running projects, a grant cycle, an office and a consultancy"], ["Consulting / professional services background", 7, "met", "ITC, IMPAQTO, CEELA consultancies"], ["Risk / issue management", 7, "partly", "regulatory risk at Kitu; no formal project risk logs"], ["Data / analytics / Excel / SQL", 6, "partly", "processed 122 reports and 6 datasets with AI; no SQL or BI"], ["Degree (bachelor / master)", 5, "met", "BSc Civil Engineering, MSc TU Delft"], ["PM certificate (PMP, PRINCE2, CSM...)", 5, "partly", "PMI 'AI in Project Management' course certificate; no PMP"], ["Agile / Scrum / Kanban", 5, "not", "not on record"], ["Budget / financial management", 4, "partly", "grant budgets and a start-up; no corporate P&L"], ["Leadership / managing a team", 4, "met", "led a team of 4; founder and executive director"], ["Fluent English", 3, "met", "C1-C2, studied and worked in English"], ["PM tools (Jira, Asana, MS Project...)", 3, "not", "only MS Office / Google Workspace"], ["Attention to detail / quality", 3, "met", "certifications (HACCP, BRCGS), 122 reports processed"]], "titles": [["Project manager", 12], ["Scrum master / agile coach / delivery", 3]], "seniority": [["Mid (3-5 yrs)", 1], ["Senior (6-10 yrs)", 2], ["Lead or 10+ yrs", 12]], "engagement": [["Not stated", 12], ["Employee", 2], ["Contractor / freelance", 1]], "sources": {"himalayas": 11, "fourdayweek": 1, "jobgether": 1, "weworkremotely": 1, "workingnomads": 1}, "payN": 3, "pay": {"annual": {"n": 3, "usd_month_median": 10958, "p25": 10834, "p75": 13048, "clears_2k": 3, "clears_4k_eur": 3, "sources": {"himalayas": 3}}}}};
-
-
-// Live ads, checked 25 Sep 2026 (tools/pocket_profile.py --links, then picked by hand):
-// [title, employer, url, pay, where, what it is]
-const EXAMPLES = {
-  pm: [
-    ["Senior Implementation Project Manager", "Launchpad Technologies", "https://www.getonbrd.com/jobs/senior-implementation-project-manager-launchpad-technologies-remote", "$3,800-4,200/month", "Remote, anywhere", "Software rollouts for international customers, from kick-off to go-live."],
-    ["Program Manager, AI & Data", "phData", "https://himalayas.app/companies/phdata/jobs/program-manager-ai-data-9314839447", "Pay not published", "Latin America, incl. Ecuador", "Client-facing data and AI programmes; you are the client's \"one hand to shake\"."],
-    ["Technical Program Manager", "UL Research Institutes", "https://himalayas.app/companies/underwriters-laboratories-inc/jobs/technical-program-manager", "$108-149K/year", "Worldwide", "Projects at a digital-safety research institute."],
-    ["Thought Leadership Portfolio Delivery Lead", "Project Management Institute", "https://himalayas.app/companies/project-management-institute-inc/jobs/thought-leadership-portfolio-delivery-lead", "$120-143K/year", "No country limit stated", "Gets PMI's thought-leadership reports delivered on time and to standard."],
-    ["Project Manager - LATAM", "Rekluti (XKTalent)", "https://himalayas.app/companies/rekluti/jobs/project-manager-latam", "Pay not published", "Latin America, incl. Ecuador", "Spanish-language ad. Asks for 7+ years and a PMP or Scrum certificate."],
-    ["Senior Digital Project Manager - LATAM", "Fueled (digital agency)", "https://himalayas.app/companies/fueled/jobs/senior-digital-project-manager-latam", "Pay set by location", "Latin America, incl. Ecuador", "Portfolios of client projects for large brands."],
-    ["Project Manager, Web Development", "Power Digital", "https://himalayas.app/companies/power-digital-marketing/jobs/project-manager-web-development-7627804073", "Pay not published", "Argentina, Ecuador, Nicaragua", "Website projects for 10-25 clients per team at a growth-marketing firm."],
-    ["Project Manager (Remote - LATAM)", "Atmosera", "https://himalayas.app/companies/atmosera/jobs/project-manager-remote-latam", "Pay not published", "Latin America, incl. Ecuador", "Microsoft cloud projects. English and Spanish both required."],
-  ],
-  sales: [
-    ["Sales Account Executive", "Pressable (Automattic)", "https://himalayas.app/companies/pressable/jobs/sales-account-executive", "$90-125K/year", "The Americas, incl. Ecuador", "Software: runs WordPress-hosting deals from first call to close."],
-    ["Business Development Representative", "Automattic (Pressable)", "https://job-boards.greenhouse.io/automatticcareers/jobs/6356799", "$50-65K/year", "Latin America and other regions", "Software, entry level: answers new leads and books meetings for senior sellers."],
-    ["Sales Development Representative", "Aleph", "https://jobs.ashbyhq.com/aleph/46ba1ce4-a694-4cf1-88dd-5898cd8bccf4", "$60-71K/year", "USA, Canada, Latin America", "Software, entry level: new enquiries only, no cold prospecting. Finance-planning software."],
-    ["Partner Manager, AI Native Ecosystems", "Customer.io", "https://4dayweek.io/job/partner-manager-ai-native-ecosystems-americas-at-customer-io-ddcb8603", "$133-160K/year", "North and South America", "Software: partnership deals with AI app builders; half business, half technical."],
-    ["Sales Development Representative", "Ignitvio (agency)", "https://himalayas.app/companies/ignitvio/jobs/sales-development-representative", "$1,500-2,500/month", "Latin America", "Agency: cold calls for a US client in US hours; paid training month at $2,000."],
-    ["Business Development Manager", "Magic (outsourcing)", "https://himalayas.app/companies/getmagic/jobs/business-development-manager-global-remote-uncapped-commissions-6213803912", "$2,000-4,500/month", "Lists Ecuador", "Agency: 50+ warm leads a month, a monthly quota, US Eastern hours."],
-    ["Junior Sales Development Representative - LATAM", "Valatam", "https://himalayas.app/companies/valatam/jobs/junior-sales-development-representative-latam", "$696-1,044/month", "Lists Ecuador", "Agency: cold calls, email and LinkedIn, plus sales admin."],
-  ],
-  ai: [
-    ["Small Business Ownership - Freelance AI Trainer", "Invisible Technologies", "https://himalayas.app/companies/inv/jobs/small-business-ownership-freelance-ai-trainer-project-58348805", "$20-100/hour, set by location", "Anywhere", "For current business owners and managers: judge AI advice on pricing, budgets, hiring and suppliers."],
-    ["Spanish Voice Actor - TTS Expert", "Mercor", "https://himalayas.app/companies/mercor/jobs/spanish-voice-actor-tts-expert-3941186092", "$50-100/hour, 5-10 hrs/week", "Lists Ecuador", "Record voice samples in neutral Latin American Spanish. Needs a near-professional recording setup."],
-    ["Shape the Future of AI - Spanish Talent Hub", "Welo Data", "https://himalayas.app/companies/welo-global/jobs/shape-the-future-of-ai-spanish-talent-hub", "Pay set per project", "Lists Ecuador", "A talent pool, not an open job: they contact you when a Spanish project fits."],
-    ["Video Data Annotator", "iMerit", "https://remoteOK.com/remote-jobs/remote-video-data-annotator-imerit-technology-1137428", "Rate not in the ad text", "Remote", "Label actions and objects in video. No AI experience needed; work depends on \"available assignments\"."],
-    ["Creador(a) de Contenido POV para IA", "Mindrift", "https://jobs.workable.com/view/dxk38z3YUbKr8fshrKvyTJ/remote-creador(a)-de-contenido-pov-para-ia---remoto-in-guayaquil-at-mindrift---data-annotation", "$6 per approved hour", "Ecuador", "Record your daily chores on your phone. Shown as the low end of the market."],
-  ],
-};
-
-/* ---------- pocket profiles ---------- */
-const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-function fillProfiles() {
-  const STATUS = { met: ["✓", "You have it"], partly: ["~", "Partly"], not: ["✕", "Missing"] };
-  const COL = { met: "var(--good)", partly: "var(--warn)", not: "var(--critical)" };
-  document.querySelectorAll(".reqs").forEach(host => {
-    const d = PROFILE_DATA[host.dataset.pocket];
-    host.innerHTML = d.reqs.map(([g, n, st, why]) => {
-      const pc = Math.round(n / d.withReqs * 100), S = STATUS[st];
-      return `<div class="row" data-tip="<b>${esc(g)}</b>${n} of ${d.withReqs} ads list it as a must-have<br>${S[1]}: ${esc(why)}">`
-        + `<span class="st ${st}" role="img" aria-label="${S[1]}">${S[0]}</span><span>${esc(g)}</span>`
-        + `<span class="bar"><i style="width:${pc}%;background:${COL[st]}"></i></span><span class="n">${pc}%</span></div>`;
-    }).join("") + `<div class="legend" style="margin-top:8px"><span><span class="st met">✓</span>You have it</span><span><span class="st partly">~</span>Partly</span><span><span class="st not">✕</span>Missing</span></div>`;
-  });
-  document.querySelectorAll(".dist").forEach(host => {
-    const d = PROFILE_DATA[host.dataset.pocket], rows = d[host.dataset.field];
-    const total = rows.reduce((a, r) => a + r[1], 0);
-    const nice = l => (host.dataset.pocket === "R19xI13" && l === "Other") ? "Other professions" : l;
-    host.innerHTML = rows.map(([l, n]) => `<div class="row" data-tip="<b>${esc(nice(l))}</b>${n} of ${total} ads (${Math.round(n / total * 100)}%)">`
-      + `<span>${esc(nice(l))}</span><span class="bar"><i style="width:${Math.round(n / total * 100)}%;background:var(--s1)"></i></span><span class="n">${n}</span></div>`).join("");
-  });
-  document.querySelectorAll(".row[data-tip]").forEach(n => bindTip(n, n.dataset.tip));
-  document.querySelectorAll(".ex").forEach(host => {
-    host.innerHTML = EXAMPLES[host.dataset.set].map(([t, c, u, pay, where, note]) =>
-      `<a class="job" href="${esc(u)}" target="_blank" rel="noopener"><div class="jt">${esc(t)}</div><div class="jc">${esc(c)}</div>`
-      + `<div class="jm"><span>${esc(pay)}</span><span>${esc(where)}</span></div><div class="jn">${esc(note)}</div></a>`).join("");
-  });
-  const tabs = [...document.querySelectorAll('.tabs [role="tab"]')];
-  const pick = t => tabs.forEach(b => {
-    const on = b === t;
-    b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
-    document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
-  });
-  tabs.forEach((b, i) => {
-    b.addEventListener("click", () => pick(b));
-    b.addEventListener("keydown", e => {
-      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-      if (k) { const n = tabs[(i + k + tabs.length) % tabs.length]; pick(n); n.focus(); }
-    });
-  });
-  pick(tabs[0]);
-}
-
-/* ---------- theme toggle ---------- */
+function payCell(k) { return { html: N.pay[k], val: null }; }
+const ROWS = [
+  ["What you would do all day", k => ({ html: N.day[k] })],
+  ["Employers with a job open to you", verifiedCell],
+  ["Would you pass the CV screen?", screenCell],
+  ["What you are missing most", k => ({ html: N.gaps[k] })],
+  ["Pay", payCell],
+  ["Kind of work", k => ({ html: N.work[k] })],
+  ["Trend 2024-26", k => ({ html: N.trend[k] })],
+  ["Stays near the top when the data is redrawn", k => { const t = topOf(k); return { html: t.top3_share == null ? "–" : `top 3 in <b>${Math.round(t.top3_share * 1000)}</b> of 1,000 redraws; ${D.in_top3_weights[k]} of ${D.weight_variants} weightings`, val: t.top3_share }; }],
+  ["Toward Europe later", k => ({ html: N.europe[k] })],
+];
 (function () {
-  const btn = document.getElementById("themeBtn"), root = document.documentElement;
-  try { const t = localStorage.getItem("pocket-theme"); if (t) root.dataset.theme = t; } catch (e) {}
-  btn.addEventListener("click", () => {
-    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-    root.dataset.theme = dark ? "light" : "dark";
-    try { localStorage.setItem("pocket-theme", root.dataset.theme); } catch (e) {}
-  });
+  let h = `<thead><tr><th></th>${KEYS.map(k => `<th class="opt"><span class="k">#${topOf(k).rank} in the ranking</span>${esc(N.names[k])}</th>`).join("")}</tr></thead><tbody>`;
+  for (const [label, fn] of ROWS) {
+    const cells = KEYS.map(fn);
+    const vals = cells.map(c => c.val).filter(v => v != null);
+    const best = vals.length > 1 ? Math.max(...vals) : null;
+    h += `<tr><td>${label}</td>${cells.map(c => `<td class="${best != null && c.val === best ? "best" : ""}">${c.html}</td>`).join("")}</tr>`;
+  }
+  document.getElementById("compareTable").innerHTML = h + "</tbody>";
 })();
 
-function drawAll() { drawScatter(); drawSectors(); drawPay(); }
-fillPockets(); fillProfiles(); drawAll();
-let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawAll, 150); });
+/* ---------- how sure ---------- */
+(function () {
+  const TAG = { solid: ["t-good", "✓", "Solid"], partly: ["t-mixed", "!", "Partly"], weak: ["t-weak", "–", "Weak"], unknown: ["t-unk", "?", "Not measurable"] };
+  let h = "<thead><tr><th>Could the numbers be wrong because...</th><th>What was done</th><th>What it found</th><th>Verdict</th></tr></thead><tbody>";
+  for (const r of N.sure) {
+    const t = TAG[r[3]];
+    h += `<tr><td class="pname">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="tag ${t[0]}"><i>${t[1]}</i>${t[2]}</span></td></tr>`;
+  }
+  document.getElementById("sureTable").innerHTML = h + "</tbody>";
+})();
+
+/* ---------- what each choice means ---------- */
+const STATUS = { met: ["✓", "You have it", "var(--good)"], partly: ["~", "Partly", "var(--warn)"], not: ["✕", "Missing", "var(--critical)"] };
+function panel(k) {
+  const p = D.profiles[k] || {}, v = V(k), n = N.entail[k];
+  const req = (p.requirements || []).map(r => {
+    const s = STATUS[r.jd];
+    return `<div class="row" tabindex="0" data-why="${esc(r.why)}" data-g="${esc(r.group)}" data-s="${s[1]}" data-n="${r.ads}"><span class="st ${r.jd}" aria-label="${s[1]}">${s[0]}</span><span>${esc(r.group)}</span><span class="bar"><i style="width:${Math.round(r.share * 100)}%;background:${s[2]}"></i></span><span class="n">${Math.round(r.share * 100)}%</span></div>`;
+  }).join("");
+  const ya = p.years_asked || {};
+  const certs = (p.certificates || []).map(c => `${esc(c[0])} (${c[1]})`).join(", ") || "none named";
+  const ex = (v.examples || []).slice(0, 6).map(e => `<a class="job" href="${esc(e.url)}" target="_blank" rel="noopener"><div class="jt">${esc(e.title)}</div><div class="jc">${esc(e.company)}</div><div class="jq">"${esc(e.quote)}"</div>${e.pay ? `<div class="jc">Pay stated: ${esc(e.pay)}</div>` : ""}</a>`).join("");
+  return `
+  <div class="grid g2">
+    <div class="card"><h3>The job</h3>${n.job}</div>
+    <div class="card"><h3>To close the gaps</h3>${n.close}</div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <h3>What the ads ask for, and whether you have it</h3>
+    <p class="small">Share of the ${p.ads_with_must_haves || "–"} ads that list requirements. Hover a row for the evidence from your record.
+    <span class="tag t-good" style="margin-left:8px"><i>✓</i>You have it</span> <span class="tag t-mixed"><i>~</i>Partly</span> <span class="tag t-error"><i>✕</i>Missing</span></p>
+    <div class="reqs">${req}</div>
+    <p class="small" style="margin-top:10px">Years of experience asked: ${ya.ads_stating_years ? `median ${ya.median_min_years} years, in ${ya.ads_stating_years} ads that state a number` : "rarely stated"}. Certificates named in the ads: ${certs}.</p>
+  </div>
+  <h3 style="margin-top:20px">Ads open to you, checked on 28 Sep</h3>
+  <p class="small">Each quote is the ad's own words on who may apply.</p>
+  <div class="ex">${ex || '<p class="small">Examples appear once the check of this group is finished.</p>'}</div>`;
+}
+(function () {
+  const tabs = document.getElementById("tabs"), box = document.getElementById("panel");
+  KEYS.forEach((k, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "tab"); b.textContent = N.names[k];
+    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+    b.onclick = () => { [...tabs.children].forEach(x => x.setAttribute("aria-selected", "false")); b.setAttribute("aria-selected", "true"); show(k); };
+    tabs.appendChild(b);
+  });
+  function show(k) {
+    box.innerHTML = panel(k);
+    box.querySelectorAll(".row").forEach(r => bindTip(r, `<b>${r.dataset.g}</b>${r.dataset.n} ads ask for it. ${r.dataset.s}: ${r.dataset.why}`));
+  }
+  show(KEYS[0]);
+})();
+
+/* ---------- pay chart ---------- */
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+  const P = D.pay;
+  const groups = [
+    ["Project manager · Latin-American board", P.getonboard.pm, "var(--s1)"],
+    ["Project manager · all boards", P.family_ec.R09, "var(--s1)"],
+    ["Sales · Latin-American board", P.getonboard.sales, "var(--s2)"],
+    ["Sales · all boards", P.family_ec.R13, "var(--s2)"],
+  ];
+  const host = document.getElementById("payChart");
+  const narrow = host.clientWidth < 600;
+  const W = narrow ? Math.max(host.clientWidth, 320) : 980, band = 64, m = { l: narrow ? 8 : 250, r: 16, t: 26, b: 36 };
+  const H = m.t + groups.length * band + m.b, MAX = 12000;
+  const X = v => m.l + Math.min(v, MAX) / MAX * (W - m.l - m.r);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H + (narrow ? groups.length * 16 : 0)}`, role: "img", "aria-label": "Stated monthly pay by group" }, host);
+  for (let v = 0; v <= MAX; v += 2000) {
+    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: m.t + groups.length * band + (narrow ? groups.length * 16 : 0), class: "gridl" }, svg);
+    el("text", { x: X(v), y: H - 14 + (narrow ? groups.length * 16 : 0), "text-anchor": "middle", class: "axis-t" }, svg).textContent = v === MAX ? "12k+" : (v / 1000) + "k";
+  }
+  for (const [v, lab] of [[2000, "$2,000"], [4547, "€4,000"]]) {
+    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: m.t + groups.length * band + (narrow ? groups.length * 16 : 0), class: "ref" }, svg);
+    el("text", { x: X(v), y: m.t - 8, "text-anchor": "middle", class: "val" }, svg).textContent = lab;
+  }
+  groups.forEach(([name, g, col], i) => {
+    const y0 = m.t + i * (band + (narrow ? 16 : 0)) + (narrow ? 16 : 0);
+    const cy = y0 + band / 2;
+    const lab = el("text", narrow ? { x: 0, y: y0 - 2, class: "lab" } : { x: m.l - 12, y: cy + 4, "text-anchor": "end", class: "lab" }, svg);
+    lab.textContent = `${name} (${g.n_month} ads)`;
+    const sorted = (g.ranges || []).map(r => r[0]);
+    const med = g.median_low;
+    (g.ranges || []).forEach((r, j) => {
+      const jitter = ((j * 37) % 11 - 5) * 3.2;
+      const c = el("circle", { cx: X(r[0]), cy: cy + jitter, r: 4.5, fill: col, stroke: "var(--surface)", "stroke-width": 2, tabindex: 0 }, svg);
+      bindTip(c, `<b>${name}</b>${usd(r[0])} to ${usd(r[1])} a month${r[0] > MAX ? " (beyond the chart edge)" : ""}`);
+    });
+    if (med != null) {
+      el("line", { x1: X(med), x2: X(med), y1: cy - 22, y2: cy + 22, stroke: "var(--ink)", "stroke-width": 2 }, svg);
+      el("text", { x: X(med) + 6, y: cy + 30, class: "val" }, svg).textContent = `median ${usd(med)}`;
+    }
+  });
+  document.getElementById("payLede").innerHTML = N.payLede;
+})();
+
+/* ---------- unknowns, narrowing, record ---------- */
+document.getElementById("unknownList").innerHTML = N.unknown.map(x => `<li>${x}</li>`).join("");
+document.getElementById("findOutList").innerHTML = N.findOut.map(x => `<li>${x}</li>`).join("");
+(function () {
+  let h = "<thead><tr><th>Theme in the ad</th><th class='num'>Project-manager ads</th><th class='num'>employers</th><th class='num'>open to you</th><th class='num'>Sales ads</th><th class='num'>employers</th><th class='num'>open to you</th></tr></thead><tbody>";
+  for (const [t, r] of Object.entries(D.themes)) {
+    h += `<tr><td class="pname">${esc(t)}</td><td class="num">${r.R09.ads}</td><td class="num">${r.R09.employers}</td><td class="num">${r.R09.employers_ec}</td><td class="num">${r.R13.ads}</td><td class="num">${r.R13.employers}</td><td class="num">${r.R13.employers_ec}</td></tr>`;
+  }
+  document.getElementById("themeTable").innerHTML = h + "</tbody>";
+})();
+document.getElementById("narrowNote").innerHTML = N.narrow;
+document.getElementById("recordList").innerHTML = N.record.map(x => `<li>${x}</li>`).join("");
+document.getElementById("footerNote").innerHTML = N.footer;
+
+/* ---------- theme switch ---------- */
+(function () {
+  const btn = document.getElementById("themeBtn"), root = document.documentElement;
+  let saved = null;
+  try { saved = localStorage.getItem("theme"); } catch (e) {}
+  if (saved) root.setAttribute("data-theme", saved);
+  btn.onclick = () => {
+    const dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  };
+})();
 </script>
 </body>
 </html>
