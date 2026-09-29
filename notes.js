@@ -80,7 +80,7 @@ const NOTES = {
     <p>A smaller market: about 5 new ads a week open to you, against 94 employers in software sales. Pay from Latin-American employers rarely reaches the EUR 4,000 visa bar; US-rate employers pay more and are fewer. If it is too thin, widen to project-manager jobs in other industries (155 employers in 60 days).</p>
     <h3>How sure</h3>
     <p>Solid. It stayed in the top 3 in 996 of 1,000 redraws of the data and under all 12 weightings, and 43 of 44 of its ads were confirmed open to someone in Ecuador (one had been taken down). <a href="#evidence">See every check</a>.</p>
-    <div class="next"><b>Next step:</b> reply "go with project manager" in our chat, and I will draft the first 10 applications from the confirmed ads under <a href="#details">Details</a>.</div>`,
+    <div class="next"><b>Picked on 29 Sep 2026.</b> Next: the first 10 applications, drafted from the confirmed ads under <a href="#details">Details</a>.</div>`,
 
   // Look closer: titles and employers, steps to close the gaps [what, cost, detail], where posted.
   jobline: {
