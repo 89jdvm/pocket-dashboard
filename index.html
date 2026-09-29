@@ -8,126 +8,209 @@
 <style>
 :root {
   color-scheme: light;
-  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
-  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
-  --s1: #2a78d6; --s2: #eb6834;
-  --good: #0ca30c; --good-text: #006300; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
-  --tint: #eef4fc; --best: #e6f4e6;
+  --page: #f9f9f7; --surface: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --muted: #7a7872;
+  --grid: #e6e5df; --border: rgba(11,11,11,0.11);
+  --s1: #2a78d6; --s2: #eb6834; --us: #8a8fa0;
+  --good: #0ca30c; --warn: #e9a20a; --critical: #d03b3b; --unk: #898781;
+  --good-bg: #e3f3e3; --good-tx: #0b5f0b;
+  --ok-bg: #fdf1d6; --ok-tx: #7a5200;
+  --weak-bg: #fbe4e1; --weak-tx: #9c2323;
+  --tint: #eef4fc; --pick: #2a78d6;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
-    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
-    --s1: #3987e5; --s2: #d95926; --good-text: #0ca30c; --tint: #16243a; --best: #14281a;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #95938c;
+    --grid: #2c2c2a; --border: rgba(255,255,255,0.12);
+    --s1: #4a93ea; --s2: #e06a36; --us: #9aa0b3;
+    --good-bg: #173a1a; --good-tx: #8fe08f;
+    --ok-bg: #3a2e10; --ok-tx: #f5cf72;
+    --weak-bg: #3e1a1a; --weak-tx: #f5a3a3;
+    --tint: #16243a; --pick: #4a93ea;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
-  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
-  --s1: #3987e5; --s2: #d95926; --good-text: #0ca30c; --tint: #16243a; --best: #14281a;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #95938c;
+  --grid: #2c2c2a; --border: rgba(255,255,255,0.12);
+  --s1: #4a93ea; --s2: #e06a36; --us: #9aa0b3;
+  --good-bg: #173a1a; --good-tx: #8fe08f;
+  --ok-bg: #3a2e10; --ok-tx: #f5cf72;
+  --weak-bg: #3e1a1a; --weak-tx: #f5a3a3;
+  --tint: #16243a; --pick: #4a93ea;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px 64px; }
-header.top { padding: 40px 0 8px; position: relative; }
-.eyebrow { padding-right: 90px; font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; }
-h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0 0 10px; }
-h2 { font-size: 22px; margin: 0 0 6px; }
-h3 { font-size: 17px; margin: 0 0 6px; }
-p { margin: 0 0 12px; }
-.lede { font-size: 18px; color: var(--ink-2); max-width: 780px; }
-.sub { color: var(--ink-2); max-width: 780px; }
-.small { font-size: 13px; color: var(--muted); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 64px; }
 a { color: var(--s1); }
-nav.toc { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--grid); display: flex; gap: 4px; overflow-x: auto; padding: 8px 0; margin-bottom: 8px; scrollbar-width: thin; }
-nav.toc a { white-space: nowrap; font-size: 14px; color: var(--ink-2); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+h1 { font-size: clamp(28px, 4.2vw, 40px); line-height: 1.1; margin: 0 0 10px; letter-spacing: -0.01em; }
+h2 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
+h3 { font-size: 16px; margin: 0 0 6px; }
+p { margin: 0 0 12px; }
+.sub { color: var(--ink-2); max-width: 760px; margin-bottom: 16px; }
+.small { font-size: 13px; color: var(--muted); }
+
+/* header + nav */
+header.top { padding: 36px 0 14px; }
+.eyebrow { font-size: 13px; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin: 0 0 8px; }
+.lede { font-size: 18px; color: var(--ink-2); max-width: 760px; margin-bottom: 6px; }
+nav.toc { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--grid); display: flex; align-items: center; gap: 4px; padding: 8px 0; }
+nav.toc a { white-space: nowrap; font-size: 14px; font-weight: 600; color: var(--ink-2); text-decoration: none; padding: 5px 12px; border-radius: 999px; }
 nav.toc a:hover { background: var(--surface); color: var(--ink); }
-section { padding: 36px 0 8px; scroll-margin-top: 48px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-.grid { display: grid; gap: 12px; }
-.g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.g2 { grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
-.stat .v { font-size: 32px; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.stat .l { color: var(--ink-2); font-size: 14px; margin-top: 4px; }
-.stat .n { color: var(--muted); font-size: 12px; margin-top: 6px; }
-.answer { border-left: 4px solid var(--s1); background: var(--tint); border-radius: 0 12px 12px 0; padding: 18px 20px; }
-.answer ol { margin: 0; padding-left: 20px; }
-.answer li { margin-bottom: 10px; }
-.answer li:last-child { margin-bottom: 0; }
-.tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
-.tag i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; color: #fff; font-weight: 700; }
-.t-good i { background: var(--good); }
-.t-mixed i { background: var(--warn); color: #0b0b0b; }
-.t-weak i { background: var(--serious); color: #0b0b0b; }
-.t-error i { background: var(--critical); }
-.t-unk i { background: var(--muted); }
-.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+nav.toc .sp { flex: 1; }
+.theme-btn { background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+section { padding: 32px 0 4px; scroll-margin-top: 52px; }
+
+/* rating chips */
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; padding: 2px 9px 2px 7px; border-radius: 999px; white-space: nowrap; letter-spacing: .01em; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.chip.strong { background: var(--good-bg); color: var(--good-tx); }
+.chip.ok { background: var(--ok-bg); color: var(--ok-tx); }
+.chip.weak { background: var(--weak-bg); color: var(--weak-tx); }
+.chip.unk { background: var(--grid); color: var(--ink-2); }
+
+/* option cards: rows line up across cards via subgrid */
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.opt { display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; position: relative; }
+.opt.picked { border: 2px solid var(--pick); box-shadow: 0 6px 24px rgba(42,120,214,.12); }
+.opt > * { padding: 12px 16px; }
+.opt .head { padding-top: 16px; }
+.opt .meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.opt .rank { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.badge { font-size: 12px; font-weight: 700; color: #fff; background: var(--pick); padding: 3px 10px; border-radius: 999px; }
+.opt h3 { font-size: 18px; line-height: 1.25; margin: 0 0 6px; }
+.opt .day { font-size: 14px; color: var(--ink-2); margin: 0; }
+.opt .r { border-top: 1px solid var(--grid); }
+.opt .rl { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+.opt .rl span:first-child { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.opt .big { font-size: 26px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.opt .unit { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.opt .f { font-size: 13.5px; color: var(--ink-2); margin: 2px 0 0; line-height: 1.45; }
+.opt .foot { border-top: 1px solid var(--grid); align-self: end; }
+.more { font: inherit; font-size: 14px; font-weight: 600; color: var(--s1); background: none; border: 0; padding: 0; cursor: pointer; }
+.more:hover { text-decoration: underline; }
+
+/* mini pay strip */
+.strip { position: relative; height: 34px; margin: 8px 0 2px; }
+.strip .base { position: absolute; left: 0; right: 0; top: 9px; height: 6px; border-radius: 3px; background: var(--grid); }
+.strip .seg { position: absolute; top: 7px; height: 10px; border-radius: 5px; min-width: 10px; }
+.strip .seg.latam { background: var(--s1); }
+.strip .seg.us { background: var(--us); }
+.strip .line { position: absolute; top: 2px; height: 20px; border-left: 2px dashed var(--ink-2); }
+.strip .lt { position: absolute; top: 22px; font-size: 10.5px; color: var(--muted); transform: translateX(-50%); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.key { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ink-2); margin: 12px 0 0; }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 14px; height: 8px; border-radius: 4px; display: inline-block; }
+.key i.dash { width: 0; height: 14px; border-left: 2px dashed var(--ink-2); border-radius: 0; }
+
+/* rules */
+details.rules { margin-top: 12px; font-size: 14px; }
+details summary { cursor: pointer; }
+details.rules summary { color: var(--ink-2); font-weight: 600; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin-top: 10px; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; }
-th { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; background: var(--surface); }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
 tr:last-child td { border-bottom: 0; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.pname { font-weight: 600; }
-#compare table { min-width: 860px; }
-#compare td:first-child { width: 190px; font-weight: 600; color: var(--ink-2); }
-#compare th.opt { font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--ink); }
-#compare th.opt .k { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; }
-#compare td.best { background: var(--best); }
-#compare td b.big { font-size: 20px; font-variant-numeric: tabular-nums; }
-.dim { color: var(--muted); }
-.chart { width: 100%; }
+
+/* pick box */
+.pick { background: var(--surface); border: 1px solid var(--border); border-left: 5px solid var(--pick); border-radius: 0 14px 14px 0; padding: 22px 24px; max-width: 900px; }
+.pick .pick-h { font-size: 20px; line-height: 1.35; margin-bottom: 16px; }
+.pick h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 16px 0 6px; }
+.pick ul { margin: 0; padding-left: 20px; }
+.pick li { margin-bottom: 8px; }
+.pick p { margin: 0; }
+.pick .next { margin-top: 18px; background: var(--tint); border-radius: 10px; padding: 12px 14px; }
+
+/* details tabs */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 16px; }
+.tabs button { font: inherit; font-size: 15px; font-weight: 600; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--page); border-color: var(--ink); }
+.tabs button:focus-visible, .more:focus-visible, .req:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+.tabs .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--pick); margin-left: 6px; vertical-align: middle; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+.two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px; }
+.jobline { color: var(--ink-2); margin-bottom: 14px; max-width: 900px; }
+.grp { margin-top: 12px; }
+.grp:first-of-type { margin-top: 4px; }
+.grp h4 { font-size: 13px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+.req { display: grid; grid-template-columns: minmax(0, 1fr) 90px 38px; gap: 10px; align-items: center; width: 100%; font: inherit; font-size: 14px; color: var(--ink); background: none; border: 0; border-radius: 6px; padding: 5px 6px; text-align: left; cursor: pointer; }
+.req:hover { background: var(--tint); }
+.req .bar { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.req .bar i { display: block; height: 100%; border-radius: 4px; }
+.req .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); font-size: 13px; }
+.why { font-size: 13px; color: var(--ink-2); padding: 2px 6px 8px; display: none; }
+.why.open { display: block; }
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--grid); }
+.steps li:last-child { border-bottom: 0; }
+.steps .cost { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.steps .d { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-2); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.facts .card { padding: 14px 16px; font-size: 14px; color: var(--ink-2); }
+.facts h4 { margin: 0 0 4px; font-size: 13px; color: var(--ink); }
+.ex { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 8px; }
+.ex a.job { display: block; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.ex a.job:hover, .ex a.job:focus-visible { border-color: var(--s1); }
+.ex .jt { font-weight: 650; color: var(--s1); line-height: 1.3; }
+.ex .jc { font-size: 13.5px; color: var(--ink-2); }
+.ex .jq { font-size: 13px; margin-top: 6px; color: var(--ink-2); font-style: italic; }
+
+/* evidence accordion */
+.acc { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.acc > details { border-bottom: 1px solid var(--grid); }
+.acc > details:last-child { border-bottom: 0; }
+.acc > details > summary { list-style: none; padding: 14px 44px 14px 18px; position: relative; }
+.acc > details > summary::-webkit-details-marker { display: none; }
+.acc > details > summary::after { content: "+"; position: absolute; right: 18px; top: 12px; font-size: 22px; color: var(--muted); line-height: 1; }
+.acc > details[open] > summary::after { content: "–"; }
+.acc > details > summary b { display: block; font-size: 16px; }
+.acc > details > summary span { font-size: 14px; color: var(--ink-2); }
+.acc .body { padding: 0 18px 18px; }
+.check { border-top: 1px solid var(--grid); }
+.check summary { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 10px 0; font-size: 14px; }
+.check summary::-webkit-details-marker { display: none; }
+.check summary .q { font-weight: 650; }
+.check summary .s { display: block; color: var(--ink-2); font-weight: 400; }
+.check .more-t { font-size: 13.5px; color: var(--ink-2); padding: 0 0 12px 128px; }
+.rankl { display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(80px, 180px) 120px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--grid); font-size: 14px; }
+.rankl:last-child { border-bottom: 0; }
+.rankl .bar { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.rankl .bar i { display: block; height: 100%; background: var(--ink-2); border-radius: 4px; }
+.rankl.top .bar i { background: var(--s1); }
+.rankl .rs { font-size: 12.5px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.rankl .nm { font-weight: 600; }
+.rankl:not(.top) .nm { font-weight: 400; color: var(--ink-2); }
 .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .chart text { fill: var(--ink-2); font-size: 12px; font-family: inherit; }
 .chart .lab { fill: var(--ink); font-size: 12px; font-weight: 600; }
-.chart .axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .axis-t { fill: var(--muted); font-size: 11px; }
 .chart .gridl { stroke: var(--grid); stroke-width: 1; }
 .chart .ref { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; }
-.chart .val { fill: var(--ink-2); font-size: 11px; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; font-variant-numeric: tabular-nums; }
-.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-2); margin: 4px 0 10px; }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--surface); color: var(--ink); border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 13px; max-width: 300px; display: none; line-height: 1.4; }
-#tip b { display: block; margin-bottom: 2px; }
-details { margin-top: 10px; }
-summary { cursor: pointer; color: var(--ink-2); font-size: 14px; }
-.theme-btn { position: absolute; top: 16px; right: 0; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 12px; }
-.tabs button { font: inherit; font-size: 15px; font-weight: 600; background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
-.tabs button[aria-selected="true"] { background: var(--s1); color: #fff; border-color: var(--s1); }
-.tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) 110px 44px; gap: 10px; align-items: center; padding: 5px 4px; font-size: 14px; border-radius: 6px; }
-.row .bar { height: 10px; background: var(--grid); border-radius: 0 4px 4px 0; overflow: hidden; }
-.row .bar i { display: block; height: 100%; border-radius: 0 4px 4px 0; }
-.row .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
-.row:hover, .row:focus { background: var(--tint); outline: none; }
-.st { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; }
-.st.met { background: var(--good); }
-.st.partly { background: var(--warn); color: #0b0b0b; }
-.st.not { background: var(--critical); }
+.chart .val { fill: var(--ink-2); font-size: 11px; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
 ul.plain { margin: 6px 0 0; padding-left: 18px; }
 ul.plain li { margin-bottom: 6px; font-size: 15px; }
-.ex { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 8px; }
-.ex a.job { display: block; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-.ex a.job:hover, .ex a.job:focus-visible { border-color: var(--s1); }
-.ex .jt { font-weight: 650; color: var(--s1); }
-.ex .jc { font-size: 14px; color: var(--ink-2); }
-.ex .jq { font-size: 13px; margin-top: 6px; color: var(--ink-2); font-style: italic; }
-.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--grid); }
-.steps li:last-child { border-bottom: 0; }
-.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--s1); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
-.steps .due { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.card.against { border-left: 4px solid var(--critical); }
-.card.for { border-left: 4px solid var(--good); }
-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid); }
-@media (max-width: 560px) {
-  .row { grid-template-columns: 22px minmax(0, 1fr) 60px 36px; }
-  .stat .v { font-size: 28px; }
-  .steps li { grid-template-columns: 36px 1fr; }
-  .steps .due { grid-column: 2; }
+.g2 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); }
+#tip { position: fixed; pointer-events: none; z-index: 20; background: var(--surface); color: var(--ink); border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 13px; max-width: 300px; display: none; line-height: 1.4; }
+#tip b { display: block; margin-bottom: 2px; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--grid); }
+
+@media (max-width: 1000px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .two, .facts { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .opt .big { font-size: 24px; }
+  nav.toc a { padding: 5px 8px; font-size: 13px; }
+  .check summary { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .check .more-t { padding-left: 0; }
+  .rankl { grid-template-columns: 24px minmax(0, 1fr) 70px; }
+  .rankl .rs { grid-column: 2 / -1; text-align: left; margin-top: -4px; }
+  .req { grid-template-columns: minmax(0, 1fr) 60px 36px; }
+  .pick { padding: 18px 16px; }
 }
 </style>
 </head>
@@ -135,88 +218,92 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
 <div class="wrap">
 
 <header class="top">
-  <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
-  <p class="eyebrow">Career pocket search · data as of 28 Sep 2026 · for your pick</p>
-  <h1>Which job to aim for: the evidence for your pick</h1>
-  <p class="lede">Four types of job lead the remote job market open to someone living in Ecuador. This page puts them side by side, shows how sure each number is, and what each choice would ask of you.</p>
+  <p class="eyebrow">Your job search · data as of 28 Sep 2026</p>
+  <h1>Which job to aim for</h1>
+  <p class="lede">Four options lead the remote job market open to someone living in Ecuador. Compare them on the same five things, then read my pick.</p>
+  <p class="small">Each option is a type of job at a type of employer. These are the top 4 of the 10 that ranked highest, using job ads published in the 60 days to 25 Sep 2026. <a href="#evidence" id="rankLink">How the 10 were ranked</a>.</p>
 </header>
 
 <nav class="toc" aria-label="Sections">
-  <a href="#answer">The answer</a>
-  <a href="#compare">Side by side</a>
-  <a href="#sure">How sure</a>
-  <a href="#entails">What each choice means</a>
-  <a href="#pay">Pay</a>
-  <a href="#unknown">What data can't tell you</a>
-  <a href="#narrow">Narrowing later</a>
-  <a href="#record">Your record</a>
+  <a href="#compare">Compare</a>
+  <a href="#pick">My pick</a>
+  <a href="#details">Details</a>
+  <a href="#evidence">Evidence</a>
+  <span class="sp"></span>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
 </nav>
 
-<section id="answer">
-  <h2>The answer</h2>
-  <div class="answer" id="answerBox"></div>
-  <div class="grid g4" style="margin-top:16px" id="tiles"></div>
-</section>
-
 <section id="compare">
-  <h2>The four options side by side</h2>
-  <p class="sub">Every count below uses the same ads (published in the 60 days before 25 Sep 2026). Green marks the best of the four on that line.</p>
-  <div class="table-wrap"><table id="compareTable"></table></div>
-  <p class="small" style="margin-top:8px">"Open to you" means the ad, read in full on 28 Sep, allows someone living in Ecuador (worldwide, Latin America, or a list that includes Ecuador). Ads whose text is silent but whose job board lists Ecuador or Latin America are counted and marked as board-only.</p>
+  <h2>Compare the four options</h2>
+  <p class="sub">Ratings follow fixed rules, the same for every card; the numbers under them are from the ads.</p>
+  <div class="cards" id="cards"></div>
+  <div class="key">
+    <span><i style="background:var(--s1)"></i>Pay from Latin-American employers</span>
+    <span><i style="background:var(--us)"></i>Pay from US-rate employers</span>
+    <span><i class="dash"></i>$2,000 a month (your floor) and EUR 4,000 (about $4,547, the family digital-nomad visa bar)</span>
+  </div>
+  <details class="rules">
+    <summary>How the ratings are set</summary>
+    <div class="table-wrap"><table id="rulesTable"></table></div>
+    <p class="small" style="margin-top:8px">"Open to you" means the ad, read in full on 28 Sep, allows someone living in Ecuador (worldwide, Latin America, or a list that includes Ecuador), or its job board lists Ecuador or Latin America. Pay is rated on what Latin-American employers pay, since they are likelier to hire a career-changer.</p>
+  </details>
 </section>
 
-<section id="sure">
-  <h2>How sure each number is</h2>
-  <p class="sub">Each row is a way the numbers could be wrong, what was done to test it, and what the test found.</p>
-  <div class="table-wrap"><table id="sureTable"></table></div>
+<section id="pick">
+  <h2>My pick</h2>
+  <p class="sub">Read after you have formed your own view from the cards.</p>
+  <div class="pick" id="pickBox"></div>
 </section>
 
-<section id="entails">
-  <h2>What each choice would ask of you</h2>
-  <p class="sub">What the ads ask for, measured against your written record, and what it would take to close the gaps.</p>
+<section id="details">
+  <h2>Look closer at one option</h2>
+  <p class="sub">What the ads ask for against your record, how to close the gaps, and real ads open to you.</p>
   <div class="tabs" role="tablist" id="tabs"></div>
-  <div id="panel"></div>
+  <div id="panel" role="tabpanel"></div>
 </section>
 
-<section id="pay">
-  <h2>Pay: who pays what</h2>
-  <p class="sub" id="payLede"></p>
-  <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Project manager</span><span><i class="sw" style="background:var(--s2)"></i>Sales</span><span>Dashed lines: USD 2,000 a month (your floor) and EUR 4,000 (about USD 4,547, the income bar for a family digital-nomad visa)</span></div>
-  <div class="card"><div class="chart" id="payChart"></div></div>
-  <p class="small" style="margin-top:8px">Each dot is one ad that states pay, placed at the lowest monthly figure it gives. Ads above USD 12,000 sit at the right edge. "Latin-American board" = Get on Board (getonbrd.com), where employers mostly pay Latin-American rates. "All boards" = every ad in the study open to someone in Ecuador, any industry, which is mostly US-rate employers.</p>
-</section>
-
-<section id="unknown">
-  <h2>What no data can tell you, and how to find out fast</h2>
-  <div class="grid g2">
-    <div class="card against">
-      <h3>Not measurable from job ads</h3>
-      <ul class="plain" id="unknownList"></ul>
-    </div>
-    <div class="card for">
-      <h3>How to find out within two weeks</h3>
-      <ul class="plain" id="findOutList"></ul>
-    </div>
+<section id="evidence">
+  <h2>Evidence</h2>
+  <p class="sub">Open any line for the detail.</p>
+  <div class="acc">
+    <details id="accSure">
+      <summary><b>How sure is this?</b><span id="sureSum"></span></summary>
+      <div class="body" id="sureList"></div>
+    </details>
+    <details id="accRank">
+      <summary><b>How the top 10 were ranked</b><span>Where the four options come from, and how often each stays near the top.</span></summary>
+      <div class="body"><p class="small" id="weights"></p><div id="rankList"></div></div>
+    </details>
+    <details id="accPay">
+      <summary><b>Pay in detail</b><span>Every ad that states pay, against your floor and the visa bar.</span></summary>
+      <div class="body">
+        <p class="sub" id="payLede"></p>
+        <div class="chart" id="payChart"></div>
+        <p class="small" style="margin-top:8px">Each dot is one ad that states pay, placed at the lowest monthly figure it gives; the black tick is the median. Ads above USD 12,000 sit at the right edge. "Latin-American board" = Get on Board (getonbrd.com), where employers mostly pay Latin-American rates. "All boards" = every ad in the study open to someone in Ecuador, any industry, which is mostly US-rate employers.</p>
+      </div>
+    </details>
+    <details>
+      <summary><b>Narrowing later: renewable energy, indigenous work and other niches</b><span>Is there data for a niche inside the job?</span></summary>
+      <div class="body">
+        <div class="table-wrap"><table id="themeTable"></table></div>
+        <p class="sub" style="margin-top:12px" id="narrowNote"></p>
+      </div>
+    </details>
+    <details>
+      <summary><b>What no data can tell you, and how to find out fast</b><span>Whether employers will pick you can only be tested by applying.</span></summary>
+      <div class="body g2">
+        <div><h3>Not measurable from job ads</h3><ul class="plain" id="unknownList"></ul></div>
+        <div><h3>How to find out within two weeks</h3><ul class="plain" id="findOutList"></ul></div>
+      </div>
+    </details>
+    <details id="accRecord">
+      <summary><b>Correct your record</b><span>Your fit was judged against a written record. Tell me in chat if you do have any of these, and the CV-screen numbers rise.</span></summary>
+      <div class="body"><div class="table-wrap"><table id="recordTable"></table></div></div>
+    </details>
   </div>
 </section>
 
-<section id="narrow">
-  <h2>Narrowing later: is there data for a niche inside the job?</h2>
-  <p class="sub">How often themes you might specialise in appear in project-management and sales ads you could reach. "Open to you" counts only employers with an ad open to someone in Ecuador.</p>
-  <div class="table-wrap"><table id="themeTable"></table></div>
-  <p class="sub" style="margin-top:12px" id="narrowNote"></p>
-</section>
-
-<section id="record">
-  <h2>Your record: correct anything that is wrong</h2>
-  <p class="sub">Your fit was judged against a written record of your work. These items are recorded as missing. If you do have any of them, say so: the fit numbers above will rise for the jobs that ask for it.</p>
-  <div class="card"><ul class="plain" id="recordList"></ul></div>
-</section>
-
-<footer>
-  <p class="small" id="footerNote"></p>
-</footer>
-
+<footer><p class="small" id="footerNote"></p></footer>
 </div>
 <div id="tip" role="tooltip"></div>
 <script src="data.js"></script>
@@ -224,129 +311,182 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--grid);
 <script>
 const D = DATA, N = NOTES;
 const KEYS = ["R09xI14", "R13xI13", "R13xI11", "R19xI13"];
-const pct = (a, b) => b ? Math.round(100 * a / b) + "%" : "–";
+const pctN = (a, b) => b ? Math.round(100 * a / b) : null;
 const fmt = n => n == null ? "–" : Math.round(n).toLocaleString("en-US");
 const usd = n => n == null ? "–" : "$" + fmt(n);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const topOf = k => D.top10.find(p => p.key === k) || {};
 const V = k => D.verify[k] || { counts: {}, checked: 0, labelled_open: 0 };
 const F = k => D.fit[k] || { screen: {}, ads: 0 };
+const VISA = 4547, FLOOR = 2000, PAYMAX = 12000;
 
-/* ---------- tooltip ---------- */
+/* ---------- rating rules (one place, used by the cards and the rules table) ---------- */
+const LABEL = { strong: "Strong", ok: "OK", weak: "Weak", unk: "Not known" };
+const chip = r => `<span class="chip ${r}">${LABEL[r]}</span>`;
+const RULES = [
+  { row: "Jobs open to you", what: "Employers with an ad open to someone in Ecuador, 60 days", strong: "60 or more", ok: "30 to 59", weak: "under 30",
+    rate: n => n >= 60 ? "strong" : n >= 30 ? "ok" : "weak" },
+  { row: "CV screen you'd pass", what: "Share of ads where your record passes the must-haves today", strong: "35% or more", ok: "25% to 34%", weak: "under 25%",
+    rate: p => p >= 35 ? "strong" : p >= 25 ? "ok" : "weak" },
+  { row: "Pay", what: "Low end of what Latin-American employers pay a month", strong: "clears EUR 4,000 (visa bar)", ok: "clears $2,000 (your floor)", weak: "under $2,000, or income not steady",
+    rate: p => p.unsteady ? "weak" : p.latam[0] >= VISA ? "strong" : p.latam[0] >= FLOOR ? "ok" : "weak" },
+  { row: "Trend 2024-26", what: "Official statistics and industry reports", strong: "growing", ok: "mixed or not known", weak: "shrinking",
+    rate: t => ({ up: "strong", mixed: "ok", unknown: "ok", down: "weak" })[t] },
+  { row: "Gaps to close", what: "What the ads ask that your record lacks", strong: "closes in weeks for under $300", ok: "closes in months", weak: "needs a job or a background you don't have",
+    rate: g => ({ weeks: "strong", months: "ok", job: "weak" })[g] },
+];
+
+/* ---------- tooltip (pay chart) ---------- */
 const tip = document.getElementById("tip");
 function bindTip(node, html) {
   const show = e => { tip.innerHTML = html; tip.style.display = "block"; move(e); };
   const move = e => {
-    const r = node.getBoundingClientRect ? node.getBoundingClientRect() : null;
-    const x = e && e.clientX != null ? e.clientX : (r ? r.left + r.width / 2 : 0);
-    const y = e && e.clientY != null ? e.clientY : (r ? r.top : 0);
-    tip.style.left = Math.min(x + 14, innerWidth - 310) + "px"; tip.style.top = (y + 14) + "px";
+    const r = node.getBoundingClientRect();
+    const x = e && e.clientX != null ? e.clientX : r.left + r.width / 2;
+    const y = e && e.clientY != null ? e.clientY : r.top;
+    tip.style.left = Math.max(8, Math.min(x + 14, innerWidth - 310)) + "px"; tip.style.top = (y + 14) + "px";
   };
   node.addEventListener("mouseenter", show); node.addEventListener("mousemove", move);
   node.addEventListener("mouseleave", () => tip.style.display = "none");
   node.addEventListener("focus", show); node.addEventListener("blur", () => tip.style.display = "none");
 }
 
-/* ---------- the answer ---------- */
-document.getElementById("answerBox").innerHTML = N.answer;
-const tiles = N.tiles.map(t => `<div class="card stat"><div class="v">${t[0]}</div><div class="l">${t[1]}</div><div class="n">${t[2]}</div></div>`);
-document.getElementById("tiles").innerHTML = tiles.join("");
-
-/* ---------- side by side ---------- */
-function verifiedCell(k) {
-  const v = V(k), c = v.counts;
-  if (!v.checked) return { html: "not checked yet", val: null };
-  if (k === "R19xI13") {
+/* ---------- cards ---------- */
+function jobsRow(k) {
+  const v = V(k), c = v.counts || {}, t = topOf(k);
+  if (N.sampled.includes(k)) {
     const ok = (c.yes || 0) + (c.board || 0);
-    return { html: `<b class="big">${pct(ok, v.checked)}</b><br><span class="dim">of a sample of ${v.checked} ads really open to you</span>`, val: null };
+    return { n: t.D_ec, html: `<span class="big">~${t.D_ec}</span> <span class="unit">employers</span><p class="f">Counted from the labels; ${ok} of a sample of ${v.checked} ads confirmed open to you.</p>` };
   }
   const ok = (c.yes || 0) + (c.board || 0);
-  return { html: `<b class="big">${v.employers_open}</b> employers<br><span class="dim">${ok} of ${v.labelled_open} ads checked are open to you (${c.board || 0} only by the job board's list); ${c.no || 0} are not; ${c.unclear || 0} unclear</span>`, val: v.employers_open };
+  const extra = v.labelled_open && t.D_ec && t.D_ec !== v.employers_open ? ` Was ${t.D_ec} before the check.` : "";
+  const gone = v.gone ? `, ${v.gone} taken down` : "";
+  return { n: v.employers_open, html: `<span class="big">${v.employers_open}</span> <span class="unit">employers</span><p class="f">${ok} of ${v.checked} ads confirmed open to you${gone}; ${c.no || 0} closed to you.${extra}</p>` };
 }
-function screenCell(k) {
-  const f = F(k), s = f.screen;
-  if (!f.ads) return { html: "not measured", val: null };
-  return { html: `<b class="big">${pct(s.yes, f.ads)}</b> pass outright<br><span class="dim">${pct(s.stretch, f.ads)} are one requirement short; ${f.ads} ads judged</span>`, val: s.yes / f.ads };
+function cvRow(k) {
+  const f = F(k), s = f.screen || {};
+  const p = pctN(s.yes, f.ads);
+  return { n: p, html: `<span class="big">${p}%</span> <span class="unit">pass outright</span><p class="f">${pctN(s.stretch, f.ads)}% more are one requirement short (${f.ads} ads judged).</p>` };
 }
-function payCell(k) { return { html: N.pay[k], val: null }; }
-const ROWS = [
-  ["What you would do all day", k => ({ html: N.day[k] })],
-  ["Employers with a job open to you", verifiedCell],
-  ["Would you pass the CV screen?", screenCell],
-  ["What you are missing most", k => ({ html: N.gaps[k] })],
-  ["Pay", payCell],
-  ["Kind of work", k => ({ html: N.work[k] })],
-  ["Trend 2024-26", k => ({ html: N.trend[k] })],
-  ["Stays near the top when the data is redrawn", k => { const t = topOf(k); return { html: t.top3_share == null ? "–" : `top 3 in <b>${Math.round(t.top3_share * 1000)}</b> of 1,000 redraws; ${D.in_top3_weights[k]} of ${D.weight_variants} weightings`, val: t.top3_share }; }],
-  ["Toward Europe later", k => ({ html: N.europe[k] })],
-];
+function strip(p) {
+  if (p.hourly) return `<p class="f" style="margin-top:6px">Hourly work: not shown on the monthly scale.</p>`;
+  const X = v => (Math.min(v, PAYMAX) / PAYMAX * 100).toFixed(2) + "%";
+  const seg = (r, cls) => { const w = Math.max((Math.min(r[1], PAYMAX) - r[0]) / PAYMAX * 100, 0); return `<span class="seg ${cls}" style="left:calc(${X(r[0])} - ${w < 1 ? 5 : 0}px);width:${w < 1 ? "10px" : w.toFixed(2) + "%"}"></span>`; };
+  return `<div class="strip" aria-hidden="true"><span class="base"></span>${seg(p.latam, "latam")}${p.us ? seg(p.us, "us") : ""}
+    <span class="line" style="left:${X(FLOOR)}"></span><span class="lt" style="left:${X(FLOOR)}">$2k</span>
+    <span class="line" style="left:${X(VISA)}"></span><span class="lt" style="left:${X(VISA)}">€4k</span>
+    <span class="lt" style="left:calc(100% - 12px)">$12k</span></div>`;
+}
 (function () {
-  let h = `<thead><tr><th></th>${KEYS.map(k => `<th class="opt"><span class="k">#${topOf(k).rank} in the ranking</span>${esc(N.names[k])}</th>`).join("")}</tr></thead><tbody>`;
-  for (const [label, fn] of ROWS) {
-    const cells = KEYS.map(fn);
-    const vals = cells.map(c => c.val).filter(v => v != null);
-    const best = vals.length > 1 ? Math.max(...vals) : null;
-    h += `<tr><td>${label}</td>${cells.map(c => `<td class="${best != null && c.val === best ? "best" : ""}">${c.html}</td>`).join("")}</tr>`;
-  }
-  document.getElementById("compareTable").innerHTML = h + "</tbody>";
+  const host = document.getElementById("cards");
+  host.innerHTML = KEYS.map(k => {
+    const c = N.card[k], jr = jobsRow(k), cr = cvRow(k), picked = k === N.pick;
+    const rows = [
+      [RULES[0], RULES[0].rate(jr.n), jr.html],
+      [RULES[1], RULES[1].rate(cr.n), cr.html],
+      [RULES[2], RULES[2].rate(c.pay), `${strip(c.pay)}<p class="f">${c.pay.text}</p>`],
+      [RULES[3], RULES[3].rate(c.trend[0]), `<p class="f" style="margin:0">${c.trend[1]}</p>`],
+      [RULES[4], RULES[4].rate(c.gaps[0]), `<p class="f" style="margin:0">${c.gaps[1]}</p>`],
+    ];
+    return `<article class="opt${picked ? " picked" : ""}" aria-label="${esc(N.names[k])}">
+      <div class="head"><div class="meta"><span class="rank">#${topOf(k).rank} of 10</span>${picked ? '<span class="badge">My pick</span>' : ""}</div>
+        <h3>${esc(N.names[k])}</h3><p class="day">${N.day[k]}</p></div>
+      ${rows.map(([rule, r, html]) => `<div class="r"><div class="rl"><span>${rule.row}</span>${chip(r)}</div>${html}</div>`).join("")}
+      <div class="foot"><button class="more" type="button" data-k="${k}">See details →</button></div>
+    </article>`;
+  }).join("");
+  host.querySelectorAll(".more").forEach(b => b.onclick = () => { selectTab(b.dataset.k); document.getElementById("details").scrollIntoView(); });
+  let h = "<thead><tr><th>Row</th><th>What it measures</th><th>" + chip("strong") + "</th><th>" + chip("ok") + "</th><th>" + chip("weak") + "</th></tr></thead><tbody>";
+  for (const r of RULES) h += `<tr><td><b>${r.row}</b></td><td>${r.what}</td><td>${r.strong}</td><td>${r.ok}</td><td>${r.weak}</td></tr>`;
+  document.getElementById("rulesTable").innerHTML = h + "</tbody>";
 })();
 
-/* ---------- how sure ---------- */
-(function () {
-  const TAG = { solid: ["t-good", "✓", "Solid"], partly: ["t-mixed", "!", "Partly"], weak: ["t-weak", "–", "Weak"], unknown: ["t-unk", "?", "Not measurable"] };
-  let h = "<thead><tr><th>Could the numbers be wrong because...</th><th>What was done</th><th>What it found</th><th>Verdict</th></tr></thead><tbody>";
-  for (const r of N.sure) {
-    const t = TAG[r[3]];
-    h += `<tr><td class="pname">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="tag ${t[0]}"><i>${t[1]}</i>${t[2]}</span></td></tr>`;
-  }
-  document.getElementById("sureTable").innerHTML = h + "</tbody>";
-})();
+/* ---------- my pick ---------- */
+document.getElementById("pickBox").innerHTML = N.pickBox;
 
-/* ---------- what each choice means ---------- */
-const STATUS = { met: ["✓", "You have it", "var(--good)"], partly: ["~", "Partly", "var(--warn)"], not: ["✕", "Missing", "var(--critical)"] };
+/* ---------- details tabs ---------- */
+const STATUS = { met: ["You have it", "var(--good)", "strong"], partly: ["Partly", "var(--warn)", "ok"], not: ["Missing", "var(--critical)", "weak"] };
 function panel(k) {
-  const p = D.profiles[k] || {}, v = V(k), n = N.entail[k];
-  const req = (p.requirements || []).map(r => {
-    const s = STATUS[r.jd];
-    return `<div class="row" tabindex="0" data-why="${esc(r.why)}" data-g="${esc(r.group)}" data-s="${s[1]}" data-n="${r.ads}"><span class="st ${r.jd}" aria-label="${s[1]}">${s[0]}</span><span>${esc(r.group)}</span><span class="bar"><i style="width:${Math.round(r.share * 100)}%;background:${s[2]}"></i></span><span class="n">${Math.round(r.share * 100)}%</span></div>`;
+  const p = D.profiles[k] || {}, v = V(k);
+  const reqs = p.requirements || [];
+  const groups = ["not", "partly", "met"].map(st => {
+    const rs = reqs.filter(r => r.jd === st);
+    if (!rs.length) return "";
+    const s = STATUS[st];
+    return `<div class="grp"><h4><span class="chip ${s[2]}">${s[0]}</span><span class="small">${rs.length} of ${reqs.length}</span></h4>${rs.map(r => {
+      const w = Math.round(r.share * 100);
+      return `<button class="req" type="button" aria-expanded="false"><span>${esc(r.group)}</span><span class="bar"><i style="width:${w}%;background:${s[1]}"></i></span><span class="n">${w}%</span></button><div class="why">${r.ads} ads ask for it. Your record: ${esc(r.why)}</div>`;
+    }).join("")}</div>`;
   }).join("");
   const ya = p.years_asked || {};
-  const certs = (p.certificates || []).map(c => `${esc(c[0])} (${c[1]})`).join(", ") || "none named";
-  const ex = (v.examples || []).slice(0, 6).map(e => `<a class="job" href="${esc(e.url)}" target="_blank" rel="noopener"><div class="jt">${esc(e.title)}</div><div class="jc">${esc(e.company)}</div><div class="jq">"${esc(e.quote)}"</div>${e.pay ? `<div class="jc">Pay stated: ${esc(e.pay)}</div>` : ""}</a>`).join("");
+  const certs = (p.certificates || []).slice(0, 4).map(c => `${esc(c[0])} (${c[1]})`).join(", ");
+  const steps = (N.steps[k] || []).map(s => `<li><b>${s[0]}</b><span class="cost">${s[1]}</span><span class="d">${s[2]}</span></li>`).join("");
+  const ex = (v.examples || []).slice(0, 6).map(e => `<a class="job" href="${esc(e.url)}" target="_blank" rel="noopener"><div class="jt">${esc(e.title)}</div><div class="jc">${esc(e.company)}${e.pay ? " · " + esc(e.pay) : ""}</div><div class="jq">"${esc(e.quote)}"</div></a>`).join("");
   return `
-  <div class="grid g2">
-    <div class="card"><h3>The job</h3>${n.job}</div>
-    <div class="card"><h3>To close the gaps</h3>${n.close}</div>
+  <p class="jobline">${N.jobline[k]}</p>
+  <div class="two">
+    <div class="card">
+      <h3>What the ads ask for, and whether you have it</h3>
+      <p class="small">Share of the ${p.ads_with_must_haves || "–"} ads that list requirements. Tap a row for the evidence from your record.</p>
+      ${groups}
+      <p class="small" style="margin-top:12px">Experience asked: ${ya.ads_stating_years ? `median ${ya.median_min_years} years (${ya.ads_stating_years} ads state a number)` : "rarely stated"}.${certs ? ` Certificates named most: ${certs}.` : ""}</p>
+    </div>
+    <div class="card">
+      <h3>How to close the gaps</h3>
+      <ul class="steps">${steps}</ul>
+      ${N.where[k] ? `<p class="small" style="margin:10px 0 0">${N.where[k]}</p>` : ""}
+    </div>
   </div>
-  <div class="card" style="margin-top:12px">
-    <h3>What the ads ask for, and whether you have it</h3>
-    <p class="small">Share of the ${p.ads_with_must_haves || "–"} ads that list requirements. Hover a row for the evidence from your record.
-    <span class="tag t-good" style="margin-left:8px"><i>✓</i>You have it</span> <span class="tag t-mixed"><i>~</i>Partly</span> <span class="tag t-error"><i>✕</i>Missing</span></p>
-    <div class="reqs">${req}</div>
-    <p class="small" style="margin-top:10px">Years of experience asked: ${ya.ads_stating_years ? `median ${ya.median_min_years} years, in ${ya.ads_stating_years} ads that state a number` : "rarely stated"}. Certificates named in the ads: ${certs}.</p>
+  <div class="facts">
+    <div class="card"><h4>Pay</h4>${N.card[k].pay.text} ${N.payDetail[k]}</div>
+    <div class="card"><h4>Trend</h4>${N.trendDetail[k]}</div>
+    <div class="card"><h4>Toward Europe later</h4>${N.europe[k]}</div>
   </div>
-  <h3 style="margin-top:20px">Ads open to you, checked on 28 Sep</h3>
-  <p class="small">Each quote is the ad's own words on who may apply.</p>
-  <div class="ex">${ex || '<p class="small">Examples appear once the check of this group is finished.</p>'}</div>`;
+  <h3 style="margin-top:22px">Real ads open to you, confirmed 28 Sep</h3>
+  <p class="small">The quote is the ad's own words on who may apply.</p>
+  <div class="ex">${ex || '<p class="small">No examples for this option.</p>'}</div>`;
 }
-(function () {
-  const tabs = document.getElementById("tabs"), box = document.getElementById("panel");
-  KEYS.forEach((k, i) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.setAttribute("role", "tab"); b.textContent = N.names[k];
-    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-    b.onclick = () => { [...tabs.children].forEach(x => x.setAttribute("aria-selected", "false")); b.setAttribute("aria-selected", "true"); show(k); };
-    tabs.appendChild(b);
+const tabs = document.getElementById("tabs"), box = document.getElementById("panel");
+function selectTab(k) {
+  [...tabs.children].forEach(x => x.setAttribute("aria-selected", x.dataset.k === k ? "true" : "false"));
+  box.innerHTML = panel(k);
+  box.querySelectorAll(".req").forEach(b => b.onclick = () => {
+    const w = b.nextElementSibling, open = !w.classList.contains("open");
+    w.classList.toggle("open", open); b.setAttribute("aria-expanded", open);
   });
-  function show(k) {
-    box.innerHTML = panel(k);
-    box.querySelectorAll(".row").forEach(r => bindTip(r, `<b>${r.dataset.g}</b>${r.dataset.n} ads ask for it. ${r.dataset.s}: ${r.dataset.why}`));
-  }
-  show(KEYS[0]);
+}
+KEYS.forEach(k => {
+  const b = document.createElement("button");
+  b.type = "button"; b.setAttribute("role", "tab"); b.dataset.k = k;
+  b.innerHTML = esc(N.names[k]) + (k === N.pick ? '<span class="dot" title="My pick"></span>' : "");
+  b.onclick = () => selectTab(k);
+  tabs.appendChild(b);
+});
+selectTab(N.pick);
+
+/* ---------- evidence: how sure ---------- */
+(function () {
+  const TAG = { solid: "strong", partly: "ok", weak: "weak", unknown: "unk" };
+  const TXT = { solid: "Solid", partly: "Partly", weak: "Weak", unknown: "Not measurable" };
+  const n = v => N.sure.filter(r => r[3] === v).length;
+  document.getElementById("sureSum").textContent = `${N.sure.length} ways the numbers could be wrong: ${n("solid")} tested and solid, ${n("partly")} partly, ${n("unknown")} not measurable.`;
+  document.getElementById("sureList").innerHTML = N.sure.map(r =>
+    `<details class="check"><summary><span><span class="chip ${TAG[r[3]]}">${TXT[r[3]]}</span></span><span><span class="q">${r[0]}?</span><span class="s">${r[4]}</span></span></summary>
+     <div class="more-t"><b>What was done:</b> ${r[1]}<br><b>What it found:</b> ${r[2]}</div></details>`).join("");
 })();
 
-/* ---------- pay chart ---------- */
+/* ---------- evidence: ranking ---------- */
 (function () {
+  document.getElementById("weights").textContent = N.weights + " The bar shows how often an option stayed in the top 3 when the employers were redrawn at random 1,000 times.";
+  document.getElementById("rankList").innerHTML = `<div class="rankl"><span></span><span class="small">Option, by score</span><span class="small">Stays in the top 3</span><span></span></div>` + D.top10.map(p => {
+    const top = KEYS.includes(p.key), s = p.top3_share;
+    return `<div class="rankl${top ? " top" : ""}"><span class="small">#${p.rank}</span><span class="nm">${esc(N.names[p.key] || p.key)}</span><span class="bar"><i style="width:${s == null ? 0 : Math.round(s * 100)}%"></i></span><span class="rs">${s == null ? "not measured" : `${fmt(s * 1000)} of 1,000 redraws`}</span></div>`;
+  }).join("");
+  document.getElementById("rankLink").onclick = () => { document.getElementById("accRank").open = true; };
+})();
+
+/* ---------- evidence: pay chart (drawn when first opened, so it knows its width) ---------- */
+function drawPay() {
   const NS = "http://www.w3.org/2000/svg";
   const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
   const P = D.pay;
@@ -357,52 +497,57 @@ function panel(k) {
     ["Sales · all boards", P.family_ec.R13, "var(--s2)"],
   ];
   const host = document.getElementById("payChart");
-  const narrow = host.clientWidth < 600;
-  const W = narrow ? Math.max(host.clientWidth, 320) : 980, band = 64, m = { l: narrow ? 8 : 250, r: 16, t: 26, b: 36 };
-  const H = m.t + groups.length * band + m.b, MAX = 12000;
-  const X = v => m.l + Math.min(v, MAX) / MAX * (W - m.l - m.r);
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H + (narrow ? groups.length * 16 : 0)}`, role: "img", "aria-label": "Stated monthly pay by group" }, host);
-  for (let v = 0; v <= MAX; v += 2000) {
-    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: m.t + groups.length * band + (narrow ? groups.length * 16 : 0), class: "gridl" }, svg);
-    el("text", { x: X(v), y: H - 14 + (narrow ? groups.length * 16 : 0), "text-anchor": "middle", class: "axis-t" }, svg).textContent = v === MAX ? "12k+" : (v / 1000) + "k";
+  host.innerHTML = "";
+  const narrow = host.clientWidth < 600, gap = narrow ? 18 : 0;
+  const W = narrow ? Math.max(host.clientWidth, 300) : Math.max(host.clientWidth, 700), band = 60, m = { l: narrow ? 8 : 290, r: 16, t: 26, b: 30 };
+  const H = m.t + groups.length * (band + gap) + m.b;
+  const X = v => m.l + Math.min(v, PAYMAX) / PAYMAX * (W - m.l - m.r);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Stated monthly pay by group" }, host);
+  const yEnd = m.t + groups.length * (band + gap);
+  for (let v = 0; v <= PAYMAX; v += 2000) {
+    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: yEnd, class: "gridl" }, svg);
+    el("text", { x: X(v), y: H - 10, "text-anchor": "middle", class: "axis-t" }, svg).textContent = v === PAYMAX ? "12k+" : (v / 1000) + "k";
   }
-  for (const [v, lab] of [[2000, "$2,000"], [4547, "€4,000"]]) {
-    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: m.t + groups.length * band + (narrow ? groups.length * 16 : 0), class: "ref" }, svg);
+  for (const [v, lab] of [[FLOOR, "$2,000"], [VISA, "€4,000"]]) {
+    el("line", { x1: X(v), x2: X(v), y1: m.t, y2: yEnd, class: "ref" }, svg);
     el("text", { x: X(v), y: m.t - 8, "text-anchor": "middle", class: "val" }, svg).textContent = lab;
   }
   groups.forEach(([name, g, col], i) => {
-    const y0 = m.t + i * (band + (narrow ? 16 : 0)) + (narrow ? 16 : 0);
-    const cy = y0 + band / 2;
+    const y0 = m.t + i * (band + gap) + gap, cy = y0 + band / 2;
     const lab = el("text", narrow ? { x: 0, y: y0 - 2, class: "lab" } : { x: m.l - 12, y: cy + 4, "text-anchor": "end", class: "lab" }, svg);
     lab.textContent = `${name} (${g.n_month} ads)`;
-    const sorted = (g.ranges || []).map(r => r[0]);
-    const med = g.median_low;
     (g.ranges || []).forEach((r, j) => {
-      const jitter = ((j * 37) % 11 - 5) * 3.2;
+      const jitter = ((j * 37) % 11 - 5) * 3;
       const c = el("circle", { cx: X(r[0]), cy: cy + jitter, r: 4.5, fill: col, stroke: "var(--surface)", "stroke-width": 2, tabindex: 0 }, svg);
-      bindTip(c, `<b>${name}</b>${usd(r[0])} to ${usd(r[1])} a month${r[0] > MAX ? " (beyond the chart edge)" : ""}`);
+      bindTip(c, `<b>${name}</b>${usd(r[0])} to ${usd(r[1])} a month${r[0] > PAYMAX ? " (beyond the chart edge)" : ""}`);
     });
-    if (med != null) {
-      el("line", { x1: X(med), x2: X(med), y1: cy - 22, y2: cy + 22, stroke: "var(--ink)", "stroke-width": 2 }, svg);
-      el("text", { x: X(med) + 6, y: cy + 30, class: "val" }, svg).textContent = `median ${usd(med)}`;
+    if (g.median_low != null) {
+      el("line", { x1: X(g.median_low), x2: X(g.median_low), y1: cy - 20, y2: cy + 20, stroke: "var(--ink)", "stroke-width": 2 }, svg);
+      el("text", { x: X(g.median_low) + 6, y: cy + 28, class: "val" }, svg).textContent = `median ${usd(g.median_low)}`;
     }
   });
-  document.getElementById("payLede").innerHTML = N.payLede;
-})();
+}
+document.getElementById("payLede").textContent = N.payLede;
+document.getElementById("accPay").addEventListener("toggle", e => { if (e.target.open) drawPay(); });
+addEventListener("resize", () => { if (document.getElementById("accPay").open) drawPay(); });
 
-/* ---------- unknowns, narrowing, record ---------- */
-document.getElementById("unknownList").innerHTML = N.unknown.map(x => `<li>${x}</li>`).join("");
-document.getElementById("findOutList").innerHTML = N.findOut.map(x => `<li>${x}</li>`).join("");
+/* ---------- evidence: niches, unknowns, record ---------- */
 (function () {
   let h = "<thead><tr><th>Theme in the ad</th><th class='num'>Project-manager ads</th><th class='num'>employers</th><th class='num'>open to you</th><th class='num'>Sales ads</th><th class='num'>employers</th><th class='num'>open to you</th></tr></thead><tbody>";
-  for (const [t, r] of Object.entries(D.themes)) {
-    h += `<tr><td class="pname">${esc(t)}</td><td class="num">${r.R09.ads}</td><td class="num">${r.R09.employers}</td><td class="num">${r.R09.employers_ec}</td><td class="num">${r.R13.ads}</td><td class="num">${r.R13.employers}</td><td class="num">${r.R13.employers_ec}</td></tr>`;
-  }
+  for (const [t, r] of Object.entries(D.themes)) h += `<tr><td><b>${esc(t)}</b></td><td class="num">${r.R09.ads}</td><td class="num">${r.R09.employers}</td><td class="num">${r.R09.employers_ec}</td><td class="num">${r.R13.ads}</td><td class="num">${r.R13.employers}</td><td class="num">${r.R13.employers_ec}</td></tr>`;
   document.getElementById("themeTable").innerHTML = h + "</tbody>";
+  document.getElementById("narrowNote").textContent = N.narrow;
+  document.getElementById("unknownList").innerHTML = N.unknown.map(x => `<li>${x}</li>`).join("");
+  document.getElementById("findOutList").innerHTML = N.findOut.map(x => `<li>${x}</li>`).join("");
+  document.getElementById("recordTable").innerHTML = "<thead><tr><th>Recorded as missing</th><th>Options that ask for it</th></tr></thead><tbody>" +
+    N.record.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("") + "</tbody>";
+  document.getElementById("footerNote").textContent = N.footer;
 })();
-document.getElementById("narrowNote").innerHTML = N.narrow;
-document.getElementById("recordList").innerHTML = N.record.map(x => `<li>${x}</li>`).join("");
-document.getElementById("footerNote").innerHTML = N.footer;
+
+/* ---------- open an accordion when a link points into it ---------- */
+document.querySelectorAll('a[href="#evidence"]').forEach(a => a.addEventListener("click", () => {
+  if (a.closest("#pickBox")) document.getElementById("accSure").open = true;
+}));
 
 /* ---------- theme switch ---------- */
 (function () {
@@ -415,6 +560,7 @@ document.getElementById("footerNote").innerHTML = N.footer;
     const next = dark ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
+    if (document.getElementById("accPay").open) drawPay();
   };
 })();
 </script>
